@@ -1,8 +1,17 @@
-<html>
-    <head>
+{% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
-    </head>
-    <body>
+{% block content %}
         <h1>{{ parametr }}</h1>
-    </body>
-</html>
+{% block menu%}
+
+<nav class="nav flex-column">
+        <a class="nav-link" href="/publicref">Публичные отчеты</a>
+        <a class="nav-link" href="/publicquiz">Публичные опросы</a>
+        <a class="nav-link" href="/events">Мероприятия и материалы</a>
+        <a class="nav-link" href="/personsmap">Карта заинтересованных сторон</a>
+        <a class="nav-link" href="/lk">КЛичные кабинеты заинтересованных сторон</a>
+        <a class="nav-link" href="/instruction">Инструкция пользователя платформы</a>
+</nav>
+
+{% endblock %}
+{% endblock %}
