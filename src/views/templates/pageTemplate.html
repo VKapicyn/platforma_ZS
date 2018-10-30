@@ -13,7 +13,7 @@
 
 {% block navbar %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/main">НИАЭП</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -43,37 +43,58 @@
   </nav>
 
 {% endblock %}
-
-
-{% block modal %}
-
-{% if not currentUser %}
-
-{% endif %}
-
+{% block menu %}
+<nav class="nav nav-pills nav-fill center-block">
+        <a class="nav-link" href="/publicref">Публичные отчеты</a>
+        <a class="nav-link" href="/publicquiz">Публичные опросы</a>
+        <a class="nav-link" href="/events">Мероприятия и материалы</a>
+        <a class="nav-link" href="/personsmap">Карта заинтересованных сторон</a>
+        <a class="nav-link" href="/lk">Личные кабинеты</a>
+        <a class="nav-link" href="/instruction">Инструкция пользователя платформы</a>
+</nav>
 {% endblock %}
 
-{% block flashMessage %}
-{% endblock %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+                {% block leftbar %}
+                {% if not currentUser %}
+                <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                          <h5 class="card-title">Последнее мероприятие</h5>
+                          <p class="card-text">Описание</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endblock %}
+                
+        </div>
+        <div class="col-md-9">
 <!-- ======================================================================= -->
 <!-- Main content -->
 <!-- ======================================================================= -->
-{% block content %}
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 
+
+
+{% block flashMessage %}
 {% endblock %}
 
 <!-- ======================================================= -->
 <!-- Footer -->
 <!-- ======================================================= -->
 {% block footer %}
-<div class="footer navbar-fixed-bottom">
-<nav class="nav">
-    <a class="nav-link" href="/main">Главная</a>
-    <a class="nav-link" href="/contacts">Контакты</a>
-    <a class="nav-link" href="/feedback">Обратная связь</a>
-    <a class="nav-link" href="/publicref">Отчеты</a>
-    <a class="nav-link" href="/events">Мероприятия</a>
-</nav>  
+<div class="footer navbar-fixed-bottom bg-dark text-light">
+        <div class="container">
+                <div class="row ">
+                    <p class="pull-right">Copyright © 2019</p>
+                </div>
+        </div>
 </div>  
     {% if not currentUser %}{% endif %}
     {% block commonJS %}

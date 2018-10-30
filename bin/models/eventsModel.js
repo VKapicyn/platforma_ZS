@@ -5,7 +5,6 @@ const mongoose = require('mongoose');//require('./../../server').mongoose;
 
 
 let eventsSchema = mongoose.Schema({
-    id:Number,
     name: String,
     event_date: Date, 
     creating_date: Date,
@@ -13,8 +12,7 @@ let eventsSchema = mongoose.Schema({
     status: String,
     invites: Object,// id стэкхолдеров которые приглашены на мероприятие
     //вероятно будет лучше хранить приглашения в модели стэекхолдеров
-    parties: Object,//участники мероприятия
-    coords: [{ x: String, y: String }]
+    adress: String,
 });
 
 eventsSchema.statics = {
