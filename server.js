@@ -8,11 +8,11 @@ const mongoStore = require('connect-mongo')(session);
 const app = express();
 
 let config = require('./config.js'),
-    url = config.deploy ? 'mongodb://localhost:27017/zsdb' :
+    url = config.deploy ? 'mongodb://localhost:27017/ZSDB' :
     `mongodb://${config.dbLogin}:${config.dbPass}@${config.dbAddress}:${config.dbPort}/${config.dbName}`;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true});
 
 app.use(    
     session(
