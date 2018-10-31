@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stakeholderModel = require('./../models/stakeholder').stakeholderModel;
+const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 const toHash = require('md5')
 
 class Auth {
