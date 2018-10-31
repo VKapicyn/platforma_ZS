@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+    </head>
+    <body>
+        <button onclick="send()">log</button>
+        <button onclick="sendout()">logout</button>
+        <script>
+            function send(){
+                fetch("/login",{
+                method: 'post',  
+                headers: {  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                },    
+                body: 'login=admin&password=admin228'  })
+            }
+            function sendout(){
+                fetch("/login",{
+                method: 'delete',  
+                headers: {  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                },    
+                body: 'login=admin&password=admin228'  })
+            }
+            
+        </script>
+    </body>
+</html>
