@@ -10,7 +10,7 @@ class Registration {
     static async reg(req,res,next){
         let err;
         if( !req.body.login || !req.body.password) {
-            err = 'Все поля должны быть заполнены'; 
+            err = 'Все поля должны быть заполнены';  return;
             //TODO: проверка на длину пароля и длину логина
         }
 

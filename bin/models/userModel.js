@@ -31,6 +31,11 @@ userSchema.statics = {
         let user = await userModel.findById(req.body.id);
         user.remove();
         res.json(`${req.body.id} - удалён`);
+    },
+    isUserLogged: function (req, res, next) {
+        if(req.session.userModel){
+            return next()
+        }
     }
 }
 
