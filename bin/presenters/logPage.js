@@ -12,13 +12,13 @@ class Main {
         async function fun(){
             let account = await stakeholder.findOne({"login":req.body.login})
             console.log(account)
-            if(account.password == req.body.password){
+            if(account.password == toHash(req.body.password)){
                 req.session.user={user : toHash(req.body.login)}
                 console.log(req.session.user)
 
             }
             else{
-                res.redirect('/');
+                res.render('logPage.html')
             }
         }
         fun()
@@ -26,7 +26,7 @@ class Main {
     static logout(req,res,next){
         delete req.session.user;
         console.log(req.session.user)
-        res.redirect('/')
+        res.render('logPage.html')
     }
     }
 

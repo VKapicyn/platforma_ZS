@@ -16,10 +16,10 @@ class Main {
         console.log(accountlogin)
         if (accountlogin != null) res.json({'error':'логин занят'})
         else {
-            let account = new stakeholder({"login":req.body.login,"password":req.body.password,"state":0});
+            let account = new stakeholder({"login":req.body.login,"password":toHash(req.body.password),"state":0});
             account.save();
             res.json('аккаунт создан');
-            res.redirect('/');
+            res.render('logPage.html')
         }
     }
     fun();
