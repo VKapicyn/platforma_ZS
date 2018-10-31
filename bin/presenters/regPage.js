@@ -18,7 +18,7 @@ class Main {
         else {
             let account = new stakeholder({"login":req.body.login,"password":toHash(req.body.password),"state":0});
             account.save();
-            res.json('аккаунт создан');
+            //res.json('аккаунт создан');
             res.render('logPage.html')
         }
     }
