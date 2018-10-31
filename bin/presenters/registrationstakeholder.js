@@ -6,9 +6,7 @@ const toHash = require('md5');
 class Registration {
     static getPage(req, res, next) {
         res.render('regPage.html')
-    
     }
-
     static async reg(req,res,next){
         let err;
         if( !req.body.login || !req.body.password) {
@@ -21,11 +19,13 @@ class Registration {
                 'login': req.body.login,
                 'password': toHash(req.body.password),
                 'state': 0,
-                'key': md5(req.body.login+Date.now().getTime().toString()) 
-            });
+                'key': toHash(req.body.login + new Date().getSeconds().toString()) 
+            });//тут выскакивает Warning, но работает
+            console.log(1)
             account.save();
         } catch (e) {
             err = 'логин занят';
+            console.log(e)
         }
         
         res.render('logPage.html', {account: err || account});

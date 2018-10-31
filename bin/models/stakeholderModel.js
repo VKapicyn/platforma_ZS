@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const mongoose = require('mongoose');
 
 let stakeholderSchema = mongoose.Schema({
@@ -16,7 +17,7 @@ let stakeholderSchema = mongoose.Schema({
     address: String,
     social_network: String,
     consent: Boolean,
-    key: Number
+    key: String
 });
 
 stakeholderSchema.statics = {
@@ -35,5 +36,11 @@ stakeholderSchema.statics = {
         }
     }
 }
-let stakeholderModel = mongoose.model('stakeholderModel', stakeholderSchema);
+let stakeholderModel = mongoose.model('stakeholder', stakeholderSchema);
 module.exports.stakeholderModel = stakeholderModel;
+
+router.get('/', stakeholderModel.read);
+router.post('/', stakeholderModel.create);
+
+
+module.exports.router = router;

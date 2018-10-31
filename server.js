@@ -40,7 +40,7 @@ nunjucks.configure(__dirname + '/src/views', {
 
 //All Pages
 app.use('/main', require('./bin/presenters/mainPage').router);
-app.use('/registration', require('./bin/presenters/registrationPage').router);
+app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
 app.use('/feedback', require('./bin/presenters/feedbackPage').router);
 app.use('/contacts', require('./bin/presenters/contactsPage').router);
 app.use('/instruction', require('./bin/presenters/instructionPage').router);
@@ -49,12 +49,16 @@ app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 app.use('/publicref', require('./bin/presenters/publicRefPage').router);
-app.use('/login',require('./bin/presenters/logPage').router)
+app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
+
+app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
+app.use('/loginUser', require('./bin/presenters/logUser').router)
+
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
-app.use('/registration', require('./bin/presenters/regPage').router);
-app.use('/login',require('./bin/presenters/logPage').router)
+app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
+app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 //Utils ???
 

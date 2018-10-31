@@ -1,0 +1,32 @@
+const express = require('express');
+const router = express.Router();
+const userModel = require('../models/userModel').userModel;
+const toHash = require('md5')
+
+class AuthUser {
+    static getPage(req, res, next) {
+        res.render('logUser.html')
+    }
+
+    static async login(req,res,next){
+        let account = await userModel.findOne({login: req.body.login})
+
+        if (account.password == toHash(req.body.password)){    
+            req.session.userModel = {id: account._id, login: account.login}
+        }
+        else {
+            //инфа об ошибке ?
+            res.render('logUser.html')
+        }
+    }
+    static logout(req, res, next){
+        delete req.session.userModel;
+        res.render('logUser.html')
+    }
+}
+
+router.get('/', AuthUser.getPage);
+router.post('/', AuthUser.login);
+router.get('/logout', AuthUser.logout)
+
+module.exports.router = router;

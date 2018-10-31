@@ -10,17 +10,16 @@ class Auth {
 
     static async login(req,res,next){
         let account = await stakeholderModel.findOne({login: req.body.login})
-
-        if (account.password == toHash(req.body.password)){    
-            req.session.stakeholder = {id: account._id, login: account.login}
+        if (account.password == toHash(req.body.password)){   
+            req.session.stakeholderModel = {id: account._id, login: account.login}
         }
-        else {
+        else { 
             //инфа об ошибке ?
             res.render('logPage.html')
         }
     }
     static logout(req, res, next){
-        delete req.session.stakeholder;
+        delete req.session.stakeholderModel;
         res.render('logPage.html')
     }
 }
