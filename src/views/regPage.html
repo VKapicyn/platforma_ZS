@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+    </head>
+    <body>
+        <button onclick="send()">send</button>
+        <script>
+            function send(){
+                fetch("/registration",{
+                method: 'post',  
+                headers: {  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                },  
+                body: 'login=admin11&password=admin2281'  })
+            }
+        </script>
+    </body>
+</html>

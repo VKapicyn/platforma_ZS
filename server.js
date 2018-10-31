@@ -2,6 +2,9 @@ const express = require('express');
 const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const mongoStore = require('connect-mongo')(session);
 const app = express();
 
 let config = require('./config.js'),
@@ -9,8 +12,21 @@ let config = require('./config.js'),
     `mongodb://${config.dbLogin}:${config.dbPass}@${config.dbAddress}:${config.dbPort}/${config.dbName}`;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(url, { useNewUrlParser: true });
+mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true});
 
+app.use(    
+    session(
+    ({
+        secret: config.secret,
+        resave: false,
+        saveUninitialized: false,
+        store: new mongoStore({ 
+            url: url
+        })
+    })
+));
+
+app.use(bodyParser.json());
 app.use(
     express.static(__dirname + '/src'),
     bodyParser()
@@ -33,6 +49,7 @@ app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 app.use('/publicref', require('./bin/presenters/publicRefPage').router);
+app.use('/login',require('./bin/presenters/logPage').router)
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
