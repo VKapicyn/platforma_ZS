@@ -30,7 +30,7 @@ class Registration {
                 'key': getRandomInt(1000000000, 9999999999)
             });
             account.save();
-            res.json('http://localhost:8080/registration/conf/'+account.key)
+            //res.json('http://localhost:8080/registration/conf/'+account.key)
         } catch (e) {
             err = 'логин занят';
         }
@@ -44,9 +44,10 @@ class Registration {
                 console.log('update!')
                 if(err) return console.log(err);
                 console.log(result);
+                res.end();
             });
         }
-        catch(e) {console.log(e)}
+        catch(e) {console.log(e);res.end();}
     }    
 }
 
