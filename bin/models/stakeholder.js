@@ -32,5 +32,9 @@ stakeholderSchema.statics = {
 }
 let stakeholderModel = mongoose.model('stakeholder', stakeholderSchema);
 module.exports.stakeholderModel = stakeholderModel;
-
+module.exports.isStakeholderLogged = (req,res,next) =>{
+    if(req.session.stakeholder){
+        return next()
+    }
+}
 
