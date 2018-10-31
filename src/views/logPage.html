@@ -3,8 +3,16 @@
         <!-- Для шапки и футера однозначно нужен темплейт -->
     </head>
     <body>
+        <!-- нужны такие формы -->
+        <form action="/login" method="POST">
+            <input name="login" placeholder="login">
+            <input name="password" type="password" placeholder="pass">
+            <button type="submit">войти</button>
+        </form>
+        
         <button onclick="send()">log</button>
         <button onclick="sendout()">logout</button>
+        <h2>{{account}}</h2>
         <script>
             function send(){
                 fetch("/login",{
