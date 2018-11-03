@@ -54,11 +54,11 @@ app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router
 app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
 app.use('/loginUser', require('./bin/presenters/logUser').router)
 
+app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
+app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
-app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
-app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 //Utils ???
 
