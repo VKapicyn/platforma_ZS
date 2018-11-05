@@ -1,6 +1,5 @@
 $('.number').change((e)=>{
     $('.main').html('');
-    console.log(e.target.value);
     if(e.target.value<=40){
         for(let i=0;i<e.target.value;i++){
             let cl='chtype'+i;
