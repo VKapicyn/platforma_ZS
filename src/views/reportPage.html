@@ -1,0 +1,35 @@
+{% extends "templates/pageTemplate.html" %}
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+{% block content %}
+<h4>Активные заказы</h4>
+<div class="container-fluid">
+        <div class="row">
+          {% for report in reports %}
+          <li>
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" date-parent='#accordion' href="/id/#{{ report._id }}">
+                      {{ report.name }}
+                    </a>
+                  </h4>
+                </div>
+                
+              </div>
+            </div>
+
+          </li>
+        
+          {% endfor %}
+        </ul>
+        </div>
+</div>
+
+<!-- <div class=" container">
+        <h1 class="text-center">{{ paramebn }}</h1>
+        <div>
+               <a href="/"></a>
+        </div>
+</div> -->
+{% endblock %}
