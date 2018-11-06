@@ -1,5 +1,6 @@
 .block{
-    margin:15px
+    margin:15px;
+    border: 3px solid #9da1aa
 }
 div{
     margin:5px
@@ -11,4 +12,14 @@ button{
     margin:0 45% 0 45%;
   width:10%;
 
+}
+.result{
+    color: red;
+    font-size: 20px;
+}
+.answer{
+    margin:15px
+}
+.ansres{
+    margin:15px
 }

@@ -4,16 +4,30 @@ $('.number').change((e)=>{
         for(let i=0;i<e.target.value;i++){
             let cl='chtype'+i;
             let nt='ntype'+i;
+            let na='num_ans'+i
             let el=$(' <div class="block">введите вопрос: </div> ');
             el.append(' <input type="text" class="question"></input> ');
-            el.append(` формат ответа: <select class=${cl}><option value="1">текст</option><option value="2">2 варианта ответа</option><option value="3">3 варианта ответа</option><option value="4">4 варианта ответа</option></select> `)
+            el.append(` формат ответа: <select class=${cl}><option value="1">текст</option><option value="2">больше двух вариантов ответа</option></select> `)
             el.append(`<div class=${nt}></div>`)
             $('.main').append(el);
             $('.'+cl).change((e)=>{
                 $('.'+nt).html('');
-                if(e.target.value == 2){$('.'+nt).append('введите варианты ответов: 1) <input type="text" class="answer"></input> 2) <input type="text" class="answer"></input> ')}
+                
+                if(e.target.value == 2){$('.'+nt).append(`введите количество вариантов ответа: <input type="text" class=${na}></input> `)}
+                $('.'+na).change((e)=>{
+                    console.log(1);
+                        $('.'+nt).children().each(function(){
+                           if($(this).attr("class") == "answer" || $(this).attr("class") == "ansres"){$(this).remove();console.log($(this).attr("class"))}
+                        })
+                        $('.'+nt).append('<span class="ansres"><br>введите варианты ответов: </span>')
+                    for(let i=0;i<e.target.value;i++){
+                        $('.'+nt).append(' <input type="text" class="answer"></input> ');
+                    }
+                })
+                /*
                 if(e.target.value == 3){$('.'+nt).append('введите варианты ответов: 1) <input type="text" class="answer"></input> 2) <input type="text" class="answer"></input> 3) <input type="text" class="answer"></input> ')}
                 if(e.target.value == 4){$('.'+nt).append('введите варианты ответов: 1) <input type="text" class="answer"></input> 2) <input type="text" class="answer"></input> 3) <input type="text" class="answer"></input> 4) <input type="text" class="answer"></input> ')}
+            */
             })
         }
     }
@@ -27,6 +41,8 @@ $('button').click((e)=>{
     }
     obj.name=$('.name').val();
     obj.accessLVL=$('.lvl').val();
+    obj.firstDate=$('.first_date').val();
+    obj.lastDate=$('.last_date').val();
     let i=0;
     $('.block').each(function(){
         let mas_ans=[]
@@ -44,5 +60,8 @@ $('button').click((e)=>{
         "Content-type": "application/json; charset=UTF-8"  
         },  
         body: obj  })
+        .then(res => res.text()).then((e)=>{$('.result').html(e)})
+        .catch(res => res.text()).then((e)=>{$('.result').html(e)})
+        
     
 })

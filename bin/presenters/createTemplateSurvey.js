@@ -7,19 +7,19 @@ class CreateSurvey{
         res.render('CreateSurvey.html')
     }
     static async reg(req,res,next){
-        let err="успешно";
-        if( !req.body.name || !req.body.accessLVL || !req.body.data) {
+        let err='успешно';
+        if( !req.body.name || !req.body.accessLVL || !req.body.data || !req.body.firstDate || !req.body.lastDate) {
             res.end('Все поля должны быть заполнены'); 
         }
         else{
         try {
-            if(await surveytemplateModel.findOne({'name':req.body.name}) != null) {err="error"};
+            if(await surveytemplateModel.findOne({'name':req.body.name}) != null) {err='это имя занято'};
             let form = new surveytemplateModel({
-                'name': req.body.name,
-                'firstDate': new Date(),
-                'lastDate': new Date().setDate(new Date().getDate()+14),
-                'accessLVL': req.body.accessLVL,
-                'data': req.body.data
+                name: req.body.name,
+                firstDate: req.body.firstDate,
+                lastDate: req.body.lastDate,
+                accessLVL: req.body.accessLVL,
+                data: req.body.data
             });
             form.save();
         } catch (e) {
