@@ -1,5 +1,9 @@
 {% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+
         <h1>{{ parametr }}</h1>
+{%if (admin)%}
+ <a href="/events/new"><button type="button" class="btn btn-primary btn-lg btn-block">Создать мероприятие</button></a>
+{%endif%}
 {% endblock %}

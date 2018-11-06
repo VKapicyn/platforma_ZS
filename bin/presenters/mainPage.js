@@ -24,4 +24,5 @@ class Main {
 router.get('/', Main.getPage);
 router.get('/:id', Main.getPageByUserId);
 
+
 module.exports.router = router;
