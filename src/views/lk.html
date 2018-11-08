@@ -10,6 +10,19 @@
         <button type="submit" onclick="send()">Submit</button>
 </form>
 
+ {% if admin %}
+ {% for sh in sHolder %}
+ <div class="card">
+        <h5 class="card-header">{{sh.firstname}} {{sh.lastname}}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{sh.organization}}</h5>
+          <p class="card-text">{{sh.contactInformation}}</p>
+          <a href="/lk/{{sh._id}}?agree=2" class="btn btn-primary">Принять</a>
+          <a href="/lk/{{sh._id}}?agree=3" class="btn btn-primary">Отказать</a>
+        </div>
+</div> 
+{% endfor %}
+ {% endif %}
 <!-- <div class=" container">
         <h1 class="text-center">{{ paramebn }}</h1>
         <div>

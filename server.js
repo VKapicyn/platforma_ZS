@@ -50,7 +50,8 @@ app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
-app.use('/login',require('./bin/presenters/logPage').router)
+app.use('/login',require('./bin/presenters/logPage').router);
+app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
