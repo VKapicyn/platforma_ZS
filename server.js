@@ -48,7 +48,7 @@ app.use('/events', require('./bin/presenters/eventsPage').router);
 app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
-app.use('/publicref', require('./bin/presenters/publicRefPage').router);
+app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
 app.use('/login',require('./bin/presenters/logPage').router)
 
 //Models (API)
