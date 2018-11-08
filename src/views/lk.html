@@ -1,0 +1,19 @@
+{% extends "templates/pageTemplate.html" %}
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+{% block content %}
+<h1>{{ parametr }}</h1>
+<form action="/lk" method="POST"> 
+        <div class="form-group">
+            <label for="eventName">Новый пароль</label>
+            <input type="text" class="form-control" id="eventName" name="password" placeholder="">
+        </div>
+        <button type="submit" onclick="send()">Submit</button>
+</form>
+
+<!-- <div class=" container">
+        <h1 class="text-center">{{ paramebn }}</h1>
+        <div>
+               <a href="/"></a>
+        </div>
+</div> -->
+{% endblock %}

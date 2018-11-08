@@ -1,25 +1,38 @@
 const mongoose = require('./../../server').mongoose;
-const fs = require('fs');
+const crypto = require('crypto');
 const gridfs = require('gridfs-stream');
+const GridFsStorage = require('multer-gridfs-storage');
+// gridfs.mongo = mongoose.mongo;
+// let gfs = gridfs(mongoose.connection.db);
 
-gridfs.mongo = mongoose.mongo;
-let gfs = gridfs(mongoose.connection.db);
 
-exports.Upload = (req, filename) => {
-    new Promise( (reject, resolve) => {
-        try{
-            let writestream = gfs.createWriteStream({
-                filename: req.files[filename].filename
+
+// const bucket = new mongodb.GridFSBucket('ZSDB', { bucketName: 'reportPdfs'});
+let config = require('./../../config.js'),
+  mongoURI =  url = config.deploy ? 'mongodb://localhost:27017/ZSDB' :
+  `mongodb://${config.dbLogin}:${config.dbPass}@${config.dbAddress}:${config.dbPort}/${config.dbName}`;
+
+ 
+
+exports.newStorage = (ext,bucket) => {
+return storage = new GridFsStorage({
+        url: mongoURI,
+        file: () => {
+          return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+              if (err) {
+                return reject(err);
+              }
+              const filename = buf.toString('hex')+'.'+ext;
+              const fileInfo = {
+                filename: filename,
+                bucketName: bucket
+              };
+              resolve(fileInfo);
             });
-            fs.createReadStream(req.files[filename].path)
-                .on('end', () => { fs.unlink(req.files[filename].path) })
-                .pipe(writestream);
-            writestream.on('close', function (file) {
-                resolve(file.filename);
-            });
+          });
         }
-        catch(e) {reject('Error')}
-    })
+  });
 }
 
 exports.Delete = (filename) => {

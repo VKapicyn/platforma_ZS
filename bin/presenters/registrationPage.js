@@ -17,18 +17,21 @@ class Registration {
         }
 
         try {
+            console.log(req.body);
             let account = new stakeholderModel({
                 'login': req.body.login,
                 'password': toHash(req.body.password),
                 'state': 0,
-                'key': md5(req.body.login+Date.now().getTime().toString()) 
+                'key': toHash(req.body.login+Date.now().toString()) 
             });
+            console.log(account);
             account.save();
         } catch (e) {
             err = 'логин занят';
+
         }
         
-        res.render('logPage.html', {account: err || account});
+        res.render('logPage.html', );
     }
     static async conf(req, res, next){
         let sh = await stakeholderModel.findOne({key: req.params.num});

@@ -11,7 +11,7 @@ class Auth {
     static async login(req,res,next){
          let account = await adminModel.findOne({login:req.body.login})
          console.log(req.body.password);
-        if (account.password == req.body.password){    
+        if (account.password == toHash(req.body.password)){    
              req.session.admin = {id: account._id, login: account.login};
              req.session.save();
              console.log(req.session.admin);
@@ -23,8 +23,7 @@ class Auth {
         }
     }
     static logout(req, res, next){
-        console.log(req.session);
-        if (delete req.session.admin) console.log('done');
+        delete req.session.admin;
         res.render('logPage.html')
     }
 }
