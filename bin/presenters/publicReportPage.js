@@ -5,7 +5,7 @@ const adminModel = require('../models/adminModel').adminModel;
 const multer  = require('multer');
 const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
-const storage = newStorage('pdf','uploads')
+const storage = newStorage('pdf','fs')
 const upload = multer({ storage });
 
 class PublicReport {
@@ -28,7 +28,7 @@ class PublicReport {
                     'src': req.file.filename
                 });
                 report.save();
-                // res.redirect('/publicreport');
+                res.redirect('/publicreport/id/'+report._id);
             }
             else
             {   console.log('wrong');
@@ -42,28 +42,20 @@ class PublicReport {
             }
         } catch (e) {
         }
-        
-        res.render('mainPage.html', );
     }
     static async getPageByReportId(req,res,next){
         let report
         try{
             report =  await reportModel.findById(req.params.id);
-            // gfs.files.findOne({ _id: report.src }, (err, file) => {
-            //     // Check if file
-            //     if (!file || file.length === 0) {
-            //       return res.status(404).json({
-            //         err: 'No file exists'
-            //       });
-            //     }
-            // });
         }
         catch(e) {report = e}
         res.render('reportPageItem.html', {
             parametr: report,
             name: report.name,
+            download_url: `/file/${report.src}`
         });
     }
+
     static newReportGetPage(req,res,next){
         res.render('newReport.html', {
         });
@@ -74,7 +66,7 @@ class PublicReport {
 //Роутинг внутри страницы
 router.get('/', PublicReport.getPage);
 
- router.get('/id/:id',PublicReport.getPageByReportId);
+router.get('/id/:id',PublicReport.getPageByReportId);
 router.post('/new',upload.single('pdf'),PublicReport.newReport);
 router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
 //  router.post('/createreport',PublicReport.createReport);
