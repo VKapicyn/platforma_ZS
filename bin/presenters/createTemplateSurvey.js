@@ -19,7 +19,8 @@ class CreateSurvey{
                 firstDate: req.body.firstDate,
                 lastDate: req.body.lastDate,
                 accessLVL: req.body.accessLVL,
-                data: req.body.data
+                data: req.body.data,
+                description: req.body.description
             });
             form.save();
         } catch (e) {

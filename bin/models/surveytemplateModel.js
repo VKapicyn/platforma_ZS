@@ -9,6 +9,8 @@ let surveytemplateSchema = mongoose.Schema({
     data: Object,
     annotation: String,
     accessLVL: String,
+    result: Array,
+    description: String
 });
 
 surveytemplateSchema.statics = {

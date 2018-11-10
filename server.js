@@ -58,6 +58,7 @@ app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeh
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 app.use('/createsurvey',require('./bin/presenters/createTemplateSurvey.js').router)
+app.use('/survey',require('./bin/presenters/Survey.js').router)
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);

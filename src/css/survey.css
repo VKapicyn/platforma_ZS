@@ -1,0 +1,27 @@
+.question{
+    margin: 20px;
+    font-size: 30px;
+}
+.ans_select{
+    margin: 20px;
+    font-size: 30px;
+}
+.ans_text{
+    margin: 20px;
+    font-size: 30px;
+}
+.name{
+    font-size: 40px;
+    margin:0 45% 0 45%;
+    width:10%;
+}
+.send{
+    font-size: 30px;
+    margin:0 40% 0 40%;
+    width:20%;
+}
+.description{
+    font-size: 35px;
+    margin:0 45% 0 45%;
+    width:10%;
+}

@@ -24,10 +24,6 @@ $('.number').change((e)=>{
                         $('.'+nt).append(' <input type="text" class="answer"></input> ');
                     }
                 })
-                /*
-                if(e.target.value == 3){$('.'+nt).append('введите варианты ответов: 1) <input type="text" class="answer"></input> 2) <input type="text" class="answer"></input> 3) <input type="text" class="answer"></input> ')}
-                if(e.target.value == 4){$('.'+nt).append('введите варианты ответов: 1) <input type="text" class="answer"></input> 2) <input type="text" class="answer"></input> 3) <input type="text" class="answer"></input> 4) <input type="text" class="answer"></input> ')}
-            */
             })
         }
     }
@@ -40,6 +36,7 @@ $('button').click((e)=>{
         }
     }
     obj.name=$('.name').val();
+    obj.description=$('.description').val();
     obj.accessLVL=$('.lvl').val();
     obj.firstDate=$('.first_date').val();
     obj.lastDate=$('.last_date').val();
@@ -50,6 +47,7 @@ $('button').click((e)=>{
         $(this).children('div:last-child').children('.answer').each(function(){
             mas_ans=[...mas_ans,$(this).val()]
         })
+        if (mas_ans.length == 0 ){mas_ans='text';console.log(1)}
         obj.data.answer[i]=mas_ans;
         i++;
     })
