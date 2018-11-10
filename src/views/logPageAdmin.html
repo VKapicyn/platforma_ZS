@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+    </head>
+    <body>
+        <!-- нужны такие формы -->
+        <form action="/login" method="POST">
+            <input name="login" placeholder="login">
+            <input name="password" type="password" placeholder="pass">
+            <button type="submit">войти</button>
+        </form>
+        
+        <button onclick="send()">log</button>
+        <button onclick="sendout()">logout</button>
+        <h2>{{account}}</h2>
+        <script>
+            function send(){
+                fetch("/logadmin",{
+                method: 'post',  
+                headers: {  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                },    
+                body: 'login=admin&password=123321'  })
+            }
+            function sendout(){
+                fetch("/logadmin",{
+                method: 'delete',  
+                headers: {  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                },    
+                body: 'login=admin&password=123321'  })
+            }
+            
+        </script>
+    </body>
+</html>

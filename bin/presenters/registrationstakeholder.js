@@ -19,16 +19,14 @@ class Registration {
                 'login': req.body.login,
                 'password': toHash(req.body.password),
                 'state': 0,
-                'key': toHash(req.body.login + new Date().getSeconds().toString()) 
-            });//тут выскакивает Warning, но работает
-            console.log(1)
+                'key': toHash(req.body.login+Date.now().toString()) 
+            });
             account.save();
         } catch (e) {
             err = 'логин занят';
-            console.log(e)
         }
         
-        res.render('logPage.html', {account: err || account});
+        res.render('logPage.html', );
     }
     static async conf(req, res, next){
         let sh = await stakeholderModel.findOne({key: req.params.num});

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+const adminModel = require('../models/adminModel').adminModel;
 const toHash = require('md5')
 
 class Auth {
@@ -26,6 +26,6 @@ class Auth {
 
 router.get('/', Auth.getPage);
 router.post('/', Auth.login);
-router.get('/logout', Auth.logout)
+router.delete('/', Auth.logout)
 
 module.exports.router = router;
