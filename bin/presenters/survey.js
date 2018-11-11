@@ -7,9 +7,6 @@ class CreateSurvey{
         let surveytemplate;
         try{
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
-            console.log(req.session)
-            console.log(survey.accessLVL)
-            console.log(req.session[survey.accessLVL+'Model'])
             if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) {surveytemplate=survey}
             else {{res.end('залогинься!(либо опрос окончен)');return;}}
         }
@@ -44,24 +41,22 @@ class CreateSurvey{
         res.end(err);
     }
     static async show(req,res,next){
-        let lvl
-        let mas=[]
-        console.log(req.session)
-        if(req.session.userModel != undefined ) lvl='user'
-        if(req.session.stakeholderModel != undefined ) lvl='stakeholder'
-        if(req.session.admin != undefined ) lvl='admin'
-        console.log(lvl)
+        let lvl;
+        let mas_n=[];
+        let mas_d=[];
+        if(req.session.userModel) lvl='user'
+        if(req.session.stakeholderModel) lvl='stakeholder'
+        if(req.session.admin) lvl='admin'
         let survey = await surveytemplateModel.find({accessLVL:lvl});
-        console.log(survey)
-        console.log(survey.length)
         for(let i=0;i<survey.length;i++){
             if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
-                mas=[...mas,survey[i].name]
+                mas_n=[...mas_n,survey[i].name];
+                mas_d=[...mas_d,survey[i].description];
             }
         }
-        console.log(mas)
         res.render('AllSurvey.html', {
-            mas_name:mas
+            mas_name:mas_n,
+            mas_desc:mas_d
         });
     }
 
