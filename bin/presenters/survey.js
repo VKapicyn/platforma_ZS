@@ -83,15 +83,6 @@ class Survey{
         if(req.session.admin){
    
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
-            console.log(survey.result)
-            console.log(survey.result.length)
-            let mas_log = [];
-            let mas_ans = [];
-            for(let i=0;i<survey.result.length;i++){
-                    mas_log=[...mas_log,survey.result[i].login];
-                    mas_ans=[...mas_ans,survey.result[i].answer];
-                
-            }
         res.render('SurveyForAdmin.html', {
             result: survey.result,
             question: survey.data.question
