@@ -7,7 +7,10 @@ class CreateSurvey{
         let surveytemplate;
         try{
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
-            if(survey.firstDate<=new Date() && survey.lastDate>=new Date()) surveytemplate=survey
+            console.log(req.session)
+            console.log(survey.accessLVL)
+            console.log(req.session[survey.accessLVL+'Model'])
+            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) surveytemplate=survey
         }
         catch(e) {surveytemplate = e}
         res.render('Survey.html', {
@@ -20,14 +23,17 @@ class CreateSurvey{
     static async reg(req,res,next){
         let err='успешно';
         if( !req.params.name || !req.body.answer ) {
-            res.end('Все поля должны быть заполнены'); console.log(2)
+            res.end('Все поля должны быть заполнены');
         }
         else{
         try {
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
-            if(survey == null) {err='ошибка'}
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date()) || !((req.session[survey.accessLVL+'Model'] != undefined) || (req.session[survey.accessLVL] != undefined))) return;
             else{
-            survey.update({name:req.params.name},{result: survey.result.push(req.body)})
+                let obj={}
+                obj.answer=req.body.answer;
+                obj.login=req.session.userModel.login
+                survey.result=[...survey.result,obj]
             survey.save()
         }
         } catch (e) {

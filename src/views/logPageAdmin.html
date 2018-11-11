@@ -15,20 +15,20 @@
         <h2>{{account}}</h2>
         <script>
             function send(){
-                fetch("/loginstakeholder",{
+                fetch("/logadmin",{
                 method: 'post',  
                 headers: {  
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
                 },    
-                body: 'login=admin121&password=admin2281'  })
+                body: 'login=admin&password=123321'  })
             }
             function sendout(){
-                fetch("/loginstakeholder",{
+                fetch("/logadmin",{
                 method: 'delete',  
                 headers: {  
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
                 },    
-                body: 'login=admin121&password=admin2281'  })
+                body: 'login=admin&password=123321'  })
             }
             
         </script>

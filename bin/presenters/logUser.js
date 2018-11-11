@@ -12,7 +12,9 @@ class AuthUser {
         let account = await userModel.findOne({login: req.body.login})
 
         if (account.password == toHash(req.body.password)){    
-            req.session.userModel = {id: account._id, login: account.login}
+            req.session.userModel = {id: account._id, login: account.login};
+            req.session.save()
+            res.end()
         }
         else {
             //инфа об ошибке ?
@@ -27,6 +29,6 @@ class AuthUser {
 
 router.get('/', AuthUser.getPage);
 router.post('/', AuthUser.login);
-router.get('/logout', AuthUser.logout)
+router.post('/logout', AuthUser.logout)
 
 module.exports.router = router;

@@ -12,6 +12,8 @@ class Auth {
         let account = await stakeholderModel.findOne({login: req.body.login})
         if (account.password == toHash(req.body.password)){   
             req.session.stakeholderModel = {id: account._id, login: account.login}
+            req.session.save()
+            res.end()
         }
         else { 
             //инфа об ошибке ?
@@ -26,6 +28,6 @@ class Auth {
 
 router.get('/', Auth.getPage);
 router.post('/', Auth.login);
-router.get('/logout', Auth.logout)
+router.delete('/', Auth.logout)
 
 module.exports.router = router;

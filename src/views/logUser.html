@@ -23,8 +23,8 @@
                 body: 'login=admin11&password=admin2281'  })
             }
             function sendout(){
-                fetch("/logoutUser",{
-                method: 'delete',  
+                fetch("/loginUser/logout",{
+                method: 'post',  
                 headers: {  
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
                 },    

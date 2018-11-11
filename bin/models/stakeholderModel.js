@@ -17,7 +17,13 @@ let stakeholderSchema = mongoose.Schema({
     address: String,
     social_network: String,
     consent: Boolean,
-    key: String
+    key: String,
+    events: [{
+        _id: false,
+        eventId : String,
+        readyToGo  : Boolean,
+        default: {}
+     }]
 });
 
 stakeholderSchema.statics = {

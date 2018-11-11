@@ -13,6 +13,7 @@ let config = require('./config.js'),
 
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true});
+module.exports.mongoose = mongoose;
 
 app.use(    
     session(
@@ -48,7 +49,7 @@ app.use('/events', require('./bin/presenters/eventsPage').router);
 app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
-app.use('/publicref', require('./bin/presenters/publicRefPage').router);
+//app.use('/publicref', require('./bin/presenters/publicRefPage').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
@@ -57,13 +58,17 @@ app.use('/loginUser', require('./bin/presenters/logUser').router)
 app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
-app.use('/createsurvey',require('./bin/presenters/createTemplateSurvey.js').router)
+app.use('/createsurvey',require('./bin/models/adminModel.js').adminModel.isAdminLogged,require('./bin/presenters/createTemplateSurvey.js').router)
 app.use('/survey',require('./bin/presenters/Survey.js').router)
+app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
+//app.use('/login',require('./bin/presenters/logPage').router);
+app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
 
 //Utils ???
+app.use('/file/:filename', require('./bin/utils/uploader').getFile);
 
 /**
  * Для загрузки файлов рекомендую модуль 'multer'
@@ -72,4 +77,3 @@ app.use('/api/v1/user', require('./bin/models/userModel').router);
 app.listen(require('./config.js').port);
 console.log(`Running at Port ${config.port}`);
 
-module.exports.mongoose = mongoose;
