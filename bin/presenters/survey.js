@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
 
-class CreateSurvey{
+class Survey{
     static async getPage(req, res, next) {
         let surveytemplate;
         try{
@@ -59,12 +59,56 @@ class CreateSurvey{
             mas_desc:mas_d
         });
     }
+    static async showResult(req,res,next){
+        if(req.session.admin){
+            let mas_n=[];
+            let mas_d=[];
+            let survey = await surveytemplateModel.find();
+            for(let i=0;i<survey.length;i++){
+                if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
+                    mas_n=[...mas_n,survey[i].name];
+                    mas_d=[...mas_d,survey[i].description];
+                }
+            }
+            res.render('AllSurveyForAdmin.html', {
+                mas_name:mas_n,
+                mas_desc:mas_d
+            });
+        }
+        else{
+           res.end('error')
+        }
+    }
+    static async getSurvey(req, res, next) {
+        if(req.session.admin){
+   
+            let survey =  await surveytemplateModel.findOne({'name':req.params.name});
+            console.log(survey.result)
+            console.log(survey.result.length)
+            let mas_log = [];
+            let mas_ans = [];
+            for(let i=0;i<survey.result.length;i++){
+                    mas_log=[...mas_log,survey.result[i].login];
+                    mas_ans=[...mas_ans,survey.result[i].answer];
+                
+            }
+        res.render('SurveyForAdmin.html', {
+            result: survey.result,
+            question: survey.data.question
+        });
+    }
+    else{
+        res.end('error')
+    }
+}
 
 }
 
-router.get('/', CreateSurvey.show);
-router.get('/name:name', CreateSurvey.getPage);
-router.post('/name:name/reg', CreateSurvey.reg);
+router.get('/', Survey.show);
+router.get('/name:name', Survey.getPage);
+router.post('/name:name/reg', Survey.reg);
+router.get('/admin', Survey.showResult);
+router.get('/admin/:name', Survey.getSurvey);
 
 
 module.exports.router = router;
