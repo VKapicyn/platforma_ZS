@@ -10,7 +10,8 @@ class CreateSurvey{
             console.log(req.session)
             console.log(survey.accessLVL)
             console.log(req.session[survey.accessLVL+'Model'])
-            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) surveytemplate=survey
+            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) {surveytemplate=survey}
+            else {{res.end('залогинься!(либо опрос окончен)');return;}}
         }
         catch(e) {surveytemplate = e}
         res.render('Survey.html', {
@@ -28,7 +29,7 @@ class CreateSurvey{
         else{
         try {
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
-            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date()) || !((req.session[survey.accessLVL+'Model'] != undefined) || (req.session[survey.accessLVL] != undefined))) return;
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date()) || !((req.session[survey.accessLVL+'Model'] != undefined) || (req.session[survey.accessLVL] != undefined))) {res.end('залогинься!');return;}
             else{
                 let obj={}
                 obj.answer=req.body.answer;
