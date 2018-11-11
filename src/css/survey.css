@@ -25,3 +25,7 @@
     margin:0 45% 0 45%;
     width:10%;
 }
+.result{
+    color: red;
+    font-size: 20px;
+}

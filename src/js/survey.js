@@ -13,5 +13,7 @@ $('.send').click((e)=>{
         "Content-type": "application/json; charset=UTF-8"  
         },  
         body: obj  })
+        .then(res => res.text()).then((e)=>{$('.result').html(e)})
+        .catch(res => res.text()).then((e)=>{$('.result').html(e)})
   
 })

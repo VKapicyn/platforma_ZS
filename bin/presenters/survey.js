@@ -42,11 +42,33 @@ class CreateSurvey{
     }
         res.end(err);
     }
+    static async show(req,res,next){
+        let lvl
+        let mas=[]
+        console.log(req.session)
+        if(req.session.userModel != undefined ) lvl='user'
+        if(req.session.stakeholderModel != undefined ) lvl='stakeholder'
+        if(req.session.admin != undefined ) lvl='admin'
+        console.log(lvl)
+        let survey = await surveytemplateModel.find({accessLVL:lvl});
+        console.log(survey)
+        console.log(survey.length)
+        for(let i=0;i<survey.length;i++){
+            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
+                mas=[...mas,survey[i].name]
+            }
+        }
+        console.log(mas)
+        res.render('AllSurvey.html', {
+            mas_name:mas
+        });
+    }
 
 }
 
-router.get('/:name', CreateSurvey.getPage);
-router.post('/:name/reg', CreateSurvey.reg);
+router.get('/', CreateSurvey.show);
+router.get('/name:name', CreateSurvey.getPage);
+router.post('/name:name/reg', CreateSurvey.reg);
 
 
 module.exports.router = router;
