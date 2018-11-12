@@ -60,6 +60,7 @@ class Survey{
         });
     }
     static async showResult(req,res,next){
+
         if(req.session.admin){
             let mas_n=[];
             let mas_d=[];
