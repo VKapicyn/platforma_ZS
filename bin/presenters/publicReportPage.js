@@ -5,41 +5,52 @@ const adminModel = require('../models/adminModel').adminModel;
 const multer  = require('multer');
 const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
-const storage = newStorage('pdf','fs')
+const delFile = require('./../utils/uploader').Delete;
+const storage = newStorage();
+const PDFImage = require("pdf-image").PDFImage;
 const upload = multer({ storage });
+// const upload = multer({ dest: 'uploads/' });
 
 class PublicReport {
     static async getPage(req, res, next) {
         let reports =  await reportModel.find();
         console.log(reports);
+        if (req.session.admin){
+            res.render('reportPage.html', {
+                parametr: reports,
+                admin: true
+            });
+        }
+        else{
         res.render('reportPage.html', {
             parametr: reports
         });
-        
+        }
     }
     static newReport(req,res,next){
         try {
-            console.log(req.body);
-            if (path.extname(req.file.originalname) == '.pdf'){
-                console.log('done');
+            // console.log(req.files.pdf.length);
+            if ((req.files.pdf[0].contentType == 'application/pdf')&&((req.files.img[0].contentType== 'image/png')||(req.files.img[0].contentType== 'image/png'))){
+                
                 let report = new reportModel({
-                    'name': req.body.name,
-                    'description': req.body.description,
-                    'src': req.file.filename
+                    name: req.body.name,
+                    description: req.body.description,
+                    creatingDate: new Date(),
+                    pdfSrc: req.files.pdf[0].filename ,
+                    imgSrc: req.files.img[0].filename
                 });
                 report.save();
                 res.redirect('/publicreport/id/'+report._id);
             }
             else
-            {   console.log('wrong');
-                gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-                    if (err) {
-                      return res.status(404).json({ err: err });
-                    }
+            {   
+                delFile(req.files.pdf[0].filename);
+                delFile(req.files.img[0].filename);
                 
-                    res.redirect('/');
-                });
+                res.redirect('/');
             }
+                
+            
         } catch (e) {
         }
     }
@@ -51,8 +62,8 @@ class PublicReport {
         catch(e) {report = e}
         res.render('reportPageItem.html', {
             parametr: report,
-            name: report.name,
-            download_url: `/file/${report.src}`
+            download_url: `/file/${report.pdfSrc}`,
+            img_url: `/file/${report.imgSrc}`
         });
     }
 
@@ -67,7 +78,7 @@ class PublicReport {
 router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
-router.post('/new',upload.single('pdf'),PublicReport.newReport);
+router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
 router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
 //  router.post('/createreport',PublicReport.createReport);
 //

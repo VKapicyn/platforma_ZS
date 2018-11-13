@@ -16,19 +16,21 @@ let config = require('./../../config.js'),
 
  
 
-exports.newStorage = (ext,bucket) => {
+exports.newStorage = () => {
 return storage = new GridFsStorage({
+        
         url: mongoURI,
-        file: () => {
+        file: (req) => {
+          // console.log(req.file);
           return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {
               if (err) {
                 return reject(err);
               }
-              const filename = buf.toString('hex')+'.'+ext;
+              const filename = buf.toString('hex');
               const fileInfo = {
                 filename: filename,
-                bucketName: bucket
+                bucketName: 'fs'
               };
               resolve(fileInfo);
             });
@@ -58,5 +60,10 @@ exports.getFile = (req, res) => {
 }
 
 exports.Delete = (filename) => {
-    // TODO:
+  console.log(filename);
+  gfs.files.remove({ filename: filename }, (err, gridStore) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
