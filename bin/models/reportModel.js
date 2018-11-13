@@ -7,10 +7,8 @@ const mongoose = require('mongoose');//require('./../../server').mongoose;
 let reportSchema = mongoose.Schema({
     name: String,
     description: String,
-    creatingDate: Date,
     index: Number,
-    pdfSrc: String,
-    imgSrc: String
+    src: String
 });
 
 reportSchema.statics = {

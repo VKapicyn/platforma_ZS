@@ -4,27 +4,25 @@
 <h4>публичные отчеты</h4>
 <div class="container-fluid">
         <div class="row">
-          <div class="col-md-10">
           {% for report in parametr %}
-          <div class="card text-center w-100 mb-4">
-              <div class="card-body">
-                <h5 class="card-title">{{report.name}}</h5>
-                <a href="/publicreport/id/{{report.id}}" class="btn btn-primary">подробнее</a>
-              </div>
-              <div class="card-footer text-muted">
-                {{report.creatingDate}}
+          <li>
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a href="/publicreport/id/{{ report._id }}">
+                      {{ report.id }}
+                    </a>
+                  </h4>
+                </div>
+                
               </div>
             </div>
+
+          </li>
         
           {% endfor %}
-          </div>
-          {% if(admin) %}
-          <div class="col-md-2">
-              <a href="/publicreport/new"><button type="button" class="btn btn-secondary btn-lg">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Создать
-              </button> </a>           
-          </div>
-          {% endif %}
+        </ul>
         </div>
 </div>
 

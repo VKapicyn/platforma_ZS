@@ -36,12 +36,12 @@ class Events {
                 items.push(i._id);
             });
             
-            
+            let now = new Date();
             let event = new eventModel({
                 'name': req.body.name,
                 'description': req.body.description,
                 'eventDate': req.body.date,
-                'creatingDate': new Date(),
+                'creatingDate': now,
                 'status': '1',
                 'address': req.body.address,
                 'invites':JSON.stringify(items)
@@ -49,7 +49,7 @@ class Events {
             if (event){
                 items.map(async function(id){
                 await stakeholderModel.findOneAndUpdate({_id: id},  
-                    { $push: { events:  {eventId: event._id, readyToGo: false}} }) ; 
+                    { $push: { events:  {'eventId': event._id, 'readyToGo': false}} }) ; 
             })
             event.save();
             res.json(JSON.stringify(event));
