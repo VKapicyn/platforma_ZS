@@ -102,9 +102,7 @@ class Survey{
     }
     }
     static async regAnnotation(req, res, next) {
-        console.log(req.body,req.file)
         if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-            console.log('done');
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
             survey.annotation={text:req.body.text_an,file:req.file.filename}
             survey.save();
