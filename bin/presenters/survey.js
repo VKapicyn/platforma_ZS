@@ -1,21 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
+const delFile = require('./../utils/uploader').Delete;
+const multer  = require('multer');
+const path  = require('path');
+const newStorage = require('./../utils/uploader').newStorage;
+const storage = newStorage()
+const upload = multer({ storage });
 
 class Survey{
     static async getPage(req, res, next) {
         let surveytemplate;
         try{
-            let survey =  await surveytemplateModel.findOne({'name':req.params.name});
+            let survey =  await surveytemplateModel.findOne({name:req.params.name});
             if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) {surveytemplate=survey}
             else {{res.end('залогинься!(либо опрос окончен)');return;}}
         }
         catch(e) {surveytemplate = e}
         res.render('Survey.html', {
-            description:surveytemplate.description,
-            name:surveytemplate.name,
+            description: surveytemplate.description,
+            name: surveytemplate.name,
             question: surveytemplate.data.question,
-            answer: surveytemplate.data.answer
+            answer: surveytemplate.data.answer,
+            annotation: surveytemplate.annotation.text,
+            file: `/file/${surveytemplate.annotation.file}`
         });
     }
     static async reg(req,res,next){
@@ -25,7 +33,7 @@ class Survey{
         }
         else{
         try {
-            let survey = await surveytemplateModel.findOne({'name':req.params.name})
+            let survey = await surveytemplateModel.findOne({name:req.params.name})
             if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date()) || !((req.session[survey.accessLVL+'Model'] != undefined) || (req.session[survey.accessLVL] != undefined))) {res.end('залогинься!');return;}
             else{
                 let obj={}
@@ -92,7 +100,22 @@ class Survey{
     else{
         res.end('error')
     }
-}
+    }
+    static async regAnnotation(req, res, next) {
+        console.log(req.body,req.file)
+        if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+            console.log('done');
+            let survey = await surveytemplateModel.findOne({'name':req.params.name})
+            survey.annotation={text:req.body.text_an,file:req.file.filename}
+            survey.save();
+            res.end('end')
+        }
+        else
+            {   
+                delFile(req.file.filename);
+                res.end('error');
+            }
+    }
 
 }
 
@@ -101,6 +124,7 @@ router.get('/name:name', Survey.getPage);
 router.post('/name:name/reg', Survey.reg);
 router.get('/admin', Survey.showResult);
 router.get('/admin/:name', Survey.getSurvey);
+router.post('/admin/:name',upload.single('file_an'), Survey.regAnnotation);
 
 
 module.exports.router = router;
