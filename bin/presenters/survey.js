@@ -13,7 +13,7 @@ class Survey{
         let surveytemplate;
         try{
             let survey =  await surveytemplateModel.findOne({name:req.params.name});
-            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined)) {surveytemplate=survey}
+            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined) || survey.annotation) {surveytemplate=survey}
             else {{res.end('залогинься!(либо опрос окончен)');return;}}
         }
         catch(e) {surveytemplate = e}
