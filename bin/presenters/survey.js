@@ -69,7 +69,7 @@ class Survey{
     }
     static async showResult(req,res,next){
 
-        if(req.session.admin){
+        if(req.session.userModel){
             let mas_n=[];
             let mas_d=[];
             let survey = await surveytemplateModel.find();
@@ -89,7 +89,7 @@ class Survey{
         }
     }
     static async getSurvey(req, res, next) {
-        if(req.session.admin){
+        if(req.session.userModel){
    
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
         res.render('SurveyForAdmin.html', {
@@ -102,17 +102,30 @@ class Survey{
     }
     }
     static async regAnnotation(req, res, next) {
+        try{
         if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
             survey.annotation={text:req.body.text_an,file:req.file.filename}
             survey.save();
-            res.end('end')
+            res.render('SurveyForAdmin.html', {
+                result: survey.result,
+                question: survey.data.question,
+                response:'Аннотация добавлена'
+            });
         }
         else
             {   
                 delFile(req.file.filename);
-                res.end('error');
+                res.render('SurveyForAdmin.html', {
+                    result: survey.result,
+                    question: survey.data.question,
+                    response:'Ошибка'
+                });
             }
+        }
+        catch(e){
+            res.end('error')
+        }
     }
 
 }
