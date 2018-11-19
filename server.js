@@ -64,6 +64,8 @@ app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
 //app.use('/login',require('./bin/presenters/logPage').router);
 app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 
+app.use('/fileNegotiation/admin',require('./bin/presenters/fileNegotiationAdmin.js').router)
+
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
 

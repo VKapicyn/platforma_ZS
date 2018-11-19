@@ -69,7 +69,7 @@ class Survey{
     }
     static async showResult(req,res,next){
 
-        if(req.session.userModel){
+        if(req.session.admin){
             let mas_n=[];
             let mas_d=[];
             let survey = await surveytemplateModel.find();
@@ -89,7 +89,7 @@ class Survey{
         }
     }
     static async getSurvey(req, res, next) {
-        if(req.session.userModel){
+        if(req.session.admin){
    
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
         res.render('SurveyForAdmin.html', {
