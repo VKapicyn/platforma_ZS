@@ -18,12 +18,19 @@ class Negotiation{
     static async regfile(req, res, next){
         try{
             if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+                let obj = {};
+                let mas = [];
+                if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
+                else {mas.push(req.body.access)}
+                for (let i=0;i<mas.length;i++){obj[mas[i]]=[]}
+                console.log(obj)
                 let file = new fileNegotiationModel({
                     name: req.body.name,
                     description: req.body.description,
                     file: req.file.filename,
                     access: req.body.access,
-                    comment: [req.body.comment]
+                    comment: req.body.comment,
+                    account: obj
                 });
                 file.save();
                 let stakeholders = await stakeholderModel.find()
@@ -39,6 +46,7 @@ class Negotiation{
                 }
             }
             catch(e){
+                console.log(e)
                 res.end('error')
             }
     }
@@ -64,8 +72,44 @@ class Negotiation{
             name: fileN.name,
             description: fileN.description,
             file: `/file/${fileN.file}`,
-            account: fileN.account,
+            access: fileN.access,
             agreement: fileN.agreement,
+        });
+    }
+    catch(e){
+        res.end('error')
+    }
+    }
+    static async getSt(req, res, next){
+        try{
+        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        res.render('fileNegotiationForAdminDialog.html', {
+            name: fileN.name,
+            description: fileN.description,
+            file: `/file/${fileN.file}`,
+            access: fileN.access[req.params.login],
+            agreement: fileN.agreement,
+            dialog: fileN.account
+        });
+    }
+    catch(e){
+        res.end('error')
+    }
+    }
+    static async dialog(req, res, next){
+        try{
+        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        console.log(fileN)
+        fileN.account[req.params.login].push({log:'admin',com:req.body.dialog});
+        console.log(fileN.account);console.log(fileN.account[req.params.login])
+        fileN.save();
+        res.render('fileNegotiationForAdminDialog.html', {
+            name: fileN.name,
+            description: fileN.description,
+            file: `/file/${fileN.file}`,
+            access: fileN.access[req.params.login],
+            agreement: fileN.agreement,
+            dialog: fileN.account
         });
     }
     catch(e){
@@ -78,7 +122,7 @@ class Negotiation{
             let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
             delFile(fileN.file);
             fileN.file=req.file.filename
-            fileN.comment=[...fileN.comment,req.body.comment]
+            fileN.comment=req.body.comment
             fileN.save();
             res.render('fileNegotiationForAdmin.html', {
                 name: fileN.name,
@@ -93,7 +137,7 @@ class Negotiation{
                 {   
                     let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
                     if(req.file.filename) delFile(req.file.filename);
-                    fileN.comment=[...fileN.comment,req.body.comment];
+                    fileN.comment=req.body.comment;
                     fileN.save();
                     res.render('fileNegotiationForAdmin.html', {
                         name: fileN.name,
@@ -107,7 +151,7 @@ class Negotiation{
     }
     catch(e){
         let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
-                    fileN.comment=[...fileN.comment,req.body.comment];
+                    fileN.comment=req.body.comment;
                     fileN.save();
                     res.render('fileNegotiationForAdmin.html', {
                         name: fileN.name,
@@ -123,6 +167,8 @@ class Negotiation{
 
 router.get('/',Negotiation.show);
 router.get('/name:name',Negotiation.getfile);
+router.get('/name:name/:login',Negotiation.getSt);
+router.post('/name:name/:login',Negotiation.dialog);
 router.post('/name:name',upload.single('file'),Negotiation.updatefile);
 router.get('/reg',Negotiation.getPage);
 router.post('/reg',upload.single('file'),Negotiation.regfile)

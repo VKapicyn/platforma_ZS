@@ -12,25 +12,12 @@
   <body>
 
       <div class="container main">
-          <h1>{{name}}</h1>
-          <h3>{{description}}</h3>
-          <p><a href={{ file }}>скачать файл</a></p>
-          <p>Участники: 
-              {% for item in access %}
-              <a href={{'name'+name+'/'+item}}>{{item}}</a> , 
-              {% endfor %}
-          </p>
-          <p>Согласовали: {{agreement}}</p>
+          Все файлы:<br>
+            {% for n in name %}
+            <a href={{'name'+n}}>{{n}}</a>
+            <br>
+            {% endfor %}
       </div>
-      <br>
-      <div class="container update">
-        <form  method="POST" enctype="multipart/form-data">
-          <p>Обновить файл: <input name="file" type="file"></p>
-          <p>Добавить комментарий: <input type="text" name="comment"></p>
-          <p><input type="submit"></p>
-        </form>
-      </div>
-      <div class="container result">{{response}}</div>
       
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

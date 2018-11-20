@@ -21,14 +21,17 @@
               {% endfor %}
           </p>
           <p>Согласовали: {{agreement}}</p>
-      </div>
-      <br>
-      <div class="container update">
-        <form  method="POST" enctype="multipart/form-data">
-          <p>Обновить файл: <input name="file" type="file"></p>
-          <p>Добавить комментарий: <input type="text" name="comment"></p>
-          <p><input type="submit"></p>
-        </form>
+          <p>
+              
+              Диалог:<br>
+              {% for d in dialog %}
+              {{d.log}}: {{d.com}} <br>
+              {% endfor %}
+              <form method="POST">
+                  <p><input type="text" name="dialog"> <input type="submit"></p>
+              </form>
+              
+          </p>
       </div>
       <div class="container result">{{response}}</div>
       

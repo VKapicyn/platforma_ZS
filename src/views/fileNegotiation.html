@@ -15,12 +15,12 @@
           <h1>{{name}}</h1>
           <h3>{{description}}</h3>
           <p><a href={{ file }}>скачать файл</a></p>
-          <p>Участники: 
-              {% for item in access %}
-              <a href={{'name'+name+'/'+item}}>{{item}}</a> , 
+          <p>Комментарий админа: {{comment}} </p>
+          <p>Диалог с админом: <br>
+              {% for d in dialog %}
+              {{d.log}}: {{d.com}} <br>
               {% endfor %}
           </p>
-          <p>Согласовали: {{agreement}}</p>
       </div>
       <br>
       <div class="container update">

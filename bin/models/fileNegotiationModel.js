@@ -7,9 +7,9 @@ let fileNegotiationSchema = mongoose.Schema({
     description: String,
     file: String,
     access: Array,
-    account: Array,
+    account: Object,
     agreement: Array,
-    comment: Array
+    comment: String
 });
 
 let fileNegotiationModel = mongoose.model('fileNegotiation', fileNegotiationSchema);
