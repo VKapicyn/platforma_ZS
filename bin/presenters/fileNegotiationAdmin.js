@@ -22,7 +22,7 @@ class Negotiation{
                 let mas = [];
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
-                for (let i=0;i<mas.length;i++){obj[mas[i]]=[]}
+                for (let i=0;i<mas.length;i++){obj[mas[i]]=[1]}
                 console.log(obj)
                 let file = new fileNegotiationModel({
                     name: req.body.name,
@@ -99,20 +99,23 @@ class Negotiation{
     static async dialog(req, res, next){
         try{
         let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
-        console.log(fileN)
-        fileN.account[req.params.login].push({log:'admin',com:req.body.dialog});
-        console.log(fileN.account);console.log(fileN.account[req.params.login])
-        fileN.save();
+        let obj={log: 'admin', com: req.body.dialog};
+        JSON.stringify(obj);
+        console.log(obj)
+        fileN.account[req.params.login].push(obj);
+        //fileN.account[req.params.login]=[...fileN.account[req.params.login],obj]
+        fileN.save().then(e=>console.log(e));
         res.render('fileNegotiationForAdminDialog.html', {
             name: fileN.name,
             description: fileN.description,
             file: `/file/${fileN.file}`,
             access: fileN.access[req.params.login],
             agreement: fileN.agreement,
-            dialog: fileN.account
+            dialog: fileN.account[req.params.login]
         });
     }
     catch(e){
+        console.log(e)
         res.end('error')
     }
     }
