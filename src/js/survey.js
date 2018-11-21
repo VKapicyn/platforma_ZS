@@ -17,3 +17,6 @@ $('.send').click((e)=>{
         .catch(res => res.text()).then((e)=>{$('.result').html(e)})
   
 })
+$('.file_an').click((e)=>{
+    fetch(window.location.href+'/annotation').then(e=>console.log(e))
+})
