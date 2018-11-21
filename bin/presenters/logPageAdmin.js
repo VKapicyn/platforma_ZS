@@ -10,6 +10,7 @@ class AuthAdmin {
 
     static async login(req,res,next){
          let account = await adminModel.findOne({login:req.body.login})
+         console.log(toHash(req.body.password));
         if (account.password == toHash(req.body.password)){    
              req.session.admin = {id: account._id, login: account.login};
              req.session.save();
