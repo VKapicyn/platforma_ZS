@@ -1,12 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
-const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
-const delFile = require('../utils/uploader').Delete;
-const multer  = require('multer');
-const newStorage = require('../utils/uploader').newStorage;
-const storage = newStorage()
-const upload = multer({ storage });
+
 
 class Negotiation{
     static async showall(req, res, next){
