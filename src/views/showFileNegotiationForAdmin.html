@@ -14,7 +14,7 @@
       <div class="container main">
           Все файлы:<br>
             {% for n in name %}
-            <a href={{'name'+n}}>{{n}}</a>
+            <a href={{'/fileNegotiation/admin/name'+n+'/'}}>{{n}}</a>
             <br>
             {% endfor %}
       </div>

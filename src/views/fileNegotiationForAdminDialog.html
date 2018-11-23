@@ -14,22 +14,19 @@
       <div class="container main">
           <h1>{{name}}</h1>
           <h3>{{description}}</h3>
-          <p><a href={{ file }}>скачать файл</a></p>
-          <p>Участники: 
-              {% for item in access %}
-              <a href={{'name'+name+'/'+item}}>{{item}}</a> , 
-              {% endfor %}
-          </p>
-          <p>Согласовали: {{agreement}}</p>
           <p>
               
               Диалог:<br>
               {% for d in dialog %}
-              {{d.log}}: {{d.com}} <br>
+              {{d.sender}}: {{d.text}} <br>
               {% endfor %}
               <form method="POST">
                   <p><input type="text" name="dialog"> <input type="submit"></p>
               </form>
+              <form method="POST" action="back">
+                    <p><input type="submit" value="назад к списку"></p>
+                </form>
+
               
           </p>
       </div>

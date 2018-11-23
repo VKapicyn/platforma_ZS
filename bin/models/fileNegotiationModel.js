@@ -7,7 +7,7 @@ let fileNegotiationSchema = mongoose.Schema({
     description: String,
     file: String,
     access: Array,
-    account: mongoose.Schema.Types.Mixed,
+    account: Array,
     agreement: Array,
     comment: String
 });

@@ -18,19 +18,15 @@ class Negotiation{
     static async regfile(req, res, next){
         try{
             if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-                let obj = {};
                 let mas = [];
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
-                for (let i=0;i<mas.length;i++){obj[mas[i]]=[1]}
-                console.log(obj)
                 let file = new fileNegotiationModel({
                     name: req.body.name,
                     description: req.body.description,
                     file: req.file.filename,
                     access: req.body.access,
                     comment: req.body.comment,
-                    account: obj
                 });
                 file.save();
                 let stakeholders = await stakeholderModel.find()
@@ -89,7 +85,7 @@ class Negotiation{
             file: `/file/${fileN.file}`,
             access: fileN.access[req.params.login],
             agreement: fileN.agreement,
-            dialog: fileN.account
+            dialog: fileN.account.filter(item=>{if(item.user == req.params.login || item.sender == req.params.login) return true})
         });
     }
     catch(e){
@@ -99,23 +95,20 @@ class Negotiation{
     static async dialog(req, res, next){
         try{
         let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
-        let obj={log: 'admin', com: req.body.dialog};
-        JSON.stringify(obj);
-        console.log(obj)
-        fileN.account[req.params.login].push(obj);
-        //fileN.account[req.params.login]=[...fileN.account[req.params.login],obj]
-        fileN.save().then(e=>console.log(e));
+        let obj={user: req.params.login, date: Date.now().toString(), sender: 'admin', text: req.body.dialog};
+        
+        fileN.account=[...fileN.account,obj];
+        
+        await fileN.save();
         res.render('fileNegotiationForAdminDialog.html', {
             name: fileN.name,
             description: fileN.description,
             file: `/file/${fileN.file}`,
-            access: fileN.access[req.params.login],
-            agreement: fileN.agreement,
-            dialog: fileN.account[req.params.login]
+            dialog: fileN.account.filter(item=>{if(item.user == req.params.login || item.sender == req.params.login) return true})
         });
+        
     }
     catch(e){
-        console.log(e)
         res.end('error')
     }
     }
@@ -166,10 +159,14 @@ class Negotiation{
                     });
     }
     }
+    static back2(req,res,next){
+        res.redirect('../')
+    }
 }
 
 router.get('/',Negotiation.show);
 router.get('/name:name',Negotiation.getfile);
+router.post('/name:name/back',Negotiation.back2);
 router.get('/name:name/:login',Negotiation.getSt);
 router.post('/name:name/:login',Negotiation.dialog);
 router.post('/name:name',upload.single('file'),Negotiation.updatefile);
