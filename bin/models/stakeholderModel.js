@@ -18,6 +18,7 @@ let stakeholderSchema = mongoose.Schema({
     social_network: String,
     consent: Boolean,
     key: String,
+    email: String,
     events: [{
         _id: false,
         eventId : String,

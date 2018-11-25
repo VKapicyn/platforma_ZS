@@ -7,6 +7,8 @@ const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
 const storage = newStorage()
 const upload = multer({ storage });
+const send = require('./../utils/email').Send;
+const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 
 class Survey{
     static async getPage(req, res, next) {
@@ -107,6 +109,11 @@ class Survey{
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
             survey.annotation={text:req.body.text_an,file:req.file.filename}
             survey.save();
+            for(let i=0;i<survey.accessLVL.length;i++){
+                let account = await stakeholderModel.findOne({login:survey.accessLVL[i]});
+                let content = {name:survey.name};
+                send(account, 4 , content);
+            }
             res.render('SurveyForAdmin.html', {
                 result: survey.result,
                 question: survey.data.question,

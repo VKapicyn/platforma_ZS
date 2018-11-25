@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
+const send = require('./../utils/email').Send;
+const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+
 
 class CreateSurvey{
     static getPage(req, res, next) {
@@ -23,6 +26,11 @@ class CreateSurvey{
                 description: req.body.description
             });
             form.save();
+            for(let i=0;i<req.body.accessLVL.length;i++){
+                let account = await stakeholderModel.findOne({login:req.body.accessLVL[i]});
+                let content = {name:req.body.name};
+                send(account, 3 , content);
+            }
         } catch (e) {
             console.log(e)
         }
