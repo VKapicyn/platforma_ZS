@@ -5,8 +5,8 @@
     <body>
         <!-- нужны такие формы -->
         <form action="/login" method="POST">
-            <input name="login" placeholder="login">
-            <input name="password" type="password" placeholder="pass">
+            <input name="login" placeholder="login" id="log">
+            <input name="password" type="password" placeholder="pass" id="pas">
             <button type="submit">войти</button>
         </form>
         
@@ -15,12 +15,13 @@
         <h2>{{account}}</h2>
         <script>
             function send(){
+                console.log(document.getElementById("pas").value)
                 fetch("/loginstakeholder",{
                 method: 'post',  
                 headers: {  
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
                 },    
-                body: 'login=admin121&password=admin2281'  })
+                body: `login=${document.getElementById("log").value}&password=${document.getElementById("pas").value}`  })
             }
             function sendout(){
                 fetch("/loginstakeholder",{

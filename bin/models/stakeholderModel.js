@@ -15,7 +15,6 @@ let stakeholderSchema = mongoose.Schema({
     history: String,
     contact_information: String,
     address: String,
-    social_network: String,
     consent: Boolean,
     key: String,
     email: String,

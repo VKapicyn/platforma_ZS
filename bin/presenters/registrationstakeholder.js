@@ -16,10 +16,20 @@ class Registration {
 
         try {
             let account = new stakeholderModel({
-                'login': req.body.login,
-                'password': toHash(req.body.password),
-                'state': 0,
-                'key': toHash(req.body.login+Date.now().toString()) 
+                login: req.body.login,
+                password: toHash(req.body.password),
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                patronymic: req.body.patronymic,
+                email: req.body.email,
+                position: req.body.position,
+                organization: req.body.organization,
+                interest: req.body.interest,
+                history: req.body.history,
+                contact_information: req.body.contact_information,
+                address: req.body.address,
+                state: 0,
+                key: toHash(req.body.login+Date.now().toString()) 
             });
             account.save();
         } catch (e) {
