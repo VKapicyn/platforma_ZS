@@ -1,24 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
-const delFile = require('./../utils/uploader').Delete;
-const multer  = require('multer');
-const path  = require('path');
-const newStorage = require('./../utils/uploader').newStorage;
-const storage = newStorage()
-const upload = multer({ storage });
-const send = require('./../utils/email').Send;
-const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+
 
 class Survey{
     static async getPage(req, res, next) {
         let surveytemplate;
         try{
             let survey =  await surveytemplateModel.findOne({name:req.params.name});
-            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (req.session[survey.accessLVL+'Model'] != undefined || req.session[survey.accessLVL] != undefined) || survey.annotation) {surveytemplate=survey}
-            else {{res.end('залогинься!(либо опрос окончен)');return;}}
+            let log;
+            let lvl;
+            let acc = 0;
+            let date = 1;
+            let andate;
+            if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
+            if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
+                for (let j=0;j<survey.result.length;j++){
+                if(survey.result[j].login == log){
+                    acc++;
+                    date=survey.result[j].date;
+                }
+            
+            }
+            date=Number(new Date(Number(date)))
+            if(survey.annotation) andate=survey.annotation.date
+            andate=Number(new Date(Number(andate)))
+            if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) || (andate > date)) {surveytemplate=survey}
+            else {{res.end('error');return;}}
         }
-        catch(e) {surveytemplate = e}
+        catch(e) {surveytemplate = e;}
+        if(!surveytemplate.annotation){
+            res.render('Survey.html', {
+                description: surveytemplate.description,
+                name: surveytemplate.name,
+                question: surveytemplate.data.question,
+                answer: surveytemplate.data.answer
+            });
+        }
+        else{
+
+            
         res.render('Survey.html', {
             description: surveytemplate.description,
             name: surveytemplate.name,
@@ -27,6 +48,8 @@ class Survey{
             annotation: surveytemplate.annotation.text,
             file: `/file/${surveytemplate.annotation.file}`
         });
+        
+    }
     }
     static async reg(req,res,next){
         let err='успешно';
@@ -36,11 +59,30 @@ class Survey{
         else{
         try {
             let survey = await surveytemplateModel.findOne({name:req.params.name})
-            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date()) || !((req.session[survey.accessLVL+'Model'] != undefined) || (req.session[survey.accessLVL] != undefined))) {res.end('залогинься!');return;}
+            let log;
+            let lvl;
+            let acc = 0;
+            let date = 1;
+            let andate;
+            if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
+            if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
+                for (let j=0;j<survey.result.length;j++){
+                if(survey.result[j].login == log){
+                    acc++;
+                    date=survey.result[j].date;
+                }
+            
+            }
+            date=Number(new Date(Number(date)))
+            if(survey.annotation) andate=survey.annotation.date
+            andate=Number(new Date(Number(andate)))
+            if(!((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) || (andate > date))){res.end('error');return;}
             else{
                 let obj={}
                 obj.answer=req.body.answer;
-                obj.login=req.session.userModel.login
+                obj.date=Date.now().toString();
+                if(req.session.stakeholderModel){obj.login=req.session.stakeholderModel.login}
+                if(req.session.userModel){obj.login=req.session.userModel.login}
                 survey.result=[...survey.result,obj]
             survey.save()
         }
@@ -52,14 +94,28 @@ class Survey{
     }
     static async show(req,res,next){
         let lvl;
+        let log;
         let mas_n=[];
         let mas_d=[];
-        if(req.session.userModel) lvl='user'
-        if(req.session.stakeholderModel) lvl='stakeholder'
-        if(req.session.admin) lvl='admin'
+        let acc = [];
+        let date = [];
+        let andate =[];
+        if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
+        if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
         let survey = await surveytemplateModel.find({accessLVL:lvl});
+        for (let i=0;i<survey.length;i++){
+            acc[i]=0;
+            for (let j=0;j<survey[i].result.length;j++){
+            if(survey[i].result[j].login == log){
+                acc[i]=1; 
+                date[i]=Number(new Date(Number(survey[i].result[j].date)))
+            }
+            if(survey[i].annotation) andate[i]=Number(new Date(Number(survey[i].annotation.date)))
+        }
+        }
         for(let i=0;i<survey.length;i++){
-            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
+            if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1) || (andate[i] > date[i])){
+                
                 mas_n=[...mas_n,survey[i].name];
                 mas_d=[...mas_d,survey[i].description];
             }
@@ -69,80 +125,12 @@ class Survey{
             mas_desc:mas_d
         });
     }
-    static async showResult(req,res,next){
-
-        if(req.session.admin){
-            let mas_n=[];
-            let mas_d=[];
-            let survey = await surveytemplateModel.find();
-            for(let i=0;i<survey.length;i++){
-                if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
-                    mas_n=[...mas_n,survey[i].name];
-                    mas_d=[...mas_d,survey[i].description];
-                }
-            }
-            res.render('AllSurveyForAdmin.html', {
-                mas_name:mas_n,
-                mas_desc:mas_d
-            });
-        }
-        else{
-           res.end('error')
-        }
-    }
-    static async getSurvey(req, res, next) {
-        if(req.session.admin){
-   
-            let survey =  await surveytemplateModel.findOne({'name':req.params.name});
-        res.render('SurveyForAdmin.html', {
-            result: survey.result,
-            question: survey.data.question
-        });
-    }
-    else{
-        res.end('error')
-    }
-    }
-    static async regAnnotation(req, res, next) {
-        try{
-        if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-            let survey = await surveytemplateModel.findOne({'name':req.params.name})
-            survey.annotation={text:req.body.text_an,file:req.file.filename}
-            survey.save();
-            for(let i=0;i<survey.accessLVL.length;i++){
-                let account = await stakeholderModel.findOne({login:survey.accessLVL[i]});
-                let content = {name:survey.name};
-                send(account, 4 , content);
-            }
-            res.render('SurveyForAdmin.html', {
-                result: survey.result,
-                question: survey.data.question,
-                response:'Аннотация добавлена'
-            });
-        }
-        else
-            {   
-                delFile(req.file.filename);
-                res.render('SurveyForAdmin.html', {
-                    result: survey.result,
-                    question: survey.data.question,
-                    response:'Ошибка'
-                });
-            }
-        }
-        catch(e){
-            res.end('error')
-        }
-    }
 
 }
 
 router.get('/', Survey.show);
 router.get('/name:name', Survey.getPage);
 router.post('/name:name/reg', Survey.reg);
-router.get('/admin', Survey.showResult);
-router.get('/admin/:name', Survey.getSurvey);
-router.post('/admin/:name',upload.single('file_an'), Survey.regAnnotation);
 
 
 module.exports.router = router;

@@ -20,7 +20,9 @@
               <a href={{item}}>{{item}}</a> , 
               {% endfor %}
           </p>
-          <p>Согласовали: {{agreement}}</p>
+          <p>Согласовали: {% for agr in agreement %}
+            {{agr.login}}(время:{{agr.data}})<br>
+            {% endfor %}</p>
       </div>
       <br>
       <div class="container update">

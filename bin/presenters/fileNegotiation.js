@@ -48,7 +48,7 @@ class Negotiation{
         try{
             let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
             if (fileN.agreement.indexOf(req.session.stakeholderModel.login)<0)
-            fileN.agreement=[...fileN.agreement,req.session.stakeholderModel.login]
+            fileN.agreement=[...fileN.agreement,{login: req.session.stakeholderModel.login, data: Date.now().toString()}]
             await fileN.save();
             let file = await fileNegotiationModel.find();
             let mas = [];

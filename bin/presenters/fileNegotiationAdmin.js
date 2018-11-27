@@ -42,7 +42,6 @@ class Negotiation{
                 }
             }
             catch(e){
-                console.log(e)
                 res.end('error')
             }
     }
@@ -64,6 +63,11 @@ class Negotiation{
     static async getfile(req, res, next){
         try{
         let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        if(fileN.agreement){
+            for(let i=0;i<fileN.agreement.length;i++){
+                fileN.agreement[i].data=(new Date(fileN.agreement[i].data)).toString()
+            }
+        }
         res.render('fileNegotiationForAdmin.html', {
             name: fileN.name,
             description: fileN.description,
