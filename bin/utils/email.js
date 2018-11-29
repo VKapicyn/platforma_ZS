@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const locationOrigin = 'http://localhost:3000';
-const mail='goshanprodota@yandex.ru';
+const mail='email';
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     host: 'smtp.yandex.ru',
@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
     secure: true, // true for 465, false for other ports
     auth: {
         user: mail, 
-        pass: 'goshan334' 
+        pass: 'pass' 
     }
 });
 
