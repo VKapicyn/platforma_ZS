@@ -17,6 +17,12 @@
             <a href={{'/survey/name'+name}}>{{name}} ({{mas_desc.shift()}})</a>
             <br>
             {% endfor %}
+        <h1>Результаты опросов:</h1>
+            {% for name in res_name %}
+            <a href={{'/survey/name'+name}}>{{name}} ({{res_desc.shift()}})</a>
+            <br>
+            {% endfor %}
+           
 
     </div>
 

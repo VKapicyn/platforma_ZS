@@ -11,45 +11,51 @@ class Survey{
             let log;
             let lvl;
             let acc = 0;
-            let date = 1;
-            let andate;
             if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
             if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
                 for (let j=0;j<survey.result.length;j++){
                 if(survey.result[j].login == log){
                     acc++;
-                    date=survey.result[j].date;
                 }
             
             }
-            date=Number(new Date(Number(date)))
-            if(survey.annotation) andate=survey.annotation.date
-            andate=Number(new Date(Number(andate)))
-            if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) || (andate > date)) {surveytemplate=survey}
-            else {{res.end('error');return;}}
-        }
-        catch(e) {surveytemplate = e;}
-        if(!surveytemplate.annotation){
-            res.render('Survey.html', {
-                description: surveytemplate.description,
-                name: surveytemplate.name,
-                question: surveytemplate.data.question,
-                answer: surveytemplate.data.answer
-            });
-        }
-        else{
-
+            if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) && survey.annotation)
+            {
+                surveytemplate=survey;
+                
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`
+                });
+                
             
-        res.render('Survey.html', {
-            description: surveytemplate.description,
-            name: surveytemplate.name,
-            question: surveytemplate.data.question,
-            answer: surveytemplate.data.answer,
-            annotation: surveytemplate.annotation.text,
-            file: `/file/${surveytemplate.annotation.file}`
-        });
-        
-    }
+            }
+            else if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) && !survey.annotation){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer
+                });
+            }
+            else if(survey.accessLVL == lvl && acc > 0 && survey.annotation){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`
+                });
+            }
+            else{res.end('error');return;}
+        }
+        catch(e) {console.log(e)}
+       
     }
     static async reg(req,res,next){
         let err='успешно';
@@ -62,21 +68,15 @@ class Survey{
             let log;
             let lvl;
             let acc = 0;
-            let date = 1;
-            let andate;
             if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
             if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
                 for (let j=0;j<survey.result.length;j++){
                 if(survey.result[j].login == log){
                     acc++;
-                    date=survey.result[j].date;
                 }
             
             }
-            date=Number(new Date(Number(date)))
-            if(survey.annotation) andate=survey.annotation.date
-            andate=Number(new Date(Number(andate)))
-            if(!((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) || (andate > date))){res.end('error');return;}
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1)){res.end('error');return;}
             else{
                 let obj={}
                 obj.answer=req.body.answer;
@@ -97,9 +97,9 @@ class Survey{
         let log;
         let mas_n=[];
         let mas_d=[];
+        let mas_nr=[];
+        let mas_dr=[];
         let acc = [];
-        let date = [];
-        let andate =[];
         if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
         if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
         let survey = await surveytemplateModel.find({accessLVL:lvl});
@@ -108,21 +108,29 @@ class Survey{
             for (let j=0;j<survey[i].result.length;j++){
             if(survey[i].result[j].login == log){
                 acc[i]=1; 
-                date[i]=Number(new Date(Number(survey[i].result[j].date)))
             }
-            if(survey[i].annotation) andate[i]=Number(new Date(Number(survey[i].annotation.date)))
         }
         }
         for(let i=0;i<survey.length;i++){
-            if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1) || (andate[i] > date[i])){
+            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && survey[i].annotation){
                 
                 mas_n=[...mas_n,survey[i].name];
                 mas_d=[...mas_d,survey[i].description];
             }
+            else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && !survey[i].annotation){
+                mas_n=[...mas_n,survey[i].name];
+                mas_d=[...mas_d,survey[i].description];
+            }
+            else if(survey[i].accessLVL == lvl && acc[i] > 0 && survey[i].annotation){
+                mas_nr=[...mas_nr,survey[i].name];
+                mas_dr=[...mas_dr,survey[i].description];
+            }
         }
         res.render('AllSurvey.html', {
             mas_name:mas_n,
-            mas_desc:mas_d
+            mas_desc:mas_d,
+            res_name:mas_nr,
+            res_desc:mas_dr,
         });
     }
 
