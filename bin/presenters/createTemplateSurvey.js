@@ -32,11 +32,10 @@ class CreateSurvey{
                 description: req.body.description
             });
             form.save();
-            for(let i=0;i<req.body.accessLVL.length;i++){
-                let account = await stakeholderModel.findOne({login:req.body.accessLVL[i]});
+            let st= await stakeholderModel.find();
                 let content = {name:req.body.name};
-                //send(account, 3 , content);
-            }
+                for (let i=0; i<st.length; i++)
+                send(st[i], 4 , content);
         } catch (e) {
             console.log(e)
         }
@@ -75,11 +74,11 @@ class CreateSurvey{
             let survey = await surveytemplateModel.findOne({'name':req.params.name})
             survey.annotation={text:req.body.text_an,file:req.file.filename,date:Date.now().toString()}
             survey.save();
-            for(let i=0;i<survey.accessLVL.length;i++){
-                let account = await stakeholderModel.findOne({login:survey.accessLVL[i]});
+                let st= await stakeholderModel.find();
                 let content = {name:survey.name};
-                //send(account, 4 , content);
-            }
+                for (let i=0; i<st.length; i++)
+                send(st[i], 4 , content);
+            
             res.render('SurveyForAdmin.html', {
                 result: survey.result,
                 question: survey.data.question,
