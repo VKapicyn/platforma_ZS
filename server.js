@@ -67,6 +67,8 @@ app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 app.use('/fileNegotiation/admin',require('./bin/presenters/fileNegotiationAdmin.js').router);
 app.use('/fileNegotiation/',require('./bin/presenters/fileNegotiation.js').router)
 
+app.use('/search',require('./bin/presenters/search.js').router)
+
 //Models (API)
 app.use('/api/v1/user', require('./bin/models/userModel').router);
 
