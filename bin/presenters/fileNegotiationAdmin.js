@@ -26,7 +26,8 @@ class Negotiation{
                     description: req.body.description,
                     file: req.file.filename,
                     access: req.body.access,
-                    comment: req.body.comment,
+                    firstDate: req.body.firstDate,
+                    lastDate: req.body.lastDate
                 });
                 file.save();
                 let stakeholders = await stakeholderModel.find()
@@ -74,6 +75,8 @@ class Negotiation{
             file: `/file/${fileN.file}`,
             access: fileN.access,
             agreement: fileN.agreement,
+            firstDate: fileN.firstDate,
+            lastDate: fileN.lastDate
         });
     }
     catch(e){
@@ -89,6 +92,8 @@ class Negotiation{
             file: `/file/${fileN.file}`,
             access: fileN.access[req.params.login],
             agreement: fileN.agreement,
+            firstDate: fileN.firstDate,
+            lastDate: fileN.lastDate,
             dialog: fileN.account.filter(item=>{if(item.user == req.params.login || item.sender == req.params.login) return true})
         });
     }
@@ -108,6 +113,8 @@ class Negotiation{
             name: fileN.name,
             description: fileN.description,
             file: `/file/${fileN.file}`,
+            firstDate: fileN.firstDate,
+            lastDate: fileN.lastDate,
             dialog: fileN.account.filter(item=>{if(item.user == req.params.login || item.sender == req.params.login) return true})
         });
         
@@ -130,6 +137,8 @@ class Negotiation{
                 file: `/file/${fileN.file}`,
                 account: fileN.account,
                 agreement: fileN.agreement,
+                firstDate: fileN.firstDate,
+                lastDate: fileN.lastDate,
                 response: 'Успешно'
             });
         }
@@ -145,6 +154,8 @@ class Negotiation{
                         file: `/file/${fileN.file}`,
                         account: fileN.account,
                         agreement: fileN.agreement,
+                        firstDate: fileN.firstDate,
+                        lastDate: fileN.lastDate,
                         response: 'Успешно'
                     });
                 }
@@ -159,6 +170,8 @@ class Negotiation{
                         file: `/file/${fileN.file}`,
                         account: fileN.account,
                         agreement: fileN.agreement,
+                        firstDate: fileN.firstDate,
+                        lastDate: fileN.lastDate,
                         response: 'Успешно'
                     });
     }

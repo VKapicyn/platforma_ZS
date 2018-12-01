@@ -9,7 +9,8 @@ let fileNegotiationSchema = mongoose.Schema({
     access: Array,
     account: Array,
     agreement: Array,
-    comment: String
+    firstDate: Date, 
+    lastDate: Date
 });
 
 let fileNegotiationModel = mongoose.model('fileNegotiation', fileNegotiationSchema);

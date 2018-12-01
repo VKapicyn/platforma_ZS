@@ -99,10 +99,10 @@ class PublicReport {
 router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
-router.post('/new',upload.single('pdf'),PublicReport.newReport);
-router.get('/new',PublicReport.newReportGetPage);
-router.get('/update/:id',PublicReport.updateReportPage);
-router.post('/update/:id',upload.single('pdf'),PublicReport.updateReport);
+router.post('/new',adminModel.isAdminLogged,upload.single('pdf'),PublicReport.newReport);
+router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
+router.get('/update/:id',adminModel.isAdminLogged,PublicReport.updateReportPage);
+router.post('/update/:id',adminModel.isAdminLogged,upload.single('pdf'),PublicReport.updateReport);
 //  router.post('/createreport',PublicReport.createReport);
 //
 module.exports.router = router;

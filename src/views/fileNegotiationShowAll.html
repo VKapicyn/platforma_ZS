@@ -14,6 +14,7 @@
       <div class="container main">
           <h1>{{item.name}}</h1>
           <h3>{{item.description}}</h3>
+          <h4>{{item.firstDate}} - {{item.lastDate}}</h4>
           <p><a href={{ '/file/'+item.file }}>скачать файл</a></p>
           <p>Диалог с админом: <br>
             {% for d in item.account %}

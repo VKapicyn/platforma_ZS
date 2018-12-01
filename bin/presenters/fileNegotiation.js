@@ -28,7 +28,7 @@ class Negotiation{
             let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
             let obj={user: 'admin', date: Date.now().toString(), sender: req.session.stakeholderModel.login, text: req.body.dialog};
             fileN.account=[...fileN.account,obj];
-            await fileN.save();
+            if(fileN.firstDate<=new Date() && fileN.lastDate>=new Date()) await fileN.save();
             let file = await fileNegotiationModel.find();
             let mas = [];
             for (let i=0;i<file.length;i++){
