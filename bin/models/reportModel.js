@@ -10,7 +10,10 @@ let reportSchema = mongoose.Schema({
     creatingDate: Date,
     index: Number,
     pdfSrc: String,
-    imgSrc: String
+    pdfEngSrc: String,
+    imgSrc: String,
+    standarts: String,
+    revards: String
 });
 
 reportSchema.statics = {

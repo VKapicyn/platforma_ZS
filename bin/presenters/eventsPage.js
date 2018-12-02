@@ -9,9 +9,9 @@ const send = require('./../utils/email').Send;
 
 class Events {
     static getPage(req, res, next) {
-        if (req.session.admin) var param ="admin"
+        
         res.render('mainPage.html', {
-            admin: param
+            admin: 'admin'
         });
     }
     static async getPageByEventId(req, res, next) {
@@ -51,7 +51,7 @@ class Events {
                     event.invites = JSON.stringify(items);
                     results.map(async function(sh){
                         await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                            { $push: { events:  {eventId: event._id}} }) ; 
+                            { $pusgih: { events:  {eventId: event._id}} }) ; 
                         send(sh,2,event);
                     });
                 }

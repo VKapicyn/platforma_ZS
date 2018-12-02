@@ -3,6 +3,7 @@ const router = express.Router();
 const adminModel = require('../models/adminModel').adminModel;
 const toHash = require('md5');
 const shModel = require('../models/stakeholderModel').stakeholderModel;
+const Json2csvParser = require ( 'json2csv' ) . Parser ;
 class Lk {
     static async getPage(req, res, next) {
         if (req.session.admin) {
@@ -19,6 +20,51 @@ class Lk {
         else res.render('mainPage.html', {
             parametr: 'Я страница личного кабинета',
         });
+    }
+    static async getCsv(req,res,next){
+        let sh = await shModel.find({state: '1'},(err) =>{
+            console.log(err);
+        });
+        let fields = [{
+                        label:'Имя',
+                        value:'firstname'
+                    },
+                    {
+                        label:'Фамилия',
+                        value: 'lastname'
+                    },
+                    {
+                        label:'Отчество',
+                        value: 'patronymic'
+                    },
+                    {
+                        label:'Организация',
+                        value: 'organization'
+                    },
+                    {
+                        label:'Интересы',
+                        value:'interest'
+                    },
+                    {
+                        label:'Контактная иформация',
+                        value:'contact_information'
+                    },
+                    {
+                        label:'Адрес',
+                        value:'address'
+                    },
+                    {
+                        label:'Соц. сети',
+                        value:'social_network'
+                    }];
+        // let fieldsname=['Имя','Фамилия','Отчество','Организация','Интересы','Контактная иформация','Адрес','Соц. сети'];
+        let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+        const csv = json2csvParser.parse( sh ) ; 
+        console.log(csv);
+        res.set('Content-Type', 'application/octet-stream');
+        res.attachment('shRegistration.csv');
+        res.status(200).send(csv);  
+       
     }
     static  confirmSH(req,res,next){
         console.log(req.query.agree);
@@ -50,6 +96,7 @@ class Lk {
 //Роутинг внутри страницы
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
-router.get('/:id',adminModel.isAdminLogged,Lk.confirmSH);
+router.get('/confirm/:id',adminModel.isAdminLogged,Lk.confirmSH);
+router.get('/csv',adminModel.isAdminLogged,Lk.getCsv);
 
 module.exports.router = router;
