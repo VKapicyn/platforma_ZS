@@ -15,9 +15,10 @@ class RegUser{
 
         try {
             let account = new userModel({
-                'login': req.body.login,
+                'login': req.body.login +'6',
                 'password': toHash(req.body.password),
-                'email': req.body.email
+                'email': req.body.email,
+                'key': toHash(req.body.login+Date.now().toString())
             });
             account.save();
         } catch (e) {

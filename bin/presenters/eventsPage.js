@@ -3,6 +3,8 @@ const router = express.Router();
 const eventModel = require('../models/eventModel').eventModel;
 const adminModel = require('../models/adminModel').adminModel;
 const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+const userModel = require('../models/userModel').userModel;
+const send = require('./../utils/email').Send;
 
 
 class Events {
@@ -28,31 +30,34 @@ class Events {
     }
     static async createNewEvent(req, res, next){
         try {
-            if(req.body.send){
-                var results = await stakeholderModel.find();
-            }
-            var items = [];
-            results.forEach(i => {
-                items.push(i._id);
-            });
-            
             let now = new Date();
             let event = new eventModel({
-                'name': req.body.name,
-                'description': req.body.description,
-                'eventDate': req.body.date,
-                'creatingDate': now,
-                'status': '1',
-                'address': req.body.address,
-                'invites':JSON.stringify(items)
+                name: req.body.name,
+                description: req.body.description,
+                eventDate: req.body.date,
+                creatingDate: now,
+                status: '1',
+                address: req.body.address,
+                invites: ''
             })
             if (event){
-                items.map(async function(id){
-                await stakeholderModel.findOneAndUpdate({_id: id},  
-                    { $push: { events:  {'eventId': event._id, 'readyToGo': false}} }) ; 
-            })
+                if(req.body.send){
+                    let results = await stakeholderModel.find();
+                    const items = [];
+                    results.forEach(i => {
+                        items.push(i._id);
+
+                    });
+                    event.invites = JSON.stringify(items);
+                    results.map(async function(sh){
+                        await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                            { $push: { events:  {eventId: event._id}} }) ; 
+                        send(sh,2,event);
+                    });
+                }
             event.save();
-            res.json(JSON.stringify(event));
+        
+            res.redirect('/events');
             }
         } catch (e) {
         }

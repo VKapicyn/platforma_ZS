@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');//require('./../../server').mongoose;
 
 let userSchema = mongoose.Schema({
-    login: {type: String, unique: true},
+    login: String,
     password: String, // захешировать в MD5
     email: String
 });
@@ -31,11 +31,6 @@ userSchema.statics = {
         let user = await userModel.findById(req.body.id);
         user.remove();
         res.json(`${req.body.id} - удалён`);
-    },
-    isUserLogged: function (req, res, next) {
-        if(req.session.userModel){
-            return next()
-        }
     }
 }
 

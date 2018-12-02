@@ -20,7 +20,7 @@ class PublicReport {
     static newReport(req,res,next){
         try {
             console.log(req.body);
-            if (path.extname(req.file.originalname) == '.pdf'){
+            // if (path.extname(req.file.originalname) == '.pdf'){
                 console.log('done');
                 let report = new reportModel({
                     'name': req.body.name,
@@ -29,17 +29,17 @@ class PublicReport {
                 });
                 report.save();
                 res.redirect('/publicreport/id/'+report._id);
-            }
-            else
-            {   console.log('wrong');
-                gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-                    if (err) {
-                      return res.status(404).json({ err: err });
-                    }
+            // }
+            // else
+            // {   console.log('wrong');
+            //     gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+            //         if (err) {
+            //           return res.status(404).json({ err: err });
+            //         }
                 
-                    res.redirect('/');
-                });
-            }
+            //         res.redirect('/');
+            //     });
+            // }
         } catch (e) {
         }
     }
