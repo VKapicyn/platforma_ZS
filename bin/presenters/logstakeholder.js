@@ -9,11 +9,26 @@ class Auth {
     }
 
     static async login(req,res,next){
-        let account = await stakeholderModel.findOne({login: req.body.login})
-        if (account.password == toHash(req.body.password)){   
-            req.session.stakeholderModel = {id: account._id, login: account.login}
-            req.session.save()
-            res.end()
+        let account = await userModel.findOne({login: req.body.login})
+        if (account.password == toHash(req.body.password)){  
+        
+            switch(account.tyoeOfUser){
+                case ('user'):
+                    req.session.user = {id: account._id, login: account.login};
+                    req.session.save();
+                    res.end();
+                break;
+                case ('stakeholder'):
+                    req.session.stakeholder = {id: account._id, login: account.login};
+                    req.session.save();
+                    res.end();
+                break;
+                case ('admin'):
+                    req.session.admin = {id: account._id, login: account.login};
+                    req.session.save();
+                    res.end();
+                break;
+            }
         }
         else { 
             //инфа об ошибке ?

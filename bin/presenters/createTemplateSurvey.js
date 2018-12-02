@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
+const send = require('./../utils/email').Send;
+const userModel = require('../models/userModel').userModel;
 
 class CreateSurvey{
     static getPage(req, res, next) {
@@ -13,7 +15,7 @@ class CreateSurvey{
         }
         else{
         try {
-            if(await surveytemplateModel.findOne({'name':req.body.name}) != null) {err='это имя занято'};
+            if(await surveytemplateModel.findOne({name:req.body.name}) != null) {err='это имя занято'};
             let form = new surveytemplateModel({
                 name: req.body.name,
                 firstDate: req.body.firstDate,
@@ -23,6 +25,8 @@ class CreateSurvey{
                 description: req.body.description
             });
             form.save();
+            console.log((form.accessLVL))
+                
         } catch (e) {
             console.log(e)
         }

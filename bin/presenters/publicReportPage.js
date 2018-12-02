@@ -29,9 +29,15 @@ class PublicReport {
     }
     static newReport(req,res,next){
         try {
+<<<<<<< HEAD
             // console.log(req.files.pdf.length);
             if ((req.files.pdf[0].contentType == 'application/pdf')&&((req.files.img[0].contentType== 'image/png')||(req.files.img[0].contentType== 'image/png'))){
                 
+=======
+            console.log(req.body);
+            // if (path.extname(req.file.originalname) == '.pdf'){
+                console.log('done');
+>>>>>>> origin/email
                 let report = new reportModel({
                     name: req.body.name,
                     description: req.body.description,
@@ -41,6 +47,7 @@ class PublicReport {
                 });
                 report.save();
                 res.redirect('/publicreport/id/'+report._id);
+<<<<<<< HEAD
             }
             else
             {   
@@ -51,6 +58,19 @@ class PublicReport {
             }
                 
             
+=======
+            // }
+            // else
+            // {   console.log('wrong');
+            //     gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+            //         if (err) {
+            //           return res.status(404).json({ err: err });
+            //         }
+                
+            //         res.redirect('/');
+            //     });
+            // }
+>>>>>>> origin/email
         } catch (e) {
         }
     }

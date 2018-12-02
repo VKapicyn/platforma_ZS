@@ -23,7 +23,6 @@ adminShema.statics = {
         res.json('обновил');
     },
     isAdminLogged: function (req, res, next) {
-        console.log(req.session.admin);
         if(req.session.admin){
             return next()
         }
