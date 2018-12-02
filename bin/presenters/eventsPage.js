@@ -7,9 +7,9 @@ const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 
 class Events {
     static getPage(req, res, next) {
-        if (req.session.admin) var param ="admin"
+        
         res.render('mainPage.html', {
-            admin: param
+            admin: 'admin'
         });
     }
     static async getPageByEventId(req, res, next) {
@@ -49,7 +49,7 @@ class Events {
             if (event){
                 items.map(async function(id){
                 await stakeholderModel.findOneAndUpdate({_id: id},  
-                    { $push: { events:  {eventId: event._id, readyToGo: false}} }) ; 
+                    { $push: { events:  {eventId: event._id, readyToGo: 0}} }) ; 
             })
             event.save();
             res.json(JSON.stringify(event));

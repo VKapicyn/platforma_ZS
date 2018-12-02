@@ -37,7 +37,10 @@ class PublicReport {
                     description: req.body.description,
                     creatingDate: new Date(),
                     pdfSrc: req.files.pdf[0].filename ,
-                    imgSrc: req.files.img[0].filename
+                    pdfEngSrc:req.files.pdfEng[0].filename,
+                    imgSrc: req.files.img[0].filename,
+                    revards: req.body.revards,
+                    standarts: req.body.standarts
                 });
                 report.save();
                 res.redirect('/publicreport/id/'+report._id);
@@ -46,7 +49,7 @@ class PublicReport {
             {   
                 delFile(req.files.pdf[0].filename);
                 delFile(req.files.img[0].filename);
-                
+                delFile(req.files.pdfEng[0].filename);
                 res.redirect('/');
             }
                 
@@ -63,6 +66,7 @@ class PublicReport {
         res.render('reportPageItem.html', {
             parametr: report,
             download_url: `/file/${report.pdfSrc}`,
+            downloadEng: `/file/${report.pdfEngSrc}`,
             img_url: `/file/${report.imgSrc}`
         });
     }
@@ -78,7 +82,7 @@ class PublicReport {
 router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
-router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
+router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
 router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
 //  router.post('/createreport',PublicReport.createReport);
 //

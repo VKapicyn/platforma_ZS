@@ -1,0 +1,18 @@
+{% extends "templates/pageTemplate.html" %}
+{% block content %}
+<form action="/feedback/send" method="POST" enctype="multipart/form-data"> 
+    <div class="form-group">
+        <label for="name">ФИО</label>
+        <input type="text" class="form-control" id="name" name="name"  placeholder="Введите ваше Фамилию,имя,отчество">
+    </div>
+    <div class="form-group">
+        <label for="mess">Текст сообщения</label>
+        <textarea class="form-control" id="mess"name="content" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="email">Ваш контактный e-mail</label>
+        <input type="email" class="form-control" id="email" name="email"  placeholder="Ваш email">
+    </div>
+    <button type="submit" onclick="send()" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}
