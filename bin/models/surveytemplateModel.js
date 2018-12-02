@@ -7,7 +7,6 @@ let surveytemplateSchema = mongoose.Schema({
     firstDate: Date, 
     lastDate: Date,
     data: Object,
-    annotation: String,
     accessLVL: String,
     result: Array,
     description: String,

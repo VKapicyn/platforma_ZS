@@ -5,6 +5,7 @@
 <head>
     {% block commonStyles %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/temp.css">
     {% endblock %}
     <title></title>
 </head>
@@ -13,34 +14,26 @@
 
 {% block navbar %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/main">НИАЭП</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg row header">
+    <a class="navbar-brand col-lg-2 col-sm-2" href="/main"><img src="/img/логотип1.png" width="90px" height="65px"></a>
+    
   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/registration">Регистрация</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/contacts">Контакты</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/feedback">Обратная связь</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/instruction">Инструкция пользователя платформы</a>
-        </li>
-        
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+    <div class="head-text col-lg-8 col-sm-6">
+           <img src="/img/флажек.jpg" align="left" class="img-flag">
+          <div>Интерактивная платформа взаимодействия<br>
+с заинтересованными сторонами Инжинирингового дивизиона Госкорпорации «Росатом»</div> 
+    </div>
+      
+    <div class="search col-lg-2 col-sm-3">
+            <a href="" class="chat"><img src="/img/обратная-связь.png" align="left" class="img-chat">
+            <div> Обратная связь</div> </a> 
+      <form action="/search" method="POST" class="form-search">
+        <input type="image" name="picture" src="/img/лупа.png" width="20px" height="20px">
+        <input class="input-search" type="search" placeholder="Поиск" aria-label="Search" name="search">
       </form>
     </div>
   </nav>
+  <hr>
 
 {% endblock %}
 {% block menu %}
@@ -89,13 +82,12 @@
 <!-- Footer -->
 <!-- ======================================================= -->
 {% block footer %}
-<div class="footer navbar-fixed-bottom bg-dark text-light">
-        <div class="container">
-                <div class="row ">
-                    <p class="pull-right">Copyright © 2019</p>
-                </div>
+<footer>
+        <div class="foot">
+               <p>Copyright 2013-2016 «Да-Стратегия»<br>
+Все права защищены. Использование материалов возможно только с разрешения администрации</p> 
         </div>
-</div>  
+    </footer>  
     {% if not currentUser %}{% endif %}
     {% block commonJS %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

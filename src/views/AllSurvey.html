@@ -14,9 +14,15 @@
     <div class="container name">
         <h1>Доступные опросы:</h1>
             {% for name in mas_name %}
-            <a href={{'name'+name}}>{{name}} ({{mas_desc.shift()}})</a>
+            <a href={{'/survey/name'+name}}>{{name}} ({{mas_desc.shift()}})</a>
             <br>
             {% endfor %}
+        <h1>Результаты опросов:</h1>
+            {% for name in res_name %}
+            <a href={{'/survey/name'+name}}>{{name}} ({{res_desc.shift()}})</a>
+            <br>
+            {% endfor %}
+           
 
     </div>
 

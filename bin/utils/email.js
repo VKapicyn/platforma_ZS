@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const locationOrigin = 'http://localhost:3000';
-const mail='info@i-fastrepair.ru';
-const ourmail=''
+const mail='email';
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     host: 'smtp.yandex.ru',
@@ -9,7 +8,7 @@ const transporter = nodemailer.createTransport({
     secure: true, // true for 465, false for other ports
     auth: {
         user: mail, 
-        pass: 'asdf12345' 
+        pass: 'pass' 
     }
 });
 
@@ -44,18 +43,19 @@ exports.Send = (receiver, contentType, content) => {
                 to: receiver.email,  // list of receivers
                 subject: 'Новый опрос ', // Subject line
                 text: 'Здравствуйте', // plain text body
-                html: '<b>Здраствуйте '+ receiver.login +'<br> Появился новый опрос'+ content.name+', перейдите по ссылке для просмотра </b>' // html body
+                html: '<b>Здравствуйте '+ receiver.login +'.<br> Появился новый опрос '+ content.name+'</b>' // html body
             };
             break;
         case 4: //survey anotation
             mailOptions = {
                 from: '"no-reply" <'+mail+'>', // sender address
                 to: receiver.email,  // list of receivers
-                subject: 'Hello ', // Subject line
-                text: 'Hello world?', // plain text body
-                html: '<b>Hello world?</b>' // html body
+                subject: 'Добавлена аннотация к опросу', // Subject line
+                text: 'Здравствуйте', // plain text body
+                html: '<b>Здравствуйте '+ receiver.login +'.<br> Обратите внимание на опрос '+ content.name+'</b>' // html body
             };
             break;
+            
         case 'feed':
             mailOptions = {
                 from: '"feedback" <'+mail+'>', // sender address
@@ -64,7 +64,7 @@ exports.Send = (receiver, contentType, content) => {
                 text: 'Сообщение', // plain text body
                 html: '<b>Вам пришло сообщение от '+content.name+'<br> '+content.content+'<br>Вы можете связаться с ним через '+content.email+'</b>' // html body
             };
-
+            break;
             
     }
     

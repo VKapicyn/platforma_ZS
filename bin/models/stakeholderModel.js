@@ -14,10 +14,10 @@ let stakeholderSchema = mongoose.Schema({
     history: String,
     contact_information: String,
     address: String,
-    social_network: String,
     consent: Boolean,
     key: String,
     group: String,
+    email: String,
     events: [{
         _id: false,
         eventId : String,

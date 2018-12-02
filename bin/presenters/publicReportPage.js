@@ -5,9 +5,8 @@ const adminModel = require('../models/adminModel').adminModel;
 const multer  = require('multer');
 const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
-const delFile = require('./../utils/uploader').Delete;
 const storage = newStorage();
-const PDFImage = require("pdf-image").PDFImage;
+const delFile = require('../utils/uploader').Delete;
 const upload = multer({ storage });
 // const upload = multer({ dest: 'uploads/' });
 
@@ -71,6 +70,37 @@ class PublicReport {
         res.render('newReport.html', {
         });
     }
+    static async updateReport(req,res,next){
+        try{
+            if (path.extname(req.file.originalname) == '.pdf'){
+            let report =  await reportModel.findById(req.params.id);
+            delFile(report.src);
+            report.src=req.file.filename;
+            report.description=req.body.description;
+            report.save();
+            res.redirect('/publicreport/id/'+report._id);
+        }
+        else{
+            delFile(req.file.filename);
+                    res.end('error')
+        }
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+    static async updateReportPage(req,res,next){
+        try{
+        let report =  await reportModel.findById(req.params.id);
+        res.render('reportPageupdate.html', {
+            name: report.name
+        });
+        }
+        catch(e){
+            res.end('error');
+            console.log(e)
+        }
+    }
 
 }
 
@@ -80,6 +110,8 @@ router.get('/', PublicReport.getPage);
 router.get('/id/:id',PublicReport.getPageByReportId);
 router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
 router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
+router.get('/update/:id',adminModel.isAdminLogged,PublicReport.updateReportPage);
+router.post('/update/:id',adminModel.isAdminLogged,upload.single('pdf'),PublicReport.updateReport);
 //  router.post('/createreport',PublicReport.createReport);
 //
 module.exports.router = router;
