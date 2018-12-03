@@ -76,21 +76,28 @@ class PublicReport {
     }
     static async updateReport(req,res,next){
         try{
-            if (path.extname(req.file.originalname) == '.pdf'){
             let report =  await reportModel.findById(req.params.id);
-            delFile(report.src);
-            report.src=req.file.filename;
-            report.description=req.body.description;
+            if(req.files.pdf && req.files.pdf[0].contentType == 'application/pdf'){
+                delFile(report.pdfSrc);
+                report.pdfSrc = req.files.pdf[0].filename;
+            }
+            if(req.files.pdfEng && req.files.pdfEng[0].contentType == 'application/pdf'){
+                delFile(report.pdfEngSrc);
+                report.pdfEngSrc = req.files.pdfEng[0].filename;
+            }
+            if(req.files.img && req.files.img[0].contentType == 'image/png'){
+                delFile(report.imgSrc);
+                report.imgSrc = req.files.img[0].filename;
+            }
+            if(req.body.description) report.description=req.body.description;
+            if(req.body.revards) report.revards=req.body.revards;
+            if(req.body.standarts) report.standarts=req.body.standarts;
             report.save();
             res.redirect('/publicreport/id/'+report._id);
         }
-        else{
-            delFile(req.file.filename);
-                    res.end('error')
-        }
-        }
         catch(e){
-            console.log(e)
+            console.log(e);
+            res.end('error')
         }
     }
     static async updateReportPage(req,res,next){
@@ -113,9 +120,9 @@ router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
 router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
-router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
-router.get('/update/:id',adminModel.isAdminLogged,PublicReport.updateReportPage);
-router.post('/update/:id',adminModel.isAdminLogged,upload.single('pdf'),PublicReport.updateReport);
+router.get('/new',PublicReport.newReportGetPage);
+router.get('/update/:id',PublicReport.updateReportPage);
+router.post('/update/:id',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.updateReport);
 //  router.post('/createreport',PublicReport.createReport);
-//
+//adminModel.isAdminLogged,
 module.exports.router = router;
