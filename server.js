@@ -52,6 +52,8 @@ app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 //app.use('/publicref', require('./bin/presenters/publicRefPage').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
+app.use('/', require('./bin/presenters/toMain.js').router)
+
 app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
 app.use('/loginUser', require('./bin/presenters/logUser').router)
 
