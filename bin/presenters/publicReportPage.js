@@ -119,10 +119,10 @@ class PublicReport {
 router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
-router.post('/new',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
-router.get('/new',PublicReport.newReportGetPage);
-router.get('/update/:id',PublicReport.updateReportPage);
-router.post('/update/:id',upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.updateReport);
+router.post('/new',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
+router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
+router.get('/update/:id',adminModel.isAdminLogged,PublicReport.updateReportPage);
+router.post('/update/:id',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.updateReport);
 //  router.post('/createreport',PublicReport.createReport);
 //adminModel.isAdminLogged,
 module.exports.router = router;
