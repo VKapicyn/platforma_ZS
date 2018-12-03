@@ -61,7 +61,7 @@ app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeh
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 app.use('/createsurvey',require('./bin/models/adminModel.js').adminModel.isAdminLogged,require('./bin/presenters/createTemplateSurvey.js').router)
-app.use('/survey',require('./bin/presenters/Survey.js').router)
+app.use('/survey',require('./bin/presenters/survey.js').router)
 app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
 //app.use('/login',require('./bin/presenters/logPage').router);
 app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);

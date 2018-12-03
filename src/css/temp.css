@@ -19,6 +19,9 @@
     
     }
 
+* {
+    font-family: "Regular";
+}
 
 nav.header{
     height: 15vh;
@@ -88,4 +91,78 @@ footer{
 .foot{
     margin-top: 10px;
     margin-left: 5%;
+}
+
+.right-delimiter {
+    border-right: 1px solid #929292;
+}
+
+.left-delimiter {
+    border-left: 1px solid #929292;
+}
+
+.colums > div {
+    padding: 0 40px 0 40px;
+}
+
+#surveys {
+    padding-right: 10px;
+}
+
+.surveys-list {
+    overflow: auto;
+}
+
+#surveys .surveys-list .row a {
+    display: inline-block;
+    line-height: 16px;
+    color: #929292;
+}
+
+#surveys .surveys-list .row a .annotation {
+    font-size: 12px;
+}
+
+.surveys-list > .row {
+    margin-bottom: 1rem;
+}
+
+.block-title {
+    font-size: 15pt;
+    font-weight: 600;
+
+    margin-bottom: 1rem;
+}
+
+.block-title img {
+    height: 23px;
+}
+
+#surveys-results .block-title img,
+#documents .block-title img {
+    height: 19px;
+}
+
+.document .title {
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.document .download-pdf {
+    font-size: 10pt;
+    line-height: 30px;
+}
+
+.document .description {
+    font-size: 10pt;
+    line-height: 15px;
+
+    color: #929292;
+}
+
+.document .comments .field {
+    background-color: #f9f9f9;
+    border: 2px solid #e7e7e7;
+    border-left: none;
+    border-right: none;
 }

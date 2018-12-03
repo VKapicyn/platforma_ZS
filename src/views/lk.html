@@ -1,14 +1,118 @@
 {% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
-<h1>{{ parametr }}</h1>
+
+<div class="container-fluid">
+        <div class="colums row">
+                <div id="surveys" class="col right-delimiter">
+                        <div id="active-surveys" class="row">
+                                <div class="surveys-list col-12">
+                                        <div class="block-title">
+                                                <img src="/img/lk/flag.png" alt="flag">
+                                                Активные опросы
+                                        </div>
+                                        
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <div id="surveys-results" class="row">
+                                <div class="surveys-list col-12">
+                                        <div class="block-title">
+                                                <img src="/img/lk/check.png" alt="check">
+                                                Результаты опросов
+                                        </div>
+                                        
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div id="documents" class="col-4 right-delimiter left-delimiter">
+                        <div class="block-title">
+                                <img src="/img/lk/documents.png" alt="documents">
+                                Документы на обсуждение
+                        </div>
+
+                        <div class="document row">
+                                <div class="col-12">
+                                        <div class="title">
+                                                <span class="name">Документ 1</span>
+                                                <a class="download-pdf float-right" href="#">Скачать pdf</a>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Годовой отчет Группы компаний ASE - Инжинирингового дивизиона Госкорпорации «Росатом» за 2016 год
+                                        </p>
+
+                                        <div class="comments">
+                                                <h6>Комментарии</h6>
+
+                                                <div class="field">
+                                                        <div class="members">
+                                                                <span class="sh">Стейкхолдер</span>
+                                                                <span class="admin float-right">Администратор</span>
+                                                        </div>
+                                                        <div class="comment left">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                        <div class="comment right">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                </div>
+
+                                                <form>
+                                                        <input class="form-control" type="text" placeholder="Напишите сообщение и нажмите Enter">
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="col right-delimiter left-delimiter "></div>
+                <div class="col"></div>
+        </div>
+</div>
+
+<!-- <h1>{{ parametr }}</h1>
 <form action="/lk" method="POST"> 
         <div class="form-group">
             <label for="eventName">Новый пароль</label>
             <input type="text" class="form-control" id="eventName" name="password" placeholder="">
         </div>
         <button type="submit" onclick="send()">Submit</button>
-</form>
+</form> -->
 
  {% if admin %}
  {% for sh in sHolder %}
