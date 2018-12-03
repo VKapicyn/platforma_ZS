@@ -1,0 +1,28 @@
+
+@font-face{
+    font-family: 'Regular';
+    src: url('/font/PTSans-Regular.ttf');
+    src: url('/font/PTSans-Regular.ttf?iefix') format('eot'),
+    url('/font/PTSans-Regular.ttf') format('woff'),
+    url('/font/PTSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+        
+        }
+
+.menu{
+    height: 5vh;
+    width: 90vw;
+    margin-left: 5vw;
+    font-family: 'Regular';
+    font-size: 1.3em;
+    color:rgb(0, 0, 0)
+}
+hr{
+    border: 0;
+    border-bottom: 3px solid rgb(205,205,205);
+}
+a:hover,a{
+    color:rgb(31, 58, 106);
+    text-decoration: none; 
+}

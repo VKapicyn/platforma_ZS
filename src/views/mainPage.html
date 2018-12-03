@@ -1,5 +1,17 @@
+
 {% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
-        <h1>{{ parametr }}</h1>
+<link rel="stylesheet" href="/css/main.css">
+<div class="menu row">
+        <a class="col-xl-1 d-none d-xl-block"></a>
+        <a class="col-xl-3 col-sm-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
+        <a class="col-xl-4 col-sm-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
+        <a class="col-xl-4 col-sm-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ ПЛАТФОРМЫ</a>
+
+</div>
+<div class="list">
+        
+</div>
+<hr>
 {% endblock %}

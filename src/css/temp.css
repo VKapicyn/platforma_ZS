@@ -32,7 +32,7 @@ nav.header{
    height: 34px;
 }
 .head-text{
-    font-family: Bold;
+    font-family: 'Bold';
     font-size: 1.1em;
     color:rgb(31, 58, 106)
 }
@@ -42,7 +42,7 @@ nav.header{
     margin-right: 5px;
 }
 .search{
-    font-family: Bold;
+    font-family: 'Regular';
     color:rgb(31, 58, 106);
 }
 a:hover,a{
@@ -53,10 +53,12 @@ a:hover,a{
     width: 115px;
     outline: none;
     border: 0px;
-    border-bottom: 2px solid rgb(205,205,205);
+    
 }
 .form-search{
+    width: 140px;
     margin-top: 15px;
+    border-bottom: 2px solid rgb(205,205,205);
 }
 .chat{
     border-bottom: 2px solid rgb(205,205,205);
@@ -74,7 +76,7 @@ body {
     margin-bottom: 70px;
 }
 footer{
-    font-family: Bold;
+    font-family: 'Regular';
     color:rgb(205,205,205);
     font-size: 0.8em;
     position: absolute;

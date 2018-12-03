@@ -36,42 +36,15 @@
   <hr>
 
 {% endblock %}
-{% block menu %}
-<nav class="nav nav-pills nav-fill center-block">
-        <a class="nav-link" href="/publicreport">Публичные отчеты</a>
-        <a class="nav-link" href="/publicquiz">Публичные опросы</a>
-        <a class="nav-link" href="/events">Мероприятия и материалы</a>
-        <a class="nav-link" href="/personsmap">Карта заинтересованных сторон</a>
-        <a class="nav-link" href="/lk">Личные кабинеты</a>
-        <a class="nav-link" href="/instruction">Инструкция пользователя платформы</a>
-</nav>
-{% endblock %}
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-                {% block leftbar %}
-                {% if not currentUser %}
-                <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                          <h5 class="card-title">Последнее мероприятие</h5>
-                          <p class="card-text">Описание</p>
-                    </div>
-                </div>
-                {% endif %}
-                {% endblock %}
-                
-        </div>
-        <div class="col-md-9">
+
 <!-- ======================================================================= -->
 <!-- Main content -->
 <!-- ======================================================================= -->
             {% block content %}
             {% endblock %}
-        </div>
-    </div>
-</div>
+      
 
 
 
