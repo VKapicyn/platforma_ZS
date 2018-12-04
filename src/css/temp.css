@@ -140,7 +140,27 @@ footer{
 
 #surveys-results .block-title img,
 #documents .block-title img {
+    height: 18px;
+}
+
+#events .block-title img {
     height: 19px;
+}
+
+.document {
+    margin-bottom: 20px;
+}
+
+.document .confirm {
+    margin: 0 10px;
+}
+
+.document .confirm-input {
+    margin: 0;
+}
+
+.document .confirm-text {
+    font-size: 10pt;
 }
 
 .document .title {
@@ -151,6 +171,8 @@ footer{
 .document .download-pdf {
     font-size: 10pt;
     line-height: 30px;
+
+    color: #000;
 }
 
 .document .description {
@@ -165,4 +187,62 @@ footer{
     border: 2px solid #e7e7e7;
     border-left: none;
     border-right: none;
+
+    padding: 0 5px;
+}
+
+.document .comments-title {
+    margin: 0;
+    color: #1f3a6a;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.document .comments .members {
+    color: #929292;
+    font-size: 9pt;
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+.document .comments .comment {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.document .comments .comment .date {
+    color: #929292;
+    font-weight: normal;
+}
+
+.document .comments .comment.right {
+    color: #1f3a6a;
+    text-align: right;
+}
+
+.document .comments .comment.right .text {
+    margin-left: 5px;
+
+    float: right;
+}
+
+.document .comments input.comment {
+    border-radius: 0;
+    border: none;
+    border-right: 2px solid #e7e7e7;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 10pt;
+    height: 30px;
+}
+
+.event .date {
+    font-size: 10pt;
+    color: #929292;
+}
+
+.event .date img {
+    height: 16px;
+    margin-right: 5px;
 }
