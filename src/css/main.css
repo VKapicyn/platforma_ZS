@@ -26,3 +26,51 @@ a:hover,a{
     color:rgb(31, 58, 106);
     text-decoration: none; 
 }
+.list{
+    height: 130px;
+    width: 72vw;
+    margin: 0px;
+    font-family: 'Regular';
+    color:rgb(0, 0, 0);
+
+}
+.list-item{
+    height: 110px;
+    margin: 0px;
+    background-color:rgb(205,205,205);
+    
+}
+.list-item:last-child{
+    margin-right: 0vw;
+}
+.img-menu2{
+    position: relative;
+    left:20px;
+    top: 10px
+}
+.event-list{
+    height: 530px;
+    width: 21vw;
+    background-color: aquamarine
+}
+.content-img{
+    margin-top: 10px;
+    height: 374px;
+    background: url('/img/фото.png') no-repeat;
+}
+.content-text{
+    margin-top: 10px;
+    height: 374px;
+    overflow-x:hidden;
+}
+.main{
+    width: 100vw;
+}
+.old{
+    margin-top: 30px;
+    font-size: 0.9em
+}
+a.ss-old{
+    font-size: 1.1em;
+    color: blue;
+}
