@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
         <div class="colums row">
-                <div id="surveys" class="col right-delimiter">
+                <div id="surveys" class="col-sm-12 col-md-4 col-lg order-md-2 order-lg-1 right-delimiter">
                         <div id="active-surveys" class="row">
                                 <div class="surveys-list col-12">
                                         <div class="block-title">
@@ -12,15 +12,11 @@
                                                 Активные опросы
                                         </div>
                                         
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
                                 </div>
                         </div>
@@ -31,30 +27,22 @@
                                                 Результаты опросов
                                         </div>
                                         
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
-                                        <div class="row">
-                                                <div class="col-12">
-                                                        <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
-                                                </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
                                         </div>
                                 </div>
                         </div>
                 </div>
-                <div id="documents" class="col-4 right-delimiter left-delimiter">
+                <div id="documents" class="col-sm-12 col-md-8 col-lg-4 order-md-1 order-lg-2 right-delimiter left-delimiter">
                         <div class="block-title">
                                 <img src="/img/lk/documents.png" alt="documents">
                                 Документы на обсуждение
@@ -143,7 +131,7 @@
                                 </div>
                         </div>
                 </div>
-                <div id="events" class="col right-delimiter left-delimiter">
+                <div id="events" class="col-sm-12 col-md-8 col-lg order-md-3 order-lg-3 left-delimiter">
                         <div class="block-title">
                                 <img src="/img/lk/ring.png" alt="ring">
                                 Мероприятия
@@ -161,13 +149,95 @@
                                         </p>
 
                                         <div class="accept-buttons">
-                                                <a class="accept" href="#">Подтвердить</a>
+                                                <a class="accept" href="#">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Подтвердить
+                                                </a>
+                                                <a class="decline" href="#">Отказаться</a>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="event row">
+                                <div class="col-12">
+                                        <div class="date">
+                                                <img src="/img/lk/calendar.png" alt="cal">
+                                                <span>18.12.2018</span>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Общественные консультации по проекту интегрированного отчета за 2017 год
+                                        </p>
+
+                                        <div class="accept-buttons">
+                                                <a class="accept" href="#">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Подтвердить
+                                                </a>
                                                 <a class="decline" href="#">Отказаться</a>
                                         </div>
                                 </div>
                         </div>
                 </div>
-                <div class="col"></div>
+
+                <div id="side-menu" class="col-sm-12 col-md-4 col-lg order-md-4 order-lg-4 ">
+                        <ul>
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/public_reports.png" alt="preports">
+                                                        Публичные отчеты
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/stakeholders_map.png" alt="shsmap">
+                                                        Карта заинтересованных сторон
+                                                </div>
+                                                
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/public_surveys.png" alt="psurveys">
+                                                        Публичные опросы
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/events_and_materials.png" alt="psurveys">
+                                                        Мероприятия и материалы
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/about_company.png" alt="psurveys">
+                                                        О компании
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
+                                                        Инструкция для стейхолдера
+                                                </div>
+                                        </a>
+                                </li>
+                        </ul>
+                </div>
         </div>
 </div>
 
@@ -180,7 +250,7 @@
         <button type="submit" onclick="send()">Submit</button>
 </form> -->
 
- {% if admin %}
+ <!-- {% if admin %}
  {% for sh in sHolder %}
  <div class="card">
         <h5 class="card-header">{{sh.firstname}} {{sh.lastname}}</h5>
@@ -195,10 +265,10 @@
 {% endfor %}
 <a href="/lk/csv/" class="btn btn-primary">скачать csv о стейхолдерах</a>
  {% endif %}
-<!-- <div class=" container">
+<div class=" container">
         <h1 class="text-center">{{ paramebn }}</h1>
         <div>
                <a href="/"></a>
         </div>
-</div> -->
-{% endblock %}
+</div>
+{% endblock %} -->
