@@ -15,15 +15,16 @@
     width: 90vw;
     margin-left: 5vw;
     font-family: 'Regular';
-    font-size: 1.3em;
-    color:rgb(0, 0, 0)
+    font-size: 1.2em;
+    color:rgb(0, 0, 0);
+    font-weight:bold
 }
 hr{
     border: 0;
     border-bottom: 3px solid rgb(205,205,205);
 }
 a:hover,a{
-    color:rgb(31, 58, 106);
+    color:rgb(0, 0, 0);
     text-decoration: none; 
 }
 .list{
@@ -67,6 +68,7 @@ a:hover,a{
 }
 .main{
     width: 100vw;
+    padding-bottom: 80px
 }
 .old{
     margin-top: 30px;
@@ -82,4 +84,7 @@ a.ss-old{
 }
 .allevents{
     border:3px solid rgb(31,58,106)
+}
+.h-ev{
+    color:rgb(205,205,205);
 }

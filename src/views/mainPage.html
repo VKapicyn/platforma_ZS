@@ -5,14 +5,15 @@
 <link rel="stylesheet" href="/css/main.css">
 <div class="menu row">
         <a class="col-xl-1 d-none d-xl-block"></a>
-        <a class="col-xl-3 col-sm-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
-        <a class="col-xl-4 col-sm-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
-        <a class="col-xl-4 col-sm-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ ПЛАТФОРМЫ</a>
+        <a class="col-xl-3 col-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
+        <a class="col-xl-4 col-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
+        <a class="col-xl-4 col-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ <span class="d-none d-md-block">ПЛАТФОРМЫ</span></a>
 
 </div>
 <hr>
 <div class="main row">
 <div class="event-list">
+        <p class="h-ev">События и мероприятия</p>
         {%for e in events%}
         <a class="event" href={{'/events/id/'+e.id}}>
         <p><img src="/img/event.png" alt=""><span class="date"> {{e.eventDate}}</span><br>
@@ -22,23 +23,24 @@
         <br>
         </a>
         {%endfor%}
+        <br>
         <a href="/events" class="allevents"> Все события </a>
 </div>
 <div class="list row">
         <a class="list-item align-self-center row col-2" href="/publicreport">
-               <img src="/img/отчеты.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end ">Публичные<br>отчеты</div> 
+               <img src="/img/отчеты.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end ">Публичные<br>отчеты</div> 
         </a>
         <a class="list-item align-self-center row col-2 ml-auto" href="/survey">
-                <img src="/img/опросы.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end">Публичные<br>опросы</div> 
+                <img src="/img/опросы.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Публичные<br>опросы</div> 
         </a>
         <a class="list-item align-self-center row col-2 ml-auto" href="/events">
-                <img src="/img/Мероприятия.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end">Мероприятия<br>и материалы</div> 
+                <img src="/img/Мероприятия.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Мероприятия<br>и материалы</div> 
         </a>
         <a class="list-item align-self-center row col-2 ml-auto">
-                <img src="/img/Карта.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end">Карта<br><span class="d-md-none d-lg-block">заинтересованных сторон</span></div> 
+                <img src="/img/Карта.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Карта<br><span class="d-none d-xl-block">заинтересованных сторон</span></div> 
         </a>
-        <a class="list-item align-self-center row col-2 ml-auto">
-                <img src="/img/кабинет.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end">Личные кабинеты<br><span class="d-md-none d-xl-block">заинтересованных сторон</span></div> 
+        <a class="list-item align-self-center row col-2 ml-auto" href="/lk">
+                <img src="/img/кабинет.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Личные кабинеты<br><span class="d-none d-xl-block">заинтересованных сторон</span></div> 
         </a>
         <hr class="col-12">
         <div class="content-img col-7"></div>
