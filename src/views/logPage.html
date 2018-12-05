@@ -1,37 +1,101 @@
-<html>
-    <head>
+{% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
-    </head>
-    <body>
-        <!-- нужны такие формы -->
-        <form action="/login" method="POST">
-            <input name="login" placeholder="login" id="log">
-            <input name="password" type="password" placeholder="pass" id="pas">
-            <button type="submit">войти</button>
-        </form>
-        
-        <button onclick="send()">log</button>
-        <button onclick="sendout()">logout</button>
-        <h2>{{account}}</h2>
-        <script>
-            function send(){
-                console.log(document.getElementById("pas").value)
-                fetch("/loginstakeholder",{
-                method: 'post',  
-                headers: {  
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
-                },    
-                body: `login=${document.getElementById("log").value}&password=${document.getElementById("pas").value}`  })
-            }
-            function sendout(){
-                fetch("/loginstakeholder",{
-                method: 'delete',  
-                headers: {  
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
-                },    
-                body: 'login=admin121&password=admin2281'  })
-            }
-            
-        </script>
-    </body>
-</html>
+{% block content %}
+
+<div class="container">
+    <div class="row row-flex">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link auth active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Пользователь</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link auth" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Стейкхолдер</a>
+                    </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="autorize-block">
+                        <center><h2>Вход</h2></center>
+                        <form action="/loginUser" method="POST">
+                            <input name="login" class="form-control" placeholder="Логин" id="log">
+                            <br>
+                            <input name="password" class="form-control" type="password" placeholder="Пароль" id="pas">
+                            <br>
+                            <p>*тут будет капча*</p>
+                            <button class="auth-button btn btn-primary btn-block" type="submit">Авториизация</button>
+                        </form>
+                        <center>
+                                <br>
+                                <u><a href="/registrationstakeholder">Регистрация</a></u>
+                                <br>
+                                <br>
+                                <a href="#">Я не помпню пароль</a>
+                            </center>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="autorize-block">
+                            <center><h2>Вход</h2></center>
+                            <form action="/loginstakeholder" method="POST">
+                                <input name="login" class="form-control" placeholder="Логин" id="log">
+                                <br>
+                                <input name="password" class="form-control" type="password" placeholder="Пароль" id="pas">
+                                <br>
+                                <p>*тут будет капча*</p>
+                                <button class="auth-button btn btn-primary btn-block" type="submit" >Авториизация</button>
+                                
+                            </form>
+                            <center>
+                                <br>
+                                <u><a href="/registrationstakeholder">Регистрация</a></u>
+                                <br>
+                                <br>
+                                <a href="#">Я не помпню пароль</a>
+                            </center>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 content-block">
+            <div class=" ">
+                <img src="/img/info.png" width="32px" height="32px">
+                <p>Для возможности авторизации в качестве заинтересованной стороны пройдите регистрацию.</p>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-12" style="margin-top:50px;">
+            <center><a href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ ПЛАТФОРМЫ</a></center>
+        </div>
+    </div>
+</div>
+
+
+
+<!--button onclick="send()">Авторизация</button-->
+<!--button onclick="sendout()">logout</button-->
+
+
+
+<!--script>
+    function send(){
+        console.log(document.getElementById("pas").value)
+        fetch("/loginstakeholder",{
+        method: 'post',  
+        headers: {  
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },    
+        body: `login=${document.getElementById("log").value}&password=${document.getElementById("pas").value}`  })
+    }
+    function sendout(){
+        fetch("/loginstakeholder",{
+        method: 'delete',  
+        headers: {  
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },    
+        body: 'login=admin121&password=admin2281'  })
+    }
+    
+</script-->
+{% endblock %}
