@@ -12,7 +12,18 @@
 </div>
 <hr>
 <div class="main row">
-<div class="event-list"></div>
+<div class="event-list">
+        {%for e in events%}
+        <a class="event" href={{'/events/id/'+e.id}}>
+        <p><img src="/img/event.png" alt=""><span class="date">{{e.eventDate}}</span><br>
+        {{e.name}}<br>
+        <img src="/img/стрелка.png" alt="">
+        </p>
+        <br>
+        </a>
+        {%endfor%}
+        <a href="/events" class="allevents"> Все события </a>
+</div>
 <div class="list row">
         <a class="list-item align-self-center row col-2" href="/publicreport">
                <img src="/img/отчеты.png" width="20px" height="20px" class="img-menu2"><div class="align-self-end ">Публичные<br>отчеты</div> 

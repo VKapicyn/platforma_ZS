@@ -50,8 +50,10 @@ a:hover,a{
 }
 .event-list{
     height: 530px;
-    width: 21vw;
-    background-color: aquamarine
+    width: 20vw;
+    margin-left: 1vw;
+    overflow-x:hidden;
+    padding-left: 3vw
 }
 .content-img{
     margin-top: 10px;
@@ -73,4 +75,11 @@ a:hover,a{
 a.ss-old{
     font-size: 1.1em;
     color: blue;
+}
+.date{
+    color:rgb(205,205,205);
+    font-size: 0.9em
+}
+.allevents{
+    border:3px solid rgb(31,58,106)
 }
