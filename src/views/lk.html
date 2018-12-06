@@ -1,7 +1,4 @@
 {% extends "templates/pageTemplate.html" %}
-{% block commonStyles %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-{% endblock %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
 
@@ -243,35 +240,4 @@
                 </div>
         </div>
 </div>
-
-<!-- <h1>{{ parametr }}</h1>
-<form action="/lk" method="POST"> 
-        <div class="form-group">
-            <label for="eventName">Новый пароль</label>
-            <input type="text" class="form-control" id="eventName" name="password" placeholder="">
-        </div>
-        <button type="submit" onclick="send()">Submit</button>
-</form> -->
-
- <!-- {% if admin %}
- {% for sh in sHolder %}
- <div class="card">
-        <h5 class="card-header">{{sh.firstname}} {{sh.lastname}}</h5>
-        <div class="card-body">
-          <h5 class="card-title">{{sh.organization}}</h5>
-          <p class="card-text">{{sh.contactInformation}}</p>
-          <a href="/lk/confirm/{{sh._id}}?agree=2" class="btn btn-primary">Принять</a>
-          <a href="/lk/confirm/{{sh._id}}?agree=3" class="btn btn-primary">Отказать</a>
-        </div>
-</div> 
-
-{% endfor %}
-<a href="/lk/csv/" class="btn btn-primary">скачать csv о стейхолдерах</a>
- {% endif %}
-<div class=" container">
-        <h1 class="text-center">{{ paramebn }}</h1>
-        <div>
-               <a href="/"></a>
-        </div>
-</div>
-{% endblock %} -->
+{% endblock %}
