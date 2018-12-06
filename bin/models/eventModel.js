@@ -13,6 +13,9 @@ let eventSchema = mongoose.Schema({
     invites: String,// id стэкхолдеров которые приглашены на мероприятие
     //вероятно будет лучше хранить приглашения в модели стэекхолдеров
     address: String,
+    annotation: String,
+    img: String
+
 });
 
 eventSchema.statics = {

@@ -5,6 +5,7 @@
 {% endblock %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+
 <div class="password"> 
   <div class="container">
       <div class="password-titel">
@@ -93,7 +94,7 @@
               <div class="tab-pane fade show active" id="new-event" role="tabpanel" aria-labelledby="new-event-tab">
                 
             
-                  <form action="/events/new" method="POST" > 
+                  <form action="/events/new" method="POST" enctype="multipart/form-data"> 
                     <div class="form-group">
                         <label for="eventName">Название мероприятия</label>
                         <input type="text" class="form-control" id="eventName" name="name" placeholder="">
@@ -110,12 +111,42 @@
                         <label for="eventAddress">Адрес</label>
                         <input type="text" class="form-control" id="eventAddress"  placeholder="">
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input">
-                          Отправить приглашение всем
-                        </label>
+                    <div class="form-group">
+                            <label for="annotationIvent">Загрузите анотацию мероприятия</label>
+                            <input type="file" accept="application/pdf" class="form-control-file" id="annotationIvent" name="annotation">
                     </div>
+                    <div class="form-group">
+                            <label for="imgEvent">Загрузите фото к мероприятию</label>
+                            <input type="file" accept="image/jpeg,image/png" class="form-control-file" id="imgEvent" name="img">
+                    </div>
+                    <table class="table">
+                            <thead>
+                              <tr>
+                                <th>
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="shCheckAll" value="all" aria-label="...">
+                                    </div>
+                                </th>
+                                <th>ФИО</th>
+                                <th>Компания</th>
+                              </tr>
+                            </thead>
+                        <tbody>
+                        {% for sh in sHolder %}
+                        {% if sh.state != '0'%}
+                       <tr>
+                      <th scope="row">
+                          <div class="form-check">
+                              <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="shCheck" value="{{sh._id}}" aria-label="...">
+                          </div>
+                      </th>
+                      <td>{{sh.lastname}} {{sh.firstname}} {{sh.patronymic}}</td>
+                      <td>{{sh.organization}}</td>
+                    </tr>
+                       {%endif%}
+                       {% endfor %}
+                      </tbody>
+                    </table>
                     <button type="submit" class="">Создать</button>
                   </form>
               
@@ -206,6 +237,7 @@
                       </thead>
                   <tbody>
                   {% for sh in sHolder %}
+                  {% if sh.state != '0'%}
                  <tr>
                 <th scope="row">
                     <div class="form-check">
@@ -215,7 +247,7 @@
                 <td>{{sh.lastname}} {{sh.firstname}} {{sh.patronymic}}</td>
                 <td>{{sh.regDate}}</td>
               </tr>
-                 
+                 {%endif%}
                  {% endfor %}
                 </tbody>
               </table>
@@ -322,6 +354,7 @@
     
     </div>
   </div>
+ 
 
 
 {% endblock %}

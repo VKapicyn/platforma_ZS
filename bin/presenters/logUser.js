@@ -12,7 +12,7 @@ class AuthUser {
         let account = await userModel.findOne({login: req.body.login})
 
         if (account.password == toHash(req.body.password)){    
-            req.session.userModel = {id: account._id, login: account.login};
+            req.session.user = {id: account._id, login: account.login};
             req.session.save()
             res.end()
         }
@@ -22,7 +22,7 @@ class AuthUser {
         }
     }
     static logout(req, res, next){
-        delete req.session.userModel;
+        delete req.session.user;
         res.render('logPage.html')
     }
 }

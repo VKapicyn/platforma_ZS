@@ -1,8 +1,10 @@
-body {
+.container-fluid {
     background-color: #e7eaf7!important;
+    padding: 40px 0px;
 }
-body * {
+.container-fluid * {
     outline: none;
+    overflow: hidden;
 }
 .confirmSh img, .events img, .negotiation img {
     width: 40px;
@@ -16,8 +18,7 @@ body * {
     vertical-align: middle;
 }
 
-.confirmSh h4, .events h4 {
-    line-height: 0px;
+.confirmSh h4, .events h4, .password h4, .negotiation h4 {
     margin-top: 10px;
 }
 .confirmSh a, .events a{

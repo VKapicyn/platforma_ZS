@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
-const locationOrigin = 'http://localhost:3000';
-const mail='email';
+const locationOrigin = 'http://localhost:8000';
+const mail='info@i-fastrepair.ru';
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     host: 'smtp.yandex.ru',
@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
     secure: true, // true for 465, false for other ports
     auth: {
         user: mail, 
-        pass: 'pass' 
+        pass: 'asdf12345' 
     }
 });
 
@@ -59,7 +59,7 @@ exports.Send = (receiver, contentType, content) => {
         case 'feed':
             mailOptions = {
                 from: '"feedback" <'+mail+'>', // sender address
-                to: ourmail ,  // list of receivers
+                to: 'ZSplatformInfo@yandex.ru' ,  // list of receivers
                 subject: 'Сообщение ', // Subject line
                 text: 'Сообщение', // plain text body
                 html: '<b>Вам пришло сообщение от '+content.name+'<br> '+content.content+'<br>Вы можете связаться с ним через '+content.email+'</b>' // html body

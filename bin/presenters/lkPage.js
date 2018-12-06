@@ -11,10 +11,8 @@ const mongoose = require('mongoose');
 class Lk {
     static async getPage(req, res, next) {
 //<<<<<<< HEAD
-        if (req.session.user)
+        if ((req.session.user)||(req.session.stakeholder))
             res.render('lk.html', {
-                parametr: 'Я страница личного кабинета',
-                admin: true
             });
         else
             res.redirect('/loginuser')

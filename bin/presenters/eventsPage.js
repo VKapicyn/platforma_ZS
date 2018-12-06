@@ -6,6 +6,11 @@ const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 const userModel = require('../models/userModel').userModel;
 const send = require('./../utils/email').Send;
 const Json2csvParser = require ( 'json2csv' ) . Parser ;
+const multer  = require('multer');
+const newStorage = require('./../utils/uploader').newStorage;
+const storage = newStorage();
+const upload = multer({ storage });
+
 
 
 class Events {
@@ -93,37 +98,67 @@ class Events {
         });
     }
     static async createNewEvent(req, res, next){
-        console.log(req.body.name);
         try {
-            let now = new Date();
-            console.log(req.body.name);
+            const shChecked = req.body.shCheck;
+           
+           
             let event = new eventModel({
                 name: req.body.name,
                 description: req.body.description,
                 eventDate: req.body.date,
-                creatingDate: now,
+                creatingDate: new Date(),
                 status: '1',
                 address: req.body.address,
-                invites: ''
+                invites: '',
+                img: req.files.img[0].filename,
+                annotation: req.files.annotation[0].filename
             })
-            if (event){
-                if(req.body.send){
-                    let results = await stakeholderModel.find();
-                    const items = [];
-                    results.forEach(i => {
-                        items.push(i._id);
+            if(event){
 
+                let sh=[];
+                let arr=[];
+                if(Array.isArray(shChecked)){
+                    event.invites = JSON.stringify(shChecked);
+                    
+                    
+                    shChecked.forEach(i => {
+                       
+                        arr.push({_id : i})
+    
                     });
-                    event.invites = JSON.stringify(items);
-                    results.map(async function(sh){
-                        await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                            { $push: { events:  {eventId: event._id, readyToGo:'Не просмотрел приглашение'}} }) ; 
-                        send(sh,2,event);
-                    });
+                    
+                     sh = await stakeholderModel.find({"$or": arr});
+                     console.log(arr);
                 }
+                else{
+                    console.log(shChecked);
+                    
+                    // event.invites = shChecked;
+                     sh = await stakeholderModel.find({_id:shChecked});
+                     console.log(sh);
+                }
+                sh.map(async function(sh){
+                    await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                        { $push: { events:  {eventId: event._id, readyToGo:'Не просмотрел приглашение'}} }) ;
+                    send(sh,2,event);
+                });
+                // if(req.body.shCheckAll){
+                //     let results = await stakeholderModel.find();
+                //     const items = [];
+                //     results.forEach(i => {
+                //         items.push(i._id);
+
+                //     });
+                    
+                //     results.map(async function(sh){
+                //         await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                //             { $push: { events:  {eventId: event._id, readyToGo:'Не просмотрел приглашение'}} }) ; 
+                //         send(sh,2,event);
+                //     });
+                // }
             event.save();
         
-            res.redirect('/events');
+            res.redirect('/events/edit/'+event._id);
             }
         } catch (e) {
         }
@@ -137,5 +172,5 @@ router.get('/edit/:id', Events.getEditEventPage);
 router.post('/edit/:id', Events.editEventPage);
 router.get('/csv/:id', Events.getCsv);
 router.get('/new', adminModel.isAdminLogged, Events.getNewEventPage);
-router.post('/new', adminModel.isAdminLogged, Events.createNewEvent);
+router.post('/new', adminModel.isAdminLogged,upload.fields([{ name: 'img', maxCount: 1 }, { name: 'annotation', maxCount: 1 }]), Events.createNewEvent);
 module.exports.router = router;

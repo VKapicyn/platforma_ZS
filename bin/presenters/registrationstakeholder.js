@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 const toHash = require('md5');
-const userModel = require('../models/userModel').userModel;
 const send = require('./../utils/email').Send;
 
 class Registration {
@@ -43,7 +42,7 @@ class Registration {
         res.render('logPage.html', );
     }
     static async conf(req, res, next){
-        let user = await userModel.findOne({key: req.params.num});
+        let user = await stakeholderModel.findOne({key: req.params.num});
         if (user){
             if (user.state == 0) {
                 user.state = 1;
