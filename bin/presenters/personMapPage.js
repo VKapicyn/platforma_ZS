@@ -3,9 +3,7 @@ const router = express.Router();
 
 class PersonMap {
     static getPage(req, res, next) {
-        res.render('mainPage.html', {
-            parametr: 'Я страница карт заинтересованных сторон'
-        });
+        res.render('personmap.html');
     }
 }
 

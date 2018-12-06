@@ -6,10 +6,13 @@ const shModel = require('../models/stakeholderModel').stakeholderModel;
 const Json2csvParser = require ( 'json2csv' ) . Parser ;
 class Lk {
     static async getPage(req, res, next) {
-        res.render('lk.html', {
-            parametr: 'Я страница личного кабинета',
-            admin: true
-        });
+        if (req.session.user)
+            res.render('lk.html', {
+                parametr: 'Я страница личного кабинета',
+                admin: true
+            });
+        else
+            res.redirect('/loginuser')
     }
     static async getCsv(req,res,next){
         let sh = await shModel.find({state: '1'},(err) =>{

@@ -3,13 +3,7 @@
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
 <link rel="stylesheet" href="/css/main.css">
-<div class="menu row">
-        <a class="col-xl-1 d-none d-xl-block"></a>
-        <a class="col-xl-3 col-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
-        <a class="col-xl-4 col-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
-        <a class="col-xl-4 col-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ <span class="d-none d-md-block">ПЛАТФОРМЫ</span></a>
-
-</div>
+{% include "templates/pageTopMenu.html" %}
 <hr>
 <div class="main row">
 <div class="event-list">
@@ -36,7 +30,7 @@
         <a class="list-item align-self-center row col-2 ml-auto" href="/events">
                 <img src="/img/Мероприятия.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Мероприятия<br>и материалы</div> 
         </a>
-        <a class="list-item align-self-center row col-2 ml-auto">
+        <a class="list-item align-self-center row col-2 ml-auto" href="/personsmap">
                 <img src="/img/Карта.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Карта<br><span class="d-none d-xl-block">заинтересованных сторон</span></div> 
         </a>
         <a class="list-item align-self-center row col-2 ml-auto" href="/lk">

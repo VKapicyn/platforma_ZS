@@ -1,7 +1,10 @@
 {% extends "templates/pageTemplate.html" %}
-        <!-- Для шапки и футера однозначно нужен темплейт -->
+{% block commonStyles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/temp.css">
+<link rel="stylesheet" href="/css/login.css">
+{% endblock %}
 {% block content %}
-
 <div class="container">
     <div class="row row-flex">
         <div class="col-md-2"></div>

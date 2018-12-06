@@ -3,13 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="/css/search.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<div class="menu row">
-        <a class="col-xl-1 d-none d-xl-block"></a>
-        <a class="col-xl-3 col-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
-        <a class="col-xl-4 col-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
-        <a class="col-xl-4 col-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ <span class="d-none d-md-block">ПЛАТФОРМЫ</span></a>
-
-</div>
+{% include "templates/pageTopMenu.html" %}
 <hr>
     <div class="content row">
         <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6 text-center">
@@ -42,64 +36,7 @@
           {% endif %}
           <div class="container result"></div>
         </div>
-        <div id="side-menu" class="col-xl-3 col-md-5 col-sm-5 col-6">
-                <ul>
-                        <li>
-                                <a href="/publicreport">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/public_reports.png" alt="preports">
-                                                Публичные отчеты
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/personsmap">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/stakeholders_map.png" alt="shsmap">
-                                                Карта заинтересованных сторон
-                                        </div>
-                                        
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/survey">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/public_surveys.png" alt="psurveys">
-                                                Публичные опросы
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/events">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/events_and_materials.png" alt="psurveys">
-                                                Мероприятия и материалы
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="#">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/about_company.png" alt="psurveys">
-                                                О компании
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/instruction">
-                                        <div class="wrapper">
-                                                <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
-                                                Инструкция для стейхолдера
-                                        </div>
-                                </a>
-                        </li>
-                </ul>
-        </div>
+        {% include "templates/sideMenuTemplate.html" %}
     </div>
     <script src="/js/survey.js"></script>
 {% endblock %}
