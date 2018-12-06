@@ -1,48 +1,106 @@
-<!doctype html>
-<html lang="rus">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "templates/pageTemplate.html" %}
+        <!-- Для шапки и футера однозначно нужен темплейт -->
+{% block content %}
+<link rel="stylesheet" href="/css/search.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<div class="menu row">
+        <a class="col-xl-1 d-none d-xl-block"></a>
+        <a class="col-xl-3 col-3 text-center my-auto">РЕГИСТРАЦИЯ</a>
+        <a class="col-xl-4 col-4 text-center my-auto" href="/contacts">КОНТАКТНАЯ ИНФОРМАЦИЯ</a>
+        <a class="col-xl-4 col-5 text-center my-auto" href="/instruction">ИНСТРУКЦИЯ ПОЛЬЗОВАТЕЛЯ <span class="d-none d-md-block">ПЛАТФОРМЫ</span></a>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/survey.css">
-    <title></title>
-  </head>
-  <body>
-        <div class="container name">{{name}}</div>
-        <div class="container description">({{description}})</div>
-        {% if question %}
-        {% for item in answer %}
-        <div class="container">
-        <span class="question">{{question.shift()}}</span>
-        <span class="data">   
-                {% if item != 'text' %}
-                <select class="ans_select">{% for array_item in item %}
-                <option>{{array_item}}</option>
-                {% endfor %}
-                </select>
-                {% else %} <input type="text" class="ans_text">
-                {% endif %}
-       
-        </span>
+</div>
+<hr>
+    <div class="content row">
+        <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6 text-center">
+            <div class=" name">{{name}}</div>
+            <div class=" description">({{description}})</div>
+            {% if question %}
+            {% for item in answer %}
+            <div class="">
+            <span class="question">{{question.shift()}}</span>
+            <span class="data">   
+                    {% if item != 'text' %}
+                    <select class="ans_select">{% for array_item in item %}
+                    <option>{{array_item}}</option>
+                    {% endfor %}
+                    </select>
+                    {% else %} <input type="text" class="ans_text">
+                    {% endif %}
+          
+            </span>
+            </div>
+          {% endfor %}
+          {% endif %}
+          <br>
+          {% if (annotation  or file) %}
+          <div class="annotation">аннотация: {{annotation}} <a href={{ file }}> скачать файл</a></div>
+          {% endif %}
+          <br>
+          {% if question %}
+          <button class="send">отправить</button>
+          {% endif %}
+          <div class="container result"></div>
         </div>
-      {% endfor %}
-      {% endif %}
-      <br>
-      {% if (annotation  or file) %}
-      <div class="container annotation">аннотация: {{annotation}} <a href={{ file }}> скачать файл</a></div>
-      {% endif %}
-      <br>
-      {% if question %}
-      <button class="send">отправить</button>
-      {% endif %}
-      <div class="container result"></div>
+        <div id="side-menu" class="col-xl-3 col-md-5 col-sm-5 col-6">
+                <ul>
+                        <li>
+                                <a href="/publicreport">
+                                        <div class="wrapper">
+                                                <img src="/img/lk/public_reports.png" alt="preports">
+                                                Публичные отчеты
+                                        </div>
+                                </a>
+                        </li>
 
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="../js/survey.js"></script>
-   </body>
-</html>
+                        <li>
+                                <a href="/personsmap">
+                                        <div class="wrapper">
+                                                <img src="/img/lk/stakeholders_map.png" alt="shsmap">
+                                                Карта заинтересованных сторон
+                                        </div>
+                                        
+                                </a>
+                        </li>
+
+                        <li>
+                                <a href="/survey">
+                                        <div class="wrapper">
+                                                <img src="/img/lk/public_surveys.png" alt="psurveys">
+                                                Публичные опросы
+                                        </div>
+                                </a>
+                        </li>
+
+                        <li>
+                                <a href="/events">
+                                        <div class="wrapper">
+                                                <img src="/img/lk/events_and_materials.png" alt="psurveys">
+                                                Мероприятия и материалы
+                                        </div>
+                                </a>
+                        </li>
+
+                        <li>
+                                <a href="#">
+                                        <div class="wrapper">
+                                                <img src="/img/lk/about_company.png" alt="psurveys">
+                                                О компании
+                                        </div>
+                                </a>
+                        </li>
+
+                        <li>
+                                <a href="/instruction">
+                                        <div class="wrapper">
+                                                <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
+                                                Инструкция для стейхолдера
+                                        </div>
+                                </a>
+                        </li>
+                </ul>
+        </div>
+    </div>
+    <script src="/js/survey.js"></script>
+{% endblock %}
+

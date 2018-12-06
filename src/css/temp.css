@@ -38,7 +38,8 @@ nav.header {
 .head-text {
     font-family: 'Bold';
     font-size: 1.1em;
-    color:rgb(31, 58, 106)
+    color:rgb(31, 58, 106);
+    font-weight: bold
 }
 
 .img-chat {
@@ -51,7 +52,7 @@ nav.header {
     color:rgb(31, 58, 106);
 }
 a:hover,a{
-    
+    color:rgb(31, 58, 106);
     text-decoration: none; 
 }
 
@@ -362,4 +363,48 @@ footer{
     .left-delimiter {
         border: none;
     }
+.auth {
+    color:grey;
 }
+
+.nav-tabs .nav-link.auth.active{
+    color:rgb(31, 58, 106);
+}
+
+.nav-tabs .nav-link{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.autorize-block{
+    padding: 30px;
+    border: solid 1px #dee2e6;
+    border-top: 0px;
+}
+
+.autorize-block .form-control{
+    border: 1px solid rgb(31, 58, 106);
+    border-radius: 0px;
+}
+
+.content-block{
+    margin-top: 42px;
+    border: solid 1px #dee2e6;
+    padding: 30px;
+}
+.content-block img{
+    margin: 10px;
+}
+
+.row-flex{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+}
+
+.auth-button{
+    background-color: rgb(31,58,106);
+    border-color: rgb(31,58,106);
+    border-radius: 0px;
+}}

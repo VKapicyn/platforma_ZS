@@ -1,4 +1,5 @@
 $('.send').click((e)=>{
+    console.log(1)
     let obj={
         answer:[]
     };
@@ -20,3 +21,4 @@ $('.send').click((e)=>{
 $('.file_an').click((e)=>{
     fetch(window.location.href+'/annotation').then(e=>console.log(e))
 })
+console.log($('.send'))
