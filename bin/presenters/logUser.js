@@ -5,7 +5,7 @@ const toHash = require('md5')
 
 class AuthUser {
     static getPage(req, res, next) {
-        res.render('logUser.html')
+        res.render('logPage.html')
     }
 
     static async login(req,res,next){
@@ -18,12 +18,12 @@ class AuthUser {
         }
         else {
             //инфа об ошибке ?
-            res.render('logUser.html')
+            res.render('logPage.html')
         }
     }
     static logout(req, res, next){
         delete req.session.userModel;
-        res.render('logUser.html')
+        res.render('logPage.html')
     }
 }
 

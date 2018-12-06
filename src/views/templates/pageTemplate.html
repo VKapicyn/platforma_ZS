@@ -19,32 +19,22 @@
     
   
     <div class="head-text col-lg-8 col-sm-6">
-           <img src="/img/флажек.jpg" align="left" class="img-flag">
+           <img src="/img/флаг.png" align="left" class="img-flag">
           <div>Интерактивная платформа взаимодействия<br>
 с заинтересованными сторонами Инжинирингового дивизиона Госкорпорации «Росатом»</div> 
     </div>
       
     <div class="search col-lg-2 col-sm-3">
-            <a href="" class="chat"><img src="/img/обратная-связь.png" align="left" class="img-chat">
+            <a href="/feedback" class="chat"><img src="/img/обратная-связь.png" align="left" class="img-chat">
             <div> Обратная связь</div> </a> 
-      <form action="/search" method="POST" class="form-search">
-        <input type="image" name="picture" src="/img/лупа.png" width="20px" height="20px">
+      <form action="/search/" method="POST" class="form-search">
+        <input type="image" name="picture" src="/img/лупа.png"  width="20px">
         <input class="input-search" type="search" placeholder="Поиск" aria-label="Search" name="search">
       </form>
     </div>
   </nav>
   <hr>
 
-{% endblock %}
-{% block menu %}
-<nav class="nav nav-pills nav-fill center-block">
-        <a class="nav-link" href="/publicreport">Публичные отчеты</a>
-        <a class="nav-link" href="/publicquiz">Публичные опросы</a>
-        <a class="nav-link" href="/events">Мероприятия и материалы</a>
-        <a class="nav-link" href="/personsmap">Карта заинтересованных сторон</a>
-        <a class="nav-link" href="/lk">Личные кабинеты</a>
-        <a class="nav-link" href="/instruction">Инструкция пользователя платформы</a>
-</nav>
 {% endblock %}
 
 

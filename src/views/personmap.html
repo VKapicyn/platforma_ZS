@@ -1,0 +1,15 @@
+
+{% extends "templates/pageTemplate.html" %}
+
+<!-- Для шапки и футера однозначно нужен темплейт -->
+{% block content %}
+<link rel="stylesheet" href="/css/main.css">
+{% include "templates/pageTopMenu.html" %}
+<hr>
+    <div class="content row">
+        <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6 text-center">
+            <p>text</p>
+        </div>
+        {% include "templates/sideMenuTemplate.html" %}
+    </div>
+{% endblock %}

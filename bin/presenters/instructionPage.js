@@ -4,9 +4,7 @@ const userModel = require('../models/userModel').userModel;
 
 class Instruction {
     static getPage(req, res, next) {
-        res.render('mainPage.html', {
-            parametr: 'Я страница инструкции'
-        });
+        res.render('instruction.html');
     }
 }
 

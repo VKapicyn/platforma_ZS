@@ -1,31 +1,41 @@
 {% extends "templates/pageTemplate.html" %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+{% include "templates/pageTopMenu.html" %}
+<hr>
+<link rel="stylesheet" href="/css/search.css">
+    <div class="content row">
+        <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6">
+            <center><h2>Результаты поиска:</h2></center>
+            <br>
+            {%if survey.length !=0 %}
+            {%for s in survey%}
+            <p><a href={{"/survey/name"+s.name}}>Опрос: {{s.name}}({{s.description}})</a></p>
+            <br>
+            {%endfor%}
+            <br>
+            {%endif%}
 
-    <div class="container">
-        <h1>Результаты:</h1>
-        {%if survey%}
-        {%for s in survey%}
-        <p><a href={{"/survey/name"+s.name}}>Опрос: {{s.name}}({{s.description}})</a></p>
-        {%endfor%}
-        {%endif%}
-        <br>
-        {%if report%}
-        {%for r in report%}
-        <p><a href={{"/publicreport/id/"+r.id}}>Отчет: {{r.name}}({{r.description}})</a></p>
-        {%endfor%}
-        {%endif%}
-        <br>
-        {%if event%}
-        {%for e in event%}
-        <p><a href={{"/events/id/"+e.id}}>Мероприятие: {{e.name}}({{e.description}})</a></p>
-        {%endfor%}
-        {%endif%}
+            {%if report.length !=0 %}
+            {%for r in report%}
+            <p><a href={{"/publicreport/id/"+r.id}}>Отчет: {{r.name}}({{r.description}})</a></p>
+            <br>
+            {%endfor%}
+            <br>
+            {%endif%}
 
-        {%if instruction%}
-        <p><a href="/instruction">{{instruction}}</a></p>
-        {%endif%}
-
+            {%if event.length !=0 %}
+            {%for e in event%}
+            <p><a href={{"/events/id/"+e.id}}>Мероприятие: {{e.name}}({{e.description}})</a></p>
+            <br>
+            {%endfor%}
+            <br>
+            {%endif%}
+            {%if instruction%}
+            <p><a href="/instruction">{{instruction}}</a></p>
+            {%endif%}
+        </div>
+        {% include "templates/sideMenuTemplate.html" %}
     </div>
 
 {% endblock %}

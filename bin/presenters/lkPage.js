@@ -10,6 +10,19 @@ const mongoose = require('mongoose');
 
 class Lk {
     static async getPage(req, res, next) {
+//<<<<<<< HEAD
+        if (req.session.user)
+            res.render('lk.html', {
+                parametr: 'Я страница личного кабинета',
+                admin: true
+            });
+        else
+            res.redirect('/loginuser')
+    }
+    static async getCsv(req,res,next){
+        let sh = await shModel.find({state: '1'},(err) =>{
+            console.log(err);
+/*=======
         let events= await eventModel.find();
         let sHolder= await shModel.find();
         let file = await fileNegotiationModel.find();
@@ -23,6 +36,7 @@ class Lk {
                  sHolder: sHolder,
                  counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
                 // reports: await reportModel.find()
+>>>>>>> origin/admin_lk*/
         });
     }
     static async shMethod(req,res,next){

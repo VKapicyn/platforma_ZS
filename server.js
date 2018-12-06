@@ -53,19 +53,21 @@ app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 //app.use('/publicref', require('./bin/presenters/publicRefPage').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
+app.use('/', require('./bin/presenters/toMain.js').router)
+
 app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
 app.use('/loginUser', require('./bin/presenters/logUser').router)
 
 app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
-app.use('/createsurvey',require('./bin/presenters/createTemplateSurvey.js').router)
-app.use('/survey',require('./bin/presenters/Survey.js').router)
+app.use('/createsurvey',require('./bin/models/adminModel.js').adminModel.isAdminLogged,require('./bin/presenters/createTemplateSurvey.js').router)
+app.use('/survey',require('./bin/presenters/survey.js').router)
 app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
 //app.use('/login',require('./bin/presenters/logPage').router);
 app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 
-app.use('/fileNegotiation/admin',require('./bin/presenters/fileNegotiationAdmin.js').router);
+app.use('/fileNegotiation/admin',require('./bin/models/adminModel.js').adminModel.isAdminLogged,require('./bin/presenters/fileNegotiationAdmin.js').router);
 app.use('/fileNegotiation/',require('./bin/presenters/fileNegotiation.js').router)
 
 app.use('/search',require('./bin/presenters/search.js').router)
@@ -75,6 +77,8 @@ app.use('/api/v1/user', require('./bin/models/userModel').router);
 
 //Utils ???
 app.use('/file/:filename', require('./bin/utils/uploader').getFile);
+
+app.get('/registration', require('./bin/presenters/reg').getPage);
 
 /**
  * Для загрузки файлов рекомендую модуль 'multer'

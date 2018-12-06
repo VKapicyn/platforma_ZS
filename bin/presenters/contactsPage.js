@@ -4,9 +4,7 @@ const userModel = require('../models/userModel').userModel;
 
 class Contacts {
     static getPage(req, res, next) {
-        res.render('mainPage.html', {
-            parametr: 'Я страница контакты'
-        });
+        res.render('contacts.html');
     }
 }
 

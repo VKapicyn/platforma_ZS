@@ -5,6 +5,279 @@
 {% endblock %}
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+<<<<<<< HEAD
+
+<div class="container-fluid">
+        <div class="colums row">
+                <div id="surveys" class="col-sm-12 col-md-4 col-lg order-md-2 order-lg-1 right-delimiter">
+                        <div id="active-surveys" class="row">
+                                <div class="surveys-list col-12">
+                                        <div class="block-title">
+                                                <img src="/img/lk/flag.png" alt="flag">
+                                                Активные опросы
+                                        </div>
+                                        
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                </div>
+                        </div>
+                        <div id="surveys-results" class="row">
+                                <div class="surveys-list col-12">
+                                        <div class="block-title">
+                                                <img src="/img/lk/check.png" alt="check">
+                                                Результаты опросов
+                                        </div>
+                                        
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                        <div class="survey">
+                                                <a href="#">Опрос 1 <br /> <span class="annotation">(аннотация)</span></a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div id="documents" class="col-sm-12 col-md-8 col-lg-4 order-md-1 order-lg-2 right-delimiter left-delimiter">
+                        <div class="block-title">
+                                <img src="/img/lk/documents.png" alt="documents">
+                                Документы на обсуждение
+                        </div>
+
+                        <div class="document row">
+                                <div class="col-12">
+                                        <div class="title">
+                                                <span class="name">Документ 1</span>
+                                                <a class="download-pdf float-right" href="#">Скачать pdf</a>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Годовой отчет Группы компаний ASE - Инжинирингового дивизиона Госкорпорации «Росатом» за 2016 год
+                                        </p>
+
+                                        <div class="comments">
+                                                <h6 class="comments-title">Комментарии</h6>
+
+                                                <div class="field">
+                                                        <div class="members">
+                                                                <span class="sh">Стейкхолдер</span>
+                                                                <span class="admin float-right">Администратор</span>
+                                                        </div>
+                                                        <div class="comment left">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                        <div class="comment right">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                </div>
+
+                                                <form>
+                                                        <input class="comment form-control" type="text" placeholder="Напишите сообщение и нажмите Enter">
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="document row">
+                                <div class="col-12">
+                                        <div class="title">
+                                                <span class="name">Документ 1</span>
+                                                <div class="confirm form-check form-check-inline">
+                                                        <input class="confirm-input form-check-input" type="checkbox" id="confirm-doc" value="option1">
+                                                        <label class="confirm-text form-check-label" for="confirm-doc">Подтвердить документ</label>
+                                                </div>
+                                                <a class="download-pdf float-right" href="#">Скачать pdf</a>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Годовой отчет Группы компаний ASE - Инжинирингового дивизиона Госкорпорации «Росатом» за 2016 год
+                                        </p>
+
+                                        <div class="comments">
+                                                <h6 class="comments-title">Комментарии</h6>
+
+                                                <div class="field">
+                                                        <div class="members">
+                                                                <span class="sh">Стейкхолдер</span>
+                                                                <span class="admin float-right">Администратор</span>
+                                                        </div>
+                                                        <div class="comment left">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                        <div class="comment right">
+                                                                <span class="text">
+                                                                        Отчет содержит неточности
+                                                                </span> 
+                                                                <span class="date">10.11.2018</span>
+                                                        </div>
+                                                </div>
+
+                                                <form>
+                                                        <input class="comment form-control" type="text" placeholder="Напишите сообщение и нажмите Enter">
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div id="events" class="col-sm-12 col-md-8 col-lg order-md-3 order-lg-3 left-delimiter">
+                        <div class="block-title">
+                                <img src="/img/lk/ring.png" alt="ring">
+                                Мероприятия
+                        </div>
+
+                        <div class="event row">
+                                <div class="col-12">
+                                        <div class="date">
+                                                <img src="/img/lk/calendar.png" alt="cal">
+                                                <span>18.12.2018</span>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Общественные консультации по проекту интегрированного отчета за 2017 год
+                                        </p>
+
+                                        <div class="accept-buttons">
+                                                <a class="accept" href="#">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Подтвердить
+                                                </a>
+                                                <a class="decline" href="#">Отказаться</a>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="event row">
+                                <div class="col-12">
+                                        <div class="date">
+                                                <img src="/img/lk/calendar.png" alt="cal">
+                                                <span>18.12.2018</span>
+                                        </div>
+                                        
+                                        <p class="description">
+                                                Общественные консультации по проекту интегрированного отчета за 2017 год
+                                        </p>
+
+                                        <div class="accept-buttons">
+                                                <a class="accept" href="#">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Подтвердить
+                                                </a>
+                                                <a class="decline" href="#">Отказаться</a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+                <div id="side-menu" class="col-sm-12 col-md-4 col-lg order-md-4 order-lg-4 ">
+                        <ul>
+                                <li>
+                                        <a href="/publicreport">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/public_reports.png" alt="preports">
+                                                        Публичные отчеты
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="/personsmap">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/stakeholders_map.png" alt="shsmap">
+                                                        Карта заинтересованных сторон
+                                                </div>
+                                                
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="/survey">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/public_surveys.png" alt="psurveys">
+                                                        Публичные опросы
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="/events">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/events_and_materials.png" alt="psurveys">
+                                                        Мероприятия и материалы
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="#">
+                                                <div class="wrapper">
+                                                        <img src="/img/lk/about_company.png" alt="psurveys">
+                                                        О компании
+                                                </div>
+                                        </a>
+                                </li>
+
+                                <li>
+                                        <a href="/instruction">
+                                                <div class="wrapper">
+                                                        <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
+                                                        Инструкция для стейхолдера
+                                                </div>
+                                        </a>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+</div>
+
+<!-- <h1>{{ parametr }}</h1>
+<form action="/lk" method="POST"> 
+        <div class="form-group">
+            <label for="eventName">Новый пароль</label>
+            <input type="text" class="form-control" id="eventName" name="password" placeholder="">
+        </div>
+        <button type="submit" onclick="send()">Submit</button>
+</form> -->
+
+ <!-- {% if admin %}
+ {% for sh in sHolder %}
+ <div class="card">
+        <h5 class="card-header">{{sh.firstname}} {{sh.lastname}}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{sh.organization}}</h5>
+          <p class="card-text">{{sh.contactInformation}}</p>
+          <a href="/lk/confirm/{{sh._id}}?agree=2" class="btn btn-primary">Принять</a>
+          <a href="/lk/confirm/{{sh._id}}?agree=3" class="btn btn-primary">Отказать</a>
+        </div>
+</div> 
+
+{% endfor %}
+<a href="/lk/csv/" class="btn btn-primary">скачать csv о стейхолдерах</a>
+ {% endif %}
+<div class=" container">
+        <h1 class="text-center">{{ paramebn }}</h1>
+        <div>
+               <a href="/"></a>
+        </div>
+</div>
+{% endblock %} -->
+=======
 <div class="password"> 
   <div class="container">
       <div class="password-titel">
@@ -325,3 +598,4 @@
 
 
 {% endblock %}
+>>>>>>> origin/admin_lk
