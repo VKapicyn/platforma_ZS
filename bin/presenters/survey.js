@@ -12,7 +12,7 @@ class Survey{
             let lvl;
             let acc = 0;
             if(req.session.user) {lvl='user'; log=req.session.user.login}
-            if(req.session.user) {lvl='stakeholder'; log=req.session.user.login}
+            if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
                 for (let j=0;j<survey.result.length;j++){
                 if(survey.result[j].login == log){
                     acc++;
@@ -69,7 +69,7 @@ class Survey{
             let lvl;
             let acc = 0;
             if(req.session.user) {lvl='user'; log=req.session.user.login}
-            if(req.session.user) {lvl='stakeholder'; log=req.session.user.login}
+            if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
                 for (let j=0;j<survey.result.length;j++){
                 if(survey.result[j].login == log){
                     acc++;
@@ -81,7 +81,7 @@ class Survey{
                 let obj={}
                 obj.answer=req.body.answer;
                 obj.date=Date.now().toString();
-                if(req.session.user){obj.login=req.session.user.login}
+                if(req.session.stakeholder){obj.login=req.session.stakeholder.login}
                 if(req.session.user){obj.login=req.session.user.login}
                 survey.result=[...survey.result,obj]
             survey.save()
@@ -101,7 +101,7 @@ class Survey{
         let mas_dr=[];
         let acc = [];
         if(req.session.user) {lvl='user'; log=req.session.user.login}
-        if(req.session.user) {lvl='stakeholder'; log=req.session.user.login}
+        if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
         let survey = await surveytemplateModel.find({accessLVL:lvl});
         for (let i=0;i<survey.length;i++){
             acc[i]=0;

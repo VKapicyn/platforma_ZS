@@ -7,16 +7,67 @@ const Json2csvParser = require ( 'json2csv' ) . Parser ;
 const eventModel = require('../models/eventModel').eventModel;
 const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
 const mongoose = require('mongoose');
+const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
 
 class Lk {
     static async getPage(req, res, next) {
 //<<<<<<< HEAD
-        if ((req.session.user)||(req.session.stakeholder))
+        if (req.session.stakeholder)
+        {
+            let lvl;
+            let log;
+            let mas_n=[];
+            let mas_d=[];
+            let mas_nr=[];
+            let mas_dr=[];
+            let acc = [];
+            if(req.session.user) {lvl='user'; log=req.session.user.login}
+            if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
+            let survey = await surveytemplateModel.find({accessLVL:lvl});
+            for (let i=0;i<survey.length;i++){
+                acc[i]=0;
+                for (let j=0;j<survey[i].result.length;j++){
+                if(survey[i].result[j].login == log){
+                    acc[i]=1; 
+                }
+            }
+            }
+            for(let i=0;i<survey.length;i++){
+                if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && survey[i].annotation){
+                    
+                    mas_n=[...mas_n,survey[i].name];
+                    mas_d=[...mas_d,survey[i].description];
+                }
+                else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && !survey[i].annotation){
+                    mas_n=[...mas_n,survey[i].name];
+                    mas_d=[...mas_d,survey[i].description];
+                }
+                else if(survey[i].accessLVL == lvl && acc[i] > 0 && survey[i].annotation){
+                    mas_nr=[...mas_nr,survey[i].name];
+                    mas_dr=[...mas_dr,survey[i].description];
+                }
+            }
+            let file = await fileNegotiationModel.find();
+            let mas = [];
+            for (let i=0;i<file.length;i++){
+                if(file[i].access.indexOf(req.session.stakeholder.login)>=0){
+                mas=[...mas,file[i]]
+            }
+            }
+            mas.map(it => {let m=[]; m=it.account; it.account=m.filter(item=>
+                {if(item.user == req.session.stakeholder.login || item.sender == req.session.stakeholder.login) return true; else return false}); return it})
             res.render('lk.html', {
+                mas_name:mas_n,
+                mas_desc:mas_d,
+                res_name:mas_nr,
+                res_desc:mas_dr,
+                mas: mas
             });
+        }
         else
             res.redirect('/loginuser')
     }
+
     static async getCsv(req,res,next){
         let sh = await shModel.find({state: '1'},(err) =>{
             console.log(err);
