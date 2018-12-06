@@ -77,6 +77,8 @@ app.use('/api/v1/user', require('./bin/models/userModel').router);
 //Utils ???
 app.use('/file/:filename', require('./bin/utils/uploader').getFile);
 
+app.get('/registration', require('./bin/presenters/reg').getPage);
+
 /**
  * Для загрузки файлов рекомендую модуль 'multer'
  */

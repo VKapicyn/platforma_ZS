@@ -29,6 +29,7 @@ class Registration {
                 history: req.body.history,
                 contact_information: req.body.contact_information,
                 address: req.body.address,
+                regDate: new Date(),
                 state: 0,
                 key: toHash(req.body.login+Date.now().toString()) 
             });

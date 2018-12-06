@@ -1,0 +1,62 @@
+body {
+    background-color: #e7eaf7!important;
+}
+body * {
+    outline: none;
+}
+.confirmSh img, .events img, .negotiation img {
+    width: 40px;
+}
+
+.confirmSh button{
+    margin-left: 30px;
+}
+.confirmSh-titel>* , .events-titel>* , .negotiation-titel > *{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.confirmSh h4, .events h4 {
+    line-height: 0px;
+    margin-top: 10px;
+}
+.confirmSh a, .events a{
+    color: #173a6e ;
+}
+.confirmSh a:hover, .events a:hover{
+    color: #173a6e ;
+}
+.events, .confirmSh, .negotiation, .password{
+    background: white;
+    width: 90%;
+    margin: 20px auto 40px;
+    border-radius: 5px;
+    padding: 15px 30px;
+}
+
+.confirmSh-titel, .events-titel, .negotiation-titel, .password-titel {
+    margin: 10px 0px 45px;
+}
+
+.container {
+    margin-top: 10px;
+}
+
+button {
+    border: 4px solid #1f3a6a!important;
+    background: white;
+    color: #1f3a6a;
+    height: 40px;
+    width: 130px;
+    cursor:pointer;
+}
+
+select#sh-event {height: 40px;}
+
+th {
+    color: #b6b6b6;
+}
+
+td {
+    color: #1f2428;
+}

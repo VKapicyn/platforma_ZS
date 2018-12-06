@@ -5,88 +5,37 @@
 <hr>
 <link rel="stylesheet" href="/css/search.css">
     <div class="content row">
-        <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6 text-center">
-            <h1>Результаты:</h1>
-            {%if survey%}
+        <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6">
+            <center><h2>Результаты поиска:</h2></center>
+            <br>
+            {%if survey.length !=0 %}
             {%for s in survey%}
             <p><a href={{"/survey/name"+s.name}}>Опрос: {{s.name}}({{s.description}})</a></p>
-            {%endfor%}
-            {%endif%}
             <br>
-            {%if report%}
-            {%for r in report%}
-            <p><a href={{"/publicreport/id/"+r.id}}>Отчет: {{r.name}}({{r.description}})</a></p>
             {%endfor%}
-            {%endif%}
             <br>
-            {%if event%}
-            {%for e in event%}
-            <p><a href={{"/events/id/"+e.id}}>Мероприятие: {{e.name}}({{e.description}})</a></p>
-            {%endfor%}
             {%endif%}
 
+            {%if report.length !=0 %}
+            {%for r in report%}
+            <p><a href={{"/publicreport/id/"+r.id}}>Отчет: {{r.name}}({{r.description}})</a></p>
+            <br>
+            {%endfor%}
+            <br>
+            {%endif%}
+
+            {%if event.length !=0 %}
+            {%for e in event%}
+            <p><a href={{"/events/id/"+e.id}}>Мероприятие: {{e.name}}({{e.description}})</a></p>
+            <br>
+            {%endfor%}
+            <br>
+            {%endif%}
             {%if instruction%}
             <p><a href="/instruction">{{instruction}}</a></p>
             {%endif%}
         </div>
-        <div id="side-menu" class="col-xl-3 col-md-5 col-sm-5 col-6">
-                <ul>
-                        <li>
-                                <a href="/publicreport">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/public_reports.png" alt="preports">
-                                                Публичные отчеты
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/personsmap">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/stakeholders_map.png" alt="shsmap">
-                                                Карта заинтересованных сторон
-                                        </div>
-                                        
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/survey">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/public_surveys.png" alt="psurveys">
-                                                Публичные опросы
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/events">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/events_and_materials.png" alt="psurveys">
-                                                Мероприятия и материалы
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="#">
-                                        <div class="wrapper">
-                                                <img src="/img/lk/about_company.png" alt="psurveys">
-                                                О компании
-                                        </div>
-                                </a>
-                        </li>
-
-                        <li>
-                                <a href="/instruction">
-                                        <div class="wrapper">
-                                                <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
-                                                Инструкция для стейхолдера
-                                        </div>
-                                </a>
-                        </li>
-                </ul>
-        </div>
+        {% include "templates/sideMenuTemplate.html" %}
     </div>
 
 {% endblock %}
