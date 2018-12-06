@@ -18,10 +18,11 @@ let stakeholderSchema = mongoose.Schema({
     key: String,
     group: String,
     email: String,
+    regDate: Date,
     events: [{
         _id: false,
         eventId : String,
-        readyToGo  : Boolean,
+        readyToGo  : String,
         default: {}
      }]
 });

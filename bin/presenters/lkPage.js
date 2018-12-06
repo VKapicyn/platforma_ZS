@@ -4,75 +4,106 @@ const adminModel = require('../models/adminModel').adminModel;
 const toHash = require('md5');
 const shModel = require('../models/stakeholderModel').stakeholderModel;
 const Json2csvParser = require ( 'json2csv' ) . Parser ;
+const eventModel = require('../models/eventModel').eventModel;
+const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
+const mongoose = require('mongoose');
+
 class Lk {
     static async getPage(req, res, next) {
-        if (req.session.admin) {
-            let sh = await shModel.find({state: '1'},(err) =>{
-                console.log(err);
-            });
-            console.log(sh);
-        res.render('lk.html', {
-            parametr: 'Я страница личного кабинета',
-            admin: true,
-            sHolder: sh
-        });
+        let events= await eventModel.find();
+        let sHolder= await shModel.find();
+        let file = await fileNegotiationModel.find();
+        let name = [];
+        for (let i=0;i<file.length;i++){
+            name=[...name,file[i].name]
         }
-        else res.render('mainPage.html', {
-            parametr: 'Я страница личного кабинета',
+        res.render('lk.html', {
+                negotiation:name,
+                 events: events,
+                 sHolder: sHolder,
+                 counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
+                // reports: await reportModel.find()
         });
     }
-    static async getCsv(req,res,next){
-        let sh = await shModel.find({state: '1'},(err) =>{
-            console.log(err);
-        });
-        let fields = [{
-                        label:'Имя',
-                        value:'firstname'
-                    },
-                    {
-                        label:'Фамилия',
-                        value: 'lastname'
-                    },
-                    {
-                        label:'Отчество',
-                        value: 'patronymic'
-                    },
-                    {
-                        label:'Организация',
-                        value: 'organization'
-                    },
-                    {
-                        label:'Интересы',
-                        value:'interest'
-                    },
-                    {
-                        label:'Контактная иформация',
-                        value:'contact_information'
-                    },
-                    {
-                        label:'Адрес',
-                        value:'address'
-                    },
-                    {
-                        label:'Соц. сети',
-                        value:'social_network'
-                    }];
-        // let fieldsname=['Имя','Фамилия','Отчество','Организация','Интересы','Контактная иформация','Адрес','Соц. сети'];
-        let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
-        const csv = json2csvParser.parse( sh ) ; 
-        console.log(csv);
-        res.set('Content-Type', 'application/octet-stream');
-        res.attachment('shRegistration.csv');
-        res.status(200).send(csv);  
-       
-    }
-    static  confirmSH(req,res,next){
-        console.log(req.query.agree);
+    static async shMethod(req,res,next){
         
-        shModel.findOneAndUpdate({_id: req.params.id },{$set:{state: req.query.agree}} , (err) => {
-            console.log(err);
-       });
-       res.redirect('/lk');
+        let shChecked = req.body.shCheck;
+
+            let arr=[];
+            let sh=[];
+            if(Array.isArray(shChecked)){
+                shChecked.forEach(i => {
+                   
+                    arr.push({_id : i})
+
+                });
+                 sh = await shModel.find({"$or": arr});
+            }
+            else{
+                 sh = await shModel.find({_id:shChecked});
+                console.log(sh)
+            }
+        switch (req.body.shEvent){
+            case 0: 
+                res.send('Не выбрано действие');
+                res.redirect('/lk');
+            break;
+            case 'csv':
+                let fields = [{
+                    label:'Имя',
+                    value:'firstname'
+                },
+                {
+                    label:'Фамилия',
+                    value: 'lastname'
+                },
+                {
+                    label:'Отчество',
+                    value: 'patronymic'
+                },
+                {
+                    label:'Организация',
+                    value: 'organization'
+                },
+                {
+                    label:'Интересы',
+                    value:'interest'
+                },
+                {
+                    label:'Контактная иформация',
+                    value:'contact_information'
+                },
+                {
+                    label:'Адрес',
+                    value:'address'
+                },
+                {
+                    label:'Соц. сети',
+                    value:'social_network'
+                }];
+                let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+                const csv = json2csvParser.parse( sh ) ; 
+                res.set('Content-Type', 'application/octet-stream');
+                res.attachment('shInfo.csv');
+                res.status(200).send(csv); 
+                res.redirect('/lk');
+            break;
+            case 'agree':
+                sh.map(async function(sh){
+                    await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                        { $push: { state:  2 }}) ; 
+                });
+                res.redirect('/lk');
+
+            break;
+            case 'close':
+            sh.map(async function(sh){
+                await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                    { $push: { state:  3 }}) ; 
+            });
+            res.redirect('/lk');
+            break;
+        }
     }
     static async changePassword(req,res,next){
     try{
@@ -96,7 +127,6 @@ class Lk {
 //Роутинг внутри страницы
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
-router.get('/confirm/:id',adminModel.isAdminLogged,Lk.confirmSH);
-router.get('/csv',adminModel.isAdminLogged,Lk.getCsv);
+router.post('/shMethod',adminModel.isAdminLogged,Lk.shMethod);
 
 module.exports.router = router;
