@@ -133,10 +133,36 @@ class Survey{
             res_desc:mas_dr,
         });
     }
+    static async showdemo(req,res,next){
+        if (!req.session.stakeholder && !req.session.user){
+        let mas_n=[];
+        let mas_d=[];
+        let lvl='user';
+        let survey = await surveytemplateModel.find({accessLVL:lvl});
+        console.log(survey)
+        for(let i=0;i<survey.length;i++){
+            console.log(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date())
+            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && !survey[i].annotation){
+                console.log(1)
+                mas_n=[...mas_n,survey[i].name];
+                mas_d=[...mas_d,survey[i].description];
+            }
+            
+        }
+        res.render('AllSurvey.html', {
+            mas_name:mas_n,
+            mas_desc:mas_d,
+        });
+    }
+    else{
+        res.redirect('/survey/')
+    }
+    }
 
 }
 
 router.get('/', Survey.show);
+router.get('/demo', Survey.showdemo)
 router.get('/name:name', Survey.getPage);
 router.post('/name:name/reg', Survey.reg);
 
