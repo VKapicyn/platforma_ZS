@@ -9,6 +9,11 @@ const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegot
 const mongoose = require('mongoose');
 
 class Lk {
+    static async eventMethod(erq,res,next){
+        shModel.findOneAndUpdate({'events.eventId': req.params.event},{$set: {'events.readyToGo': req.params.go }},(err) => {
+            console.log(err);
+        });
+    }
     static async getPage(req, res, next) {
 //<<<<<<< HEAD
         if ((req.session.user)||(req.session.stakeholder))
@@ -139,6 +144,6 @@ class Lk {
 //Роутинг внутри страницы
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
-router.post('/shMethod',adminModel.isAdminLogged,Lk.shMethod);
+router.get('/:event/:go',Lk.eventMethod);
 
 module.exports.router = router;

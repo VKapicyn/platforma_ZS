@@ -139,7 +139,7 @@ class Events {
                 }
                 sh.map(async function(sh){
                     await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                        { $push: { events:  {eventId: event._id, readyToGo:'Не просмотрел приглашение'}} }) ;
+                        { $push: { events:  {eventId: event._id, readyToGo: 0}} }) ;
                     send(sh,2,event);
                 });
                 // if(req.body.shCheckAll){
