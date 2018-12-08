@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/search.css">
     <div class="content row">
         <div class="result-search col-xl-9 col-md-7 col-sm-7 col-6 text-center">
-                {% if mas_name.length != 0 %}
+                {% if mas_name %}
                         <h2>Доступные опросы:</h2>
                         {% for name in mas_name %}
                         <a href={{'/survey/name'+name}}>{{name}} ({{mas_desc.shift()}})</a>
@@ -17,7 +17,7 @@
                         <h2>Доступных опросов нет</h2>
                         <br>
                 {% endif %}
-                {% if res_name.length != 0 %}
+                {% if res_name %}
                         <h2>Результаты опросов:</h1>
                         {% for name in res_name %}
                         <a href={{'/survey/name'+name}}>{{name}} ({{res_desc.shift()}})</a>
