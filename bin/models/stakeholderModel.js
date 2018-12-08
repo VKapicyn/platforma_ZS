@@ -22,7 +22,7 @@ let stakeholderSchema = mongoose.Schema({
     events: [{
         _id: false,
         eventId : String,
-        readyToGo  : String,
+        readyToGo  : Number,
         default: {}
      }]
 });

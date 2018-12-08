@@ -10,10 +10,18 @@ const mongoose = require('mongoose');
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
 
 class Lk {
+    static async eventMethod(req,res,next){
+        let _id =req.session.stakeholder.id;
+        
+        let sh = await shModel.update({  _id : _id , 'events.eventId' : req.params.event},{$set:{"events.$.readyToGo":req.params.go}});
+        res.redirect('/lk');
+
+    }
     static async getPage(req, res, next) {
 //<<<<<<< HEAD
         if (req.session.stakeholder)
-        {
+        {   
+            let readyToGo={};
             let lvl;
             let log;
             let mas_n=[];
@@ -21,6 +29,25 @@ class Lk {
             let mas_nr=[];
             let mas_dr=[];
             let acc = [];
+            console.log(req.session.stakeholder.id);
+            let shAccount = await shModel.find({_id: req.session.stakeholder.id});
+            let arr=[];
+            console.log(Array.isArray( shAccount[0].events));
+            shAccount[0].events.forEach(i => {
+                   
+                arr.push({_id : i.eventId});
+                readyToGo[i.eventId] = i.readyToGo;
+
+            });
+            let shEvents = await eventModel.find({"$or": arr});
+            // shEvents.eventDate = new Date();
+            let date={};
+            shEvents.forEach(i => {
+                 date[i._id] = i.eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.eventDate.toLocaleString("ru", {year: 'numeric'});
+            });
+            
+        
+            console.log(date);
             if(req.session.user) {lvl='user'; log=req.session.user.login}
             if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
             let survey = await surveytemplateModel.find({accessLVL:lvl});
@@ -61,33 +88,36 @@ class Lk {
                 mas_desc:mas_d,
                 res_name:mas_nr,
                 res_desc:mas_dr,
-                mas: mas
+                mas: mas,
+                readyToGo: readyToGo,
+                events: shEvents,
+                eventDate: date
             });
         }
         else
             res.redirect('/loginuser')
     }
 
-    static async getCsv(req,res,next){
-        let sh = await shModel.find({state: '1'},(err) =>{
-            console.log(err);
-/*=======
-        let events= await eventModel.find();
-        let sHolder= await shModel.find();
-        let file = await fileNegotiationModel.find();
-        let name = [];
-        for (let i=0;i<file.length;i++){
-            name=[...name,file[i].name]
-        }
-        res.render('lk.html', {
-                negotiation:name,
-                 events: events,
-                 sHolder: sHolder,
-                 counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
-                // reports: await reportModel.find()
->>>>>>> origin/admin_lk*/
-        });
-    }
+//     static async getCsv(req,res,next){
+//         let sh = await shModel.find({state: '1'},(err) =>{
+//             console.log(err);
+// /*=======
+//         let events= await eventModel.find();
+//         let sHolder= await shModel.find();
+//         let file = await fileNegotiationModel.find();
+//         let name = [];
+//         for (let i=0;i<file.length;i++){
+//             name=[...name,file[i].name]
+//         }
+//         res.render('lk.html', {
+//                 negotiation:name,
+//                  events: events,
+//                  sHolder: sHolder,
+//                  counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
+//                 // reports: await reportModel.find()
+// >>>>>>> origin/admin_lk*/
+//         });
+//     }
     static async shMethod(req,res,next){
         
         let shChecked = req.body.shCheck;
@@ -191,5 +221,6 @@ class Lk {
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
 router.post('/shMethod',adminModel.isAdminLogged,Lk.shMethod);
+router.get('/:event/:go',Lk.eventMethod);
 
 module.exports.router = router;

@@ -96,48 +96,48 @@
                                 <img src="/img/lk/ring.png" alt="ring">
                                 Мероприятия
                         </div>
-
+                        {% for event in events %}
                         <div class="event row">
                                 <div class="col-12">
                                         <div class="date">
                                                 <img src="/img/lk/calendar.png" alt="cal">
-                                                <span>18.12.2018</span>
+                                                <span>{{eventDate[event._id]}}</span>
                                         </div>
                                         
                                         <p class="description">
-                                                Общественные консультации по проекту интегрированного отчета за 2017 год
+                                                {{event.name}}
                                         </p>
-
+                                        {% if (readyToGo[event._id] == 0) %}
                                         <div class="accept-buttons">
-                                                <a class="accept" href="#">
+                                                <a class="accept" href="/lk/{{event._id}}/1">
                                                         <img src="/img/lk/arrow.png" alt="arrow">
                                                         Подтвердить
                                                 </a>
-                                                <a class="decline" href="#">Отказаться</a>
+                                                <a class="decline" href="/lk/{{event._id}}/2">Отказаться</a>
                                         </div>
-                                </div>
-                        </div>
-
-                        <div class="event row">
-                                <div class="col-12">
-                                        <div class="date">
-                                                <img src="/img/lk/calendar.png" alt="cal">
-                                                <span>18.12.2018</span>
-                                        </div>
-                                        
-                                        <p class="description">
-                                                Общественные консультации по проекту интегрированного отчета за 2017 год
-                                        </p>
-
+                                        {% endif %}
+                                        {% if (readyToGo[event._id] == 1) %}
                                         <div class="accept-buttons">
-                                                <a class="accept" href="#">
+                                                <a class="accept" href="">
                                                         <img src="/img/lk/arrow.png" alt="arrow">
-                                                        Подтвердить
+                                                        Вы согласились
                                                 </a>
-                                                <a class="decline" href="#">Отказаться</a>
+                                                <a class="decline" href="/lk/{{event._id}}/2">Передумать</a>
                                         </div>
+                                        {% endif %}
+                                        {% if (readyToGo[event._id] == 2) %}
+                                        <div class="accept-buttons">
+                                                <a class="accept" href="/lk/{{event._id}}/1">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Передумать 
+                                                </a>
+                                                <a class="decline" href="/lk/{{event._id}}/2">Вы отказались</a>
+                                        </div>
+                                        {% endif %}
                                 </div>
                         </div>
+                        {% endfor %}
+
                 </div>
 
                 <div id="side-menu" class="col-sm-12 col-md-4 col-lg order-md-4 order-lg-4 ">
