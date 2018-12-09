@@ -46,6 +46,10 @@ nav.header {
     width: 20px;
     margin-right: 5px;
 }
+.img-log{
+    width: 30px;
+    margin-right: 5px;
+}
 
 .search {
     font-family: 'Regular';
@@ -408,3 +412,7 @@ footer{
     border-color: rgb(31,58,106);
     border-radius: 0px;
 }}
+.exit{
+    margin-top: 20px;
+    max-width: 140px;
+}

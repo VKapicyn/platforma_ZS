@@ -19,6 +19,7 @@ class Lk {
 //<<<<<<< HEAD
         if (req.session.stakeholder)
         {
+            let sh = await shModel.findOne({login:req.session.stakeholder.login})
             let lvl;
             let log;
             let mas_n=[];
@@ -66,13 +67,17 @@ class Lk {
                 mas_desc:mas_d,
                 res_name:mas_nr,
                 res_desc:mas_dr,
-                mas: mas
+                mas: mas,
+                sh:sh
             });
         }
         else
             res.redirect('/loginuser')
     }
-
+    static logout(req, res, next){
+        delete req.session.stakeholder;
+        res.redirect('/loginuser')
+    }
     static async getCsv(req,res,next){
         let sh = await shModel.find({state: '1'},(err) =>{
             console.log(err);
@@ -195,6 +200,7 @@ class Lk {
 //Роутинг внутри страницы
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
+router.get('/logout', Lk.logout)
 router.get('/:event/:go',Lk.eventMethod);
 
 module.exports.router = router;

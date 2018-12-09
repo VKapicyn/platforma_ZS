@@ -15,7 +15,6 @@ class Registration {
         // }
 
         try {
-            console.log(req.body)
             if(req.body.password != req.body.password1) {
                 err = 'пароли должны совпадать'; 
             }
@@ -42,14 +41,12 @@ class Registration {
                 state: 0,
                 key: toHash(req.body.login+Date.now().toString()) 
             });
-            console.log(1)
             account.save();
             send(account, 1 , account);
         }
         } catch (e) {
             err = 'логин занят';
         }
-        console.log(err)
         if (err) res.render('registration.html',{error:err})
         else res.render('logPage.html', );
     }
