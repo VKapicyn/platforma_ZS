@@ -58,7 +58,7 @@ app.use('/', require('./bin/presenters/toMain.js').router)
 app.use('/registrationUser', require('./bin/presenters/registrationUser').router);
 app.use('/loginUser', require('./bin/presenters/logUser').router)
 
-app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
+//app.use('/registrationstakeholder', require('./bin/presenters/registrationstakeholder.js').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)
 
 app.use('/createsurvey',require('./bin/presenters/createTemplateSurvey.js').router)

@@ -38,3 +38,13 @@
    border-color: rgb(31,58,106);
    border-radius: 0px;
 }
+.group-interest{
+   padding: 10px;
+   border: 1px solid rgb(31, 58, 106);
+   border-radius: 0px;
+}
+select{
+   margin-top: 5px;
+   margin-bottom: 5px;
+   max-width: 100%;
+}
