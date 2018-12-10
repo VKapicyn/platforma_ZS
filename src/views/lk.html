@@ -13,9 +13,9 @@
                                                 Активные опросы
                                         </div>
                                         
-                                        {% for name in mas_name %}
+                                        {% for it in mas_name %}
                                         <div class="survey">
-                                                <a href={{'/survey/name'+name}}>{{name}} <br /> <span class="annotation">({{mas_desc.shift()}})</span></a>
+                                                <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{mas_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
                                         {% endif %}
@@ -29,9 +29,9 @@
                                                 Результаты опросов
                                         </div>
                                         
-                                        {% for name in res_name %}
+                                        {% for it in res_name %}
                                         <div class="survey">
-                                                <a href={{'/survey/name'+name}}>{{name}} <br /> <span class="annotation">({{res_desc.shift()}})</span></a>
+                                                <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{res_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
                                         {% endif %}
