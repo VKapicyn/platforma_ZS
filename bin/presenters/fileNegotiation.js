@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
-
+const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+const send = require('./../utils/email').Send;
 
 class Negotiation{
     static async showall(req, res, next){
@@ -41,8 +42,13 @@ class Negotiation{
         try{
             let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
             if (!fileN.agreement.find(x => x.login === req.session.stakeholder.login))
+            {
             fileN.agreement=[...fileN.agreement,{login: req.session.stakeholder.login, data: Date.now().toString()}]
             await fileN.save();
+            let sh = await stakeholderModel.findOne({login:req.session.stakeholder.login})
+            let content = {name:req.params.name}
+            send(sh, 5 , content);
+            }
             res.redirect('/lk')
             }
         catch(e){

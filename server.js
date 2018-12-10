@@ -67,7 +67,7 @@ app.use('/publicreport', require('./bin/presenters/publicReportPage').router);
 //app.use('/login',require('./bin/presenters/logPage').router);
 app.use('/logadmin',require('./bin/presenters/logPageAdmin').router);
 
-app.use('/fileNegotiation/admin',require('./bin/models/adminModel.js').adminModel.isAdminLogged,require('./bin/presenters/fileNegotiationAdmin.js').router);
+app.use('/fileNegotiation/admin',require('./bin/presenters/fileNegotiationAdmin.js').router);
 app.use('/fileNegotiation/',require('./bin/presenters/fileNegotiation.js').router)
 
 app.use('/search',require('./bin/presenters/search.js').router)
