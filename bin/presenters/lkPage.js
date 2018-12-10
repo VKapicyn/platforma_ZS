@@ -22,6 +22,7 @@ class Lk {
         if (req.session.stakeholder)
         {   
             let readyToGo={};
+            let sh = await shModel.findOne({login:req.session.stakeholder.login})
             let lvl;
             let log;
             let mas_n=[];
@@ -62,15 +63,21 @@ class Lk {
             for(let i=0;i<survey.length;i++){
                 if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && survey[i].annotation){
                     
-                    mas_n=[...mas_n,survey[i].name];
+                    mas_n=[...mas_n,{name:survey[i].name,
+                        fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
+                        ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_d=[...mas_d,survey[i].description];
                 }
                 else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && !survey[i].annotation){
-                    mas_n=[...mas_n,survey[i].name];
+                    mas_n=[...mas_n,{name:survey[i].name,
+                        fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
+                        ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_d=[...mas_d,survey[i].description];
                 }
                 else if(survey[i].accessLVL == lvl && acc[i] > 0 && survey[i].annotation){
-                    mas_nr=[...mas_nr,survey[i].name];
+                    mas_nr=[...mas_nr,{name:survey[i].name,
+                        fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
+                        ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_dr=[...mas_dr,survey[i].description];
                 }
             }
@@ -78,46 +85,39 @@ class Lk {
             let mas = [];
             for (let i=0;i<file.length;i++){
                 if(file[i].access.indexOf(req.session.stakeholder.login)>=0){
+                if(file[i].agreement.find(x => x.login === req.session.stakeholder.login)) file[i].agr = true;
                 mas=[...mas,file[i]]
             }
             }
             mas.map(it => {let m=[]; m=it.account; it.account=m.filter(item=>
-                {if(item.user == req.session.stakeholder.login || item.sender == req.session.stakeholder.login) return true; else return false}); return it})
+                {if(item.user == req.session.stakeholder.login || item.sender == req.session.stakeholder.login)
+                {
+                    let t = new Date(+item.date)
+                    t = t.toLocaleString("ru", {day: 'numeric'}) + '-' + t.toLocaleString("ru", {month: 'numeric'}) + '-' + t.toLocaleString("ru", {year: 'numeric'});
+                    item.date = t;
+                    return true;
+                }   
+                else return false}); return it})
             res.render('lk.html', {
                 mas_name:mas_n,
                 mas_desc:mas_d,
                 res_name:mas_nr,
                 res_desc:mas_dr,
-                mas: mas,
                 readyToGo: readyToGo,
                 events: shEvents,
-                eventDate: date
+                eventDate: date,
+                mas: mas.reverse(),
+                sh:sh
             });
         }
         else
             res.redirect('/loginuser')
     }
+    static logout(req, res, next){
+        delete req.session.stakeholder;
+        res.redirect('/loginuser')
+    }
 
-//     static async getCsv(req,res,next){
-//         let sh = await shModel.find({state: '1'},(err) =>{
-//             console.log(err);
-// /*=======
-//         let events= await eventModel.find();
-//         let sHolder= await shModel.find();
-//         let file = await fileNegotiationModel.find();
-//         let name = [];
-//         for (let i=0;i<file.length;i++){
-//             name=[...name,file[i].name]
-//         }
-//         res.render('lk.html', {
-//                 negotiation:name,
-//                  events: events,
-//                  sHolder: sHolder,
-//                  counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
-//                 // reports: await reportModel.find()
-// >>>>>>> origin/admin_lk*/
-//         });
-//     }
     static async shMethod(req,res,next){
         
         let shChecked = req.body.shCheck;
@@ -221,6 +221,7 @@ class Lk {
 router.get('/', Lk.getPage);
 router.post('/', Lk.changePassword);
 router.post('/shMethod',adminModel.isAdminLogged,Lk.shMethod);
+router.get('/logout', Lk.logout)
 router.get('/:event/:go',Lk.eventMethod);
 
 module.exports.router = router;

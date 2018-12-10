@@ -25,3 +25,10 @@ a:hover,a{
     color:rgb(0, 0, 0);
     text-decoration: none; 
 }
+.send{
+    margin-left: 40%;
+    width: 20%;
+}
+.file{
+    color: blue;
+}

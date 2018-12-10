@@ -15,6 +15,13 @@ class Registration {
         // }
 
         try {
+            if(req.body.password != req.body.password1) {
+                err = 'пароли должны совпадать'; 
+            }
+            else if(await stakeholderModel.findOne({login: req.body.login})){
+                err = 'логин занят'
+            }
+            else{
             let account = new stakeholderModel({
                 login: req.body.login,
                 password: toHash(req.body.password),
@@ -24,6 +31,8 @@ class Registration {
                 email: req.body.email,
                 position: req.body.position,
                 organization: req.body.organization,
+                group: [req.body.group_select,req.body.group_input],
+                time: req.body.time_select,
                 interest: req.body.interest,
                 history: req.body.history,
                 contact_information: req.body.contact_information,
@@ -32,14 +41,14 @@ class Registration {
                 state: 0,
                 key: toHash(req.body.login+Date.now().toString()) 
             });
-            
             account.save();
             send(account, 1 , account);
+        }
         } catch (e) {
             err = 'логин занят';
         }
-        
-        res.render('logPage.html', );
+        if (err) res.render('registration.html',{error:err})
+        else res.render('logPage.html', );
     }
     static async conf(req, res, next){
         let user = await stakeholderModel.findOne({key: req.params.num});

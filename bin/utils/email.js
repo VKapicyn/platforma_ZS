@@ -55,6 +55,15 @@ exports.Send = (receiver, contentType, content) => {
                 html: '<b>Здравствуйте '+ receiver.login +'.<br> Обратите внимание на опрос '+ content.name+'</b>' // html body
             };
             break;
+            case 5: //file agreement
+            mailOptions = {
+                from: '"no-reply" <'+mail+'>', // sender address
+                to: receiver.email,  // list of receivers
+                subject: 'Документ' + content.name +'был согласован', // Subject line
+                text: 'Здравствуйте', // plain text body
+                html: '<b>Здравствуйте '+ receiver.login +'.<br> Документ' + content.name +'был согласован</b>' // html body
+            };
+            break;
             
         case 'feed':
             mailOptions = {
