@@ -57,17 +57,25 @@ class Lk {
             let mas = [];
             for (let i=0;i<file.length;i++){
                 if(file[i].access.indexOf(req.session.stakeholder.login)>=0){
+                if(file[i].agreement.find(x => x.login === req.session.stakeholder.login)) file[i].agr = true;
                 mas=[...mas,file[i]]
             }
             }
             mas.map(it => {let m=[]; m=it.account; it.account=m.filter(item=>
-                {if(item.user == req.session.stakeholder.login || item.sender == req.session.stakeholder.login) return true; else return false}); return it})
+                {if(item.user == req.session.stakeholder.login || item.sender == req.session.stakeholder.login)
+                {
+                    let t = new Date(+item.date)
+                    t = t.toLocaleString("ru", {day: 'numeric'}) + '-' + t.toLocaleString("ru", {month: 'numeric'}) + '-' + t.toLocaleString("ru", {year: 'numeric'});
+                    item.date = t;
+                    return true;
+                }   
+                else return false}); return it})
             res.render('lk.html', {
                 mas_name:mas_n,
                 mas_desc:mas_d,
                 res_name:mas_nr,
                 res_desc:mas_dr,
-                mas: mas,
+                mas: mas.reverse(),
                 sh:sh
             });
         }

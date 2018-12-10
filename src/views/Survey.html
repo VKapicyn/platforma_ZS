@@ -28,11 +28,11 @@
           {% endif %}
           <br>
           {% if (annotation  or file) %}
-          <div class="annotation">аннотация: {{annotation}} <a href={{ file }}> скачать файл</a></div>
+          <div class="annotation">аннотация: ({{annotation}}) <a href={{ file }} class="file"> скачать файл</a></div>
           {% endif %}
           <br>
           {% if question %}
-          <button class="send">отправить</button>
+          <button class="send auth-button btn btn-primary btn-block ">отправить</button>
           {% endif %}
           <div class="container result"></div>
         </div>

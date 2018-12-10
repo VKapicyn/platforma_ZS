@@ -155,14 +155,14 @@ class Survey{
         });
     }
     else{
-        res.redirect('/survey/')
+        res.redirect('/survey/full')
     }
     }
 
 }
 
-router.get('/', Survey.show);
-router.get('/demo', Survey.showdemo)
+router.get('/', Survey.showdemo);
+router.get('/full', Survey.show)
 router.get('/name:name', Survey.getPage);
 router.post('/name:name/reg', Survey.reg);
 

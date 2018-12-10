@@ -54,9 +54,13 @@
                                         <p class="description">
                                                         {{item.description}}
                                         </p>
+                                        {%if item.agr%}
+                                        <p>Документ согласован</p>
+                                        {%else%}
                                         <form  method="POST" action={{'/fileNegotiation/all/agr'+item.name}}>
-                                                <p><input type="submit" value="согласовать"></p>
+                                                <p><input type="submit" value="согласовать" class="auth-button btn btn-primary btn-block agr"></p>
                                         </form>
+                                        {%endif%}
                                         <div class="comments">
                                                 <h6 class="comments-title">Комментарии</h6>
                                                 <div class="field">
