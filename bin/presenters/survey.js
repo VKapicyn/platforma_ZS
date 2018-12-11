@@ -52,7 +52,7 @@ class Survey{
                     file: `/file/${surveytemplate.annotation.file}`
                 });
             }
-            else{res.end('error');return;}
+            else{res.redirect('/loginstakeholder');return;}
         }
         catch(e) {console.log(e)}
        
@@ -102,7 +102,7 @@ class Survey{
         let acc = [];
         if(req.session.user) {lvl='user'; log=req.session.user.login}
         if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
-        let survey = await surveytemplateModel.find({accessLVL:lvl});
+        let survey = await surveytemplateModel.find();
         for (let i=0;i<survey.length;i++){
             acc[i]=0;
             for (let j=0;j<survey[i].result.length;j++){
@@ -112,12 +112,12 @@ class Survey{
         }
         }
         for(let i=0;i<survey.length;i++){
-            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && survey[i].annotation){
+            if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && survey[i].annotation){
                 
                 mas_n=[...mas_n,survey[i].name];
                 mas_d=[...mas_d,survey[i].description];
             }
-            else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && !survey[i].annotation){
+            else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && !survey[i].annotation){
                 mas_n=[...mas_n,survey[i].name];
                 mas_d=[...mas_d,survey[i].description];
             }
@@ -139,11 +139,9 @@ class Survey{
         let mas_d=[];
         let lvl='user';
         let survey = await surveytemplateModel.find({accessLVL:lvl});
-        console.log(survey)
         for(let i=0;i<survey.length;i++){
             console.log(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date())
             if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && !survey[i].annotation){
-                console.log(1)
                 mas_n=[...mas_n,survey[i].name];
                 mas_d=[...mas_d,survey[i].description];
             }

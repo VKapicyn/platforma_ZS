@@ -29,7 +29,7 @@ class Lk {
             let acc = [];
             if(req.session.user) {lvl='user'; log=req.session.user.login}
             if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
-            let survey = await surveytemplateModel.find({accessLVL:lvl});
+            let survey = await surveytemplateModel.find();
             for (let i=0;i<survey.length;i++){
                 acc[i]=0;
                 for (let j=0;j<survey[i].result.length;j++){
@@ -39,14 +39,14 @@ class Lk {
             }
             }
             for(let i=0;i<survey.length;i++){
-                if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && survey[i].annotation){
+                if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && survey[i].annotation){
                     
                     mas_n=[...mas_n,{name:survey[i].name,
                         fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
                         ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_d=[...mas_d,survey[i].description];
                 }
-                else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 && !survey[i].annotation){
+                else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && !survey[i].annotation){
                     mas_n=[...mas_n,{name:survey[i].name,
                         fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
                         ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];

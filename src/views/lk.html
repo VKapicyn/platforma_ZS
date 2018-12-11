@@ -18,6 +18,11 @@
                                                 <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{mas_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
+                                        {% else %}
+                                        <div class="block-title">
+                                                        <img src="/img/lk/flag.png" alt="flag">
+                                               Активных опросов нет
+                                        </div>
                                         {% endif %}
                                 </div>
                         </div>
