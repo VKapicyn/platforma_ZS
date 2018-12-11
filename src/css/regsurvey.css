@@ -9,9 +9,8 @@ div{
     width: 400px
 }
 button{
-    margin:0 45% 0 45%;
-  width:10%;
-
+    /* margin:0 45% 0 45%; */
+    /* width:10%; */
 }
 .result{
     color: red;

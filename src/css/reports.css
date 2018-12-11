@@ -1,0 +1,23 @@
+
+.container-fluid * {
+    outline: none;
+    overflow: hidden;
+}
+.cards  p{
+    min-height: 63px;
+}
+.cards {
+    padding: 25px 20px 50px;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #dfdfdf;
+}
+.col-xl-9.col-md-7.col-sm-7.col-6 {
+    height: 530px;
+    overflow-y: scroll;
+}
+
+
+.cards:last-of-type {
+    border: none;
+}

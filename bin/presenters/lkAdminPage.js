@@ -6,6 +6,7 @@ const shModel = require('../models/stakeholderModel').stakeholderModel;
 const Json2csvParser = require ( 'json2csv' ) . Parser ;
 const eventModel = require('../models/eventModel').eventModel;
 const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
+const reportModel = require('../models/reportModel').reportModel;
 const mongoose = require('mongoose');
 
 class Lk {
@@ -13,6 +14,7 @@ class Lk {
         let events= await eventModel.find();
         let sHolder= await shModel.find();
         let file = await fileNegotiationModel.find();
+        let reports = await reportModel.find();
         let name = [];
         for (let i=0;i<file.length;i++){
             name=[...name,file[i].name]
@@ -21,6 +23,7 @@ class Lk {
                 negotiation:name,
                  events: events,
                  sHolder: sHolder,
+                 reports: reports,
                  counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
                 // reports: await reportModel.find()
         });

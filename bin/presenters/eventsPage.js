@@ -14,10 +14,10 @@ const upload = multer({ storage });
 
 
 class Events {
-    static getPage(req, res, next) {
-        
+    static async getPage(req, res, next) {
+        let events =  await eventModel.find();
         res.render('events.html', {
-            admin: 'admin'
+            events: events
         });
     }
     static async getEditEventPage(req,res,next){
@@ -89,8 +89,8 @@ class Events {
             event =  await eventModel.findById(req.params.id);
         }
         catch(e) {event = e}
-        res.render('events.html', {
-            parametr: event,
+        res.render('eventPage.html', {
+            event: event,
         });
     }
     static async getNewEventPage(req, res, next){

@@ -6,28 +6,28 @@
     outline: none;
     overflow: hidden;
 }
-.confirmSh img, .events img, .negotiation img {
+.confirmSh img, .events img, .negotiation img , .reports img, .survey img{
     width: 40px;
 }
 
 .confirmSh button{
     margin-left: 30px;
 }
-.confirmSh-titel>* , .events-titel>* , .negotiation-titel > *{
+.confirmSh-titel>* , .events-titel>* , .negotiation-titel > *,.reports-titel > *, .survey-titel > *{
     display: inline-block;
     vertical-align: middle;
 }
 
-.confirmSh h4, .events h4, .password h4, .negotiation h4 {
+.confirmSh h4, .events h4, .password h4, .negotiation h4 ,.survey h4{
     margin-top: 10px;
 }
-.confirmSh a, .events a{
+.confirmSh a, .events a, .reports a ,.negotiation a, .survey a{
     color: #173a6e ;
 }
-.confirmSh a:hover, .events a:hover{
+.confirmSh a:hover, .events a:hover, .reports a:hover, .negotiation a:hover, .survey a:hover{
     color: #173a6e ;
 }
-.events, .confirmSh, .negotiation, .password{
+.events, .confirmSh, .negotiation, .password, .reports, .survey{
     background: white;
     width: 90%;
     margin: 20px auto 40px;
@@ -35,7 +35,7 @@
     padding: 15px 30px;
 }
 
-.confirmSh-titel, .events-titel, .negotiation-titel, .password-titel {
+.confirmSh-titel, .events-titel, .negotiation-titel, .password-titel , .reports-titel, .survey-titel{
     margin: 10px 0px 45px;
 }
 

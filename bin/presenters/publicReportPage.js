@@ -13,7 +13,6 @@ const upload = multer({ storage });
 class PublicReport {
     static async getPage(req, res, next) {
         let reports =  await reportModel.find();
-        console.log(reports);
         if (req.session.admin){
             res.render('reportPage.html', {
                 parametr: reports,
@@ -29,7 +28,8 @@ class PublicReport {
     static newReport(req,res,next){
         try {
             // console.log(req.files.pdf.length);
-            if ((req.files.pdf[0].contentType == 'application/pdf')&&((req.files.img[0].contentType== 'image/png')||(req.files.img[0].contentType== 'image/png'))){
+            console.log(req.files.img[0].contentType);
+            if ((req.files.pdf[0].contentType == 'application/pdf')&&((req.files.img[0].contentType== 'image/png')||(req.files.img[0].contentType== 'image/jpeg'))){
                 
                 let report = new reportModel({
                     name: req.body.name,

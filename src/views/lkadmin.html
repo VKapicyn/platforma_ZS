@@ -1,11 +1,9 @@
 {% extends "templates/pageTemplate.html" %}
-{% block commonStyles %}
-<link rel="stylesheet" href="/css/adminlk.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-{% endblock %}
+
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
-
+<link rel="stylesheet" href="/css/adminlk.css">
+<link rel="stylesheet" href="../css/regsurvey.css">
 <div class="password"> 
   <div class="container">
       <div class="password-titel">
@@ -17,20 +15,157 @@
           <label for="eventName">Новый пароль</label>
           <input type="text" class="form-control" id="eventName" name="password" placeholder="">
       </div>
-      <button type="submit" onclick="send()">Submit</button>
+      <button type="submit" onclick="send()">Сменить</button>
    
     </form>
   </div>
 </div>
-<div class="survey">  
+<div class="reports"> 
+        <div class="container">
+                <div class="reports-titel">
+                  <img src="/img/reports.png">
+                  <h4>Отчеты</h4>
+                </div>
+                <div class="report-set">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link active" id="new-report-tab" data-toggle="tab" href="#new-report" role="tab" aria-controls="new-event" aria-selected="true">Опубликовать новый отчет</a>
+                          <a class="nav-item nav-link" id="all-report-tab" data-toggle="tab" href="#all-report" role="tab" aria-controls="all-report" aria-selected="false">Управление существующими отчетами</a>
+                        </div>
+                    </nav>
+                    
+          
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="new-report" role="tabpanel" aria-labelledby="new-report-tab">
+                          
+                      
+                                <form action="/publicreport/new" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="reportName">Название отчета</label>
+                                        <input type="text" class="form-control" id="reportName" name="name" placeholder="Введите название отчета">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reportDescription">Описание отчета</label>
+                                        <textarea class="form-control" id="reportDescription" name="description" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reportStandarts">Стандарты</label>
+                                        <input type="text" class="form-control" id="reportStandarts" name="standarts" placeholder="Введите по каким стандартам выполнен отчет">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reportRevards">Награды отчета</label>
+                                        <input type="text" class="form-control" id="reportRevards" name="revards" placeholder="Введите награды отчета">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pdfReport">Загрузите pdf отчета</label>
+                                        <input type="file" accept="application/pdf" class="form-control-file" id="pdfReport" name="pdf">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pdfReportEng">Загрузите pdf отчета</label>
+                                        <input type="file" accept="application/pdf" class="form-control-file" id="pdfReportEng" name="pdfEng">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="imgReport">Загрузите обложку отчета</label>
+                                        <input type="file" accept="image/jpeg,image/png" class="form-control-file" id="imgReport" name="img">
+                                    </div>
+                                    <button type="submit"  class="">Опубликовать</button>
+                                  </form>
+                        
+                        </div>
+                    
+                  
+                        <div class="tab-pane fade" id="all-report" role="tabpanel" aria-labelledby="all-report-tab">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th>Название</th>
+                                    <th>Дата публикации</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                            <tbody>
+                          {% for report in reports %}
+                          <tr>
+                          <td>{{report.name}}</td>
+                          <td>{{report.creatingDate}}</td>
+                          <td><a href="/publicreport/update/{{report._id}}">Редактировать</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                </div> 
+              
 </div>
+<div class="survey">  
+        <div class="container">
+                <div class="survey-titel">
+                        <img src="/img/negotiation.png">
+                        <h4>Опросы</h4>
+                    </div>
+                    <div class="survey-set">
+                      <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link active" id="new-survey-tab" data-toggle="tab" href="#new-survey" role="tab" aria-controls="new-survey" aria-selected="true">Новый опрос</a>
+                          <a class="nav-item nav-link" id="all-survey-tab" data-toggle="tab" href="#all-survey" role="tab" aria-controls="all-survey" aria-selected="false">Управление существующими</a>
+                        </div>
+                      </nav>
+              
+                      <div class="tab-content" id="nav-tabContent">
+                          <div class="tab-pane fade show active" id="new-survey" role="tabpanel" aria-labelledby="new-survey-tab">
+                                <div class="container"> 
+                                        название анкеты: <input type="text" class="name"> 
+                                        уровень доступа: <select class="lvl">
+                                            <option value="user">user</option>
+                                            <option value="stakeholder">stakeholder</option>
+                                          </select>
+                                        кол-во полей в анкете: <input type="text" class="number"> (максимум 40)
+                                    </div>
+                                    <br>
+                                    <div class="container"> описание к опросу: <input type="text" class="description">  </div>
+                                    <br>
+                                    <div class="container">
+                                      введите дату начала опроса: <input type="date" class="first_date"> 
+                                      введите дату завершения опроса: <input type="date" class="last_date">
+                                    </div>
+                                    <br>
+                                    <div class="container main"></div>
+                                    <button >создать</button>
+                                    <div class="container result"></div>
+                                
+                          </div>
+                          <div class="tab-pane fade" id="all-survey" role="tabpanel" aria-labelledby="all-survey-tab">
+                              <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Название</th>
+                                      <th></th>
+                                    </tr>
+                                  </thead>
+                              <tbody>
+                                  {% for name in negotiation %}
+                                  <tr>
+                                  <td>{{name}}</td>
+                                  <td><a href='/fileNegotiation/admin/name{{name}}'>посмотреть</a></td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                          </div>
+                      </div>
+        </div>
+    </div>
+</div>
+
   <div class="negotiation">
     <div class="container">
-      <div class="events-titel">
+      <div class="negotiation-titel">
           <img src="/img/negotiation.png">
           <h4>Согласование материалов</h4>
       </div>
-      <div class="negotiation-set"></div>
+      <div class="negotiation-set">
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="new-negotiation-tab" data-toggle="tab" href="#new-negotiation" role="tab" aria-controls="new-event" aria-selected="true">Новое согласование</a>
@@ -72,6 +207,7 @@
                 </table>
             </div>
         </div>
+      </div>
       </div>
   </div>
   
@@ -356,5 +492,11 @@
   </div>
  
 
-
+  
+{% endblock %}
+{% block commonJS %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="../js/regsurvey.js"></script>
 {% endblock %}
