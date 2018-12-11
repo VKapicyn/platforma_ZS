@@ -13,7 +13,7 @@ class Auth {
         if (account.password == toHash(req.body.password)){  
             req.session.stakeholder = {id: account._id, login: account.login};
             req.session.save();
-            res.redirect('lk.html');
+            res.redirect('/lk');
         }
         else { 
             //инфа об ошибке ?
