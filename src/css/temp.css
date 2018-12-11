@@ -53,6 +53,7 @@ nav.header {
 
 .search {
     font-family: 'Regular';
+    padding-top: 15px;
     color:rgb(31, 58, 106);
 }
 a:hover,a{
@@ -415,7 +416,17 @@ footer{
 .exit{
     margin-top: 20px;
     max-width: 140px;
+    height: 30px;
+    line-height: 10px;
 }
 .container-fluid{
     padding: 0px;
+}
+button {
+    border: 4px solid #1f3a6a!important;
+    background: white;
+    color: #1f3a6a;
+    height: 40px;
+    width: 130px;
+    cursor:pointer;
 }

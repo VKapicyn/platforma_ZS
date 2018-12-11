@@ -110,7 +110,8 @@ class Lk {
                 events: shEvents,
                 eventDate: date,
                 mas: mas.reverse(),
-                sh:sh
+                sh:sh,
+                session: req.session
             });
         }
         else

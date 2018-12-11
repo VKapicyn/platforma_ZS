@@ -3,7 +3,9 @@
 {% block content %}
 <link rel="stylesheet" href="/css/lk.css">
 <div class="container-fluid content">
-        <div class="colums row">
+        <div class="content row">
+        <div class="col-xl-9 col-md-7 col-sm-7 col-6">
+                <div class="colums row">
                 <div id="surveys" class="col-sm-12 col-md-4 col-lg order-md-2 order-lg-1 right-delimiter">
                         <div id="active-surveys" class="row">
                                 <div class="surveys-list col-12">
@@ -18,7 +20,17 @@
                                                 <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{mas_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
+                                        
+                                        {% else %} 
+                                        <div class="block-title">
+                                                        <img src="/img/lk/flag.png" alt="flag">
+                                                        Активные опросы
+                                        </div>
+                                        <div class="survey">
+                                                        <a>Нет доступных опросов</a>        
+                                        </div>
                                         {% endif %}
+
                                 </div>
                         </div>
                         <div id="surveys-results" class="row">
@@ -108,9 +120,9 @@
                                                 <span>{{eventDate[event._id]}}</span>
                                         </div>
                                         
-                                        <p class="description">
+                                        <a href="/events/id/{{event._id}}"><p class="description">
                                                 {{event.name}}
-                                        </p>
+                                        </p></a>
                                         {% if (readyToGo[event._id] == 0) %}
                                         <div class="accept-buttons">
                                                 <a class="accept" href="/lk/{{event._id}}/1">
@@ -143,65 +155,10 @@
                         {% endfor %}
 
                 </div>
-
-                <div id="side-menu" class="col-sm-12 col-md-4 col-lg order-md-4 order-lg-4 ">
-                        <ul>
-                                <li>
-                                        <a href="/publicreport">
-                                                <div class="wrapper">
-                                                        <img src="/img/lk/public_reports.png" alt="preports">
-                                                        Публичные отчеты
-                                                </div>
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a href="/personsmap">
-                                                <div class="wrapper">
-                                                        <img src="/img/lk/stakeholders_map.png" alt="shsmap">
-                                                        Карта заинтересованных сторон
-                                                </div>
-                                                
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a href="/survey">
-                                                <div class="wrapper">
-                                                        <img src="/img/lk/public_surveys.png" alt="psurveys">
-                                                        Публичные опросы
-                                                </div>
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a href="/events">
-                                                <div class="wrapper">
-                                                        <img src="/img/lk/events_and_materials.png" alt="psurveys">
-                                                        Мероприятия и материалы
-                                                </div>
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a href="#">
-                                                <div class="wrapper">
-                                                        <img src="/img/lk/about_company.png" alt="psurveys">
-                                                        О компании
-                                                </div>
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a href="/instruction">
-                                                <div class="wrapper">
-                                                        <!-- <img src="/img/lk/about_company.png" alt="psurveys"> -->
-                                                        Инструкция для стейхолдера
-                                                </div>
-                                        </a>
-                                </li>
-                        </ul>
-                </div>
+                </div>  
+               
+        </div>
+        {% include "templates/sideMenuTemplate.html" %}
         </div>
 </div>
 {% endblock %}

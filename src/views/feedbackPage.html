@@ -1,18 +1,26 @@
 {% extends "templates/pageTemplate.html" %}
 {% block content %}
-<form action="/feedback/send" method="POST" enctype="multipart/form-data"> 
-    <div class="form-group">
-        <label for="name">ФИО</label>
-        <input type="text" class="form-control" id="name" name="name"  placeholder="Введите ваше Фамилию,имя,отчество">
+<link rel="stylesheet" href="/css/search.css">
+{% include "templates/pageTopMenu.html" %}
+<hr>
+    <div class="content row">
+        <div class="col-xl-9 col-md-7 col-sm-7 col-6">
+        <form action="/feedback/send" method="POST" enctype="multipart/form-data"> 
+            <div class="form-group">
+                <label for="name">ФИО</label>
+                <input type="text" class="form-control" id="name" name="name"  placeholder="Введите ваше ФИО">
+            </div>
+            <div class="form-group">
+                <label for="mess">Текст сообщения</label>
+                <textarea class="form-control" id="mess"name="content" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="email">Ваш контактный e-mail</label>
+                <input type="email" class="form-control" id="email" name="email"  placeholder="Ваш email">
+            </div>
+            <button type="submit"  class="">Отправить</button>
+        </form>
+        </div>
+        {% include "templates/sideMenuTemplate.html" %}
     </div>
-    <div class="form-group">
-        <label for="mess">Текст сообщения</label>
-        <textarea class="form-control" id="mess"name="content" rows="4"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="email">Ваш контактный e-mail</label>
-        <input type="email" class="form-control" id="email" name="email"  placeholder="Ваш email">
-    </div>
-    <button type="submit" onclick="send()" class="btn btn-primary">Submit</button>
-  </form>
 {% endblock %}
