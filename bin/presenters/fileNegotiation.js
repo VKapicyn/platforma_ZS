@@ -31,7 +31,7 @@ class Negotiation{
             let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
             let obj={user: 'admin', date: Date.now().toString(), sender: req.session.stakeholder.login, text: req.body.dialog};
             fileN.account=[...fileN.account,obj];
-            if(fileN.firstDate<=new Date() && fileN.lastDate>=new Date()) await fileN.save();
+            if(fileN.lastDate>=new Date()) await fileN.save();
             res.redirect('/lk')
             }
         catch(e){
