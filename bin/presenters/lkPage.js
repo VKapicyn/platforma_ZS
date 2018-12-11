@@ -30,17 +30,20 @@ class Lk {
             let mas_nr=[];
             let mas_dr=[];
             let acc = [];
-            console.log(req.session.stakeholder.id);
             let shAccount = await shModel.find({_id: req.session.stakeholder.id});
             let arr=[];
-            console.log(Array.isArray( shAccount[0].events));
+            let shEvents=[];
+
             shAccount[0].events.forEach(i => {
                    
                 arr.push({_id : i.eventId});
                 readyToGo[i.eventId] = i.readyToGo;
 
             });
-            let shEvents = await eventModel.find({"$or": arr});
+            if (arr.length > 0){
+             shEvents = await eventModel.find({"$or": arr});
+            }
+            console.log(arr);
             // shEvents.eventDate = new Date();
             let date={};
             shEvents.forEach(i => {
