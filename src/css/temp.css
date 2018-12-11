@@ -417,5 +417,13 @@ footer{
     max-width: 140px;
 }
 .container-fluid{
-    margin: 0px;
+    padding: 0px;
+}
+
+.navbar{
+    border-bottom: 3px solid rgb(205,205,205);
+}
+
+.event-main{
+    display: inline;
 }

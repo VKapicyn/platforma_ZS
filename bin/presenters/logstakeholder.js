@@ -17,7 +17,7 @@ class Auth {
         }
         else { 
             //инфа об ошибке ?
-            // res.redirect('lk.html');
+            res.redirect('/loginuser');
         }
     }
     static logout(req, res, next){
