@@ -31,10 +31,7 @@ class Negotiation{
                 });
                 file.save();
                 let stakeholders = await stakeholderModel.find()
-                res.render('regFileNegotiationForAdmin.html',{
-                    stakeholders:stakeholders,
-                    response:"Успешно"
-                })
+                res.redirect('/lkadmin')
             }
             else
                 {   
