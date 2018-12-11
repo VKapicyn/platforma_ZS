@@ -15,16 +15,16 @@
 {% block navbar %}
 
 <nav class="navbar navbar-expand-lg row header">
-    <a class="navbar-brand col-lg-2 col-sm-2" href="/main"><img src="/img/логотип1.png" width="90px" height="65px"></a>
+    <a class="navbar-brand col-lg-2 col-sm-2 col-2" href="/main"><img src="/img/логотип1.png" width="90px" height="65px"></a>
     
   
-    <div class="head-text col-lg-8 col-sm-6">
+    <div class="collapse navbar-collapse head-text col-lg-8 col-sm-6">
            <img src="/img/флаг.png" align="left" class="img-flag">
           <div>Интерактивная платформа взаимодействия<br>
 с заинтересованными сторонами Инжинирингового дивизиона Госкорпорации «Росатом»</div> 
     </div>
       
-    <div class="search col-lg-2 col-sm-3">
+    <div class="search  col-md-8 col-sm-8 col-8">
             {%if sh%}
             <div> <img src="/img/log.png" align="left"  class="img-log">{{sh.lastname}} {{sh.firstname[0]}}.{{sh.patronymic[0]}}.</div>
             {%else%}
@@ -42,7 +42,7 @@
       {%endif%}
     </div>
   </nav>
-  <hr>
+
 
 {% endblock %}
 

@@ -16,7 +16,7 @@ class AuthAdmin {
              req.session.save();
              console.log(req.session.admin);
              
-             res.end();
+             res.redirect('/lkadmin');
 
         }
         else {

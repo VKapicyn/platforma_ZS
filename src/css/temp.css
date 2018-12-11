@@ -419,3 +419,11 @@ footer{
 .container-fluid{
     padding: 0px;
 }
+
+.navbar{
+    border-bottom: 3px solid rgb(205,205,205);
+}
+
+.event-main{
+    display: inline;
+}
