@@ -47,6 +47,7 @@ class Lk {
             // shEvents.eventDate = new Date();
             let date={};
             shEvents.forEach(i => {
+                if (i.eventDate)
                  date[i._id] = i.eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.eventDate.toLocaleString("ru", {year: 'numeric'});
             });
             
