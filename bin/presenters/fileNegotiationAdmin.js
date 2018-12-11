@@ -75,8 +75,8 @@ class Negotiation{
             file: `/file/${fileN.file}`,
             access: fileN.access,
             agreement: fileN.agreement,
-            firstDate: fileN.firstDate,
-            lastDate: fileN.lastDate
+            firstDate: fileN.firstDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {year: 'numeric'}),
+            lastDate: fileN.lastDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {year: 'numeric'}),
         });
     }
     catch(e){
@@ -92,8 +92,8 @@ class Negotiation{
             file: `/file/${fileN.file}`,
             access: fileN.access[req.params.login],
             agreement: fileN.agreement,
-            firstDate: fileN.firstDate,
-            lastDate: fileN.lastDate,
+            firstDate: fileN.firstDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {year: 'numeric'}),
+            lastDate: fileN.lastDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {year: 'numeric'}),
             dialog: fileN.account.filter(item=>{if(item.user == req.params.login || item.sender == req.params.login) return true})
         });
     }
@@ -177,7 +177,7 @@ class Negotiation{
     }
     }
     static back2(req,res,next){
-        res.redirect('../')
+        res.redirect('/lkadmin')
     }
 }
 

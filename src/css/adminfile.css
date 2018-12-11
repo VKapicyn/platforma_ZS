@@ -1,0 +1,17 @@
+.but{
+    margin-top: 15px;
+    max-width: 30%;
+    min-width: 200px
+}
+.dialog{
+    padding: 5px;
+    border: 2px solid #929292 
+}
+.dialog-input{
+    width: 30%;
+    min-width: 300px;
+}
+.link{
+    color: blue;
+    font-size: 20px
+}
