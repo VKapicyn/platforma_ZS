@@ -2,6 +2,7 @@
     width: 100vw;
     font-size: 1.2em;
     margin-left: 0;
+    margin-right: 0;
    
 }
 #side-menu{
@@ -31,4 +32,9 @@ a:hover,a{
 }
 .file{
     color: blue;
+}
+.block-question{
+    padding: 5px;
+    margin: 10px;
+    padding: 5px;
 }

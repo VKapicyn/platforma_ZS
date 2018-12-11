@@ -11,8 +11,8 @@
             <div class=" description">({{description}})</div>
             {% if question %}
             {% for item in answer %}
-            <div class="">
-            <span class="question">{{question.shift()}}</span>
+            <div class="block-question">
+            <span class="question">{{question.shift()}}</span><br>
             <span class="data">   
                     {% if item != 'text' %}
                     <select class="ans_select">{% for array_item in item %}
