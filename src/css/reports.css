@@ -16,7 +16,9 @@
     height: 530px;
     overflow-y: scroll;
 }
-
+.cards > div {
+    max-width: 900px;
+}
 
 .cards:last-of-type {
     border: none;

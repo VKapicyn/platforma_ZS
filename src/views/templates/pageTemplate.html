@@ -15,21 +15,22 @@
 {% block navbar %}
 
 <nav class="navbar navbar-expand-lg row header">
-    <a class="navbar-brand col-lg-2 col-sm-2 col-2" href="/main"><img src="/img/логотип1.png" width="90px" height="65px"></a>
+    <a class="navbar-brand col-lg-2 col-sm-2 col-2" href="/main">
+      <img src="/img/логотип1.png" width="90px" height="65px">
+    </a>
     
-  
-    <div class="collapse navbar-collapse head-text col-lg-8 col-sm-6">
+    <div class="collapse navbar-collapse head-text col-lg-8 col-md-8 col-sm-0 col-0 col-sm-0">
            <img src="/img/флаг.png" align="left" class="img-flag">
           <div>Интерактивная платформа взаимодействия<br>
 с заинтересованными сторонами Инжинирингового дивизиона Госкорпорации «Росатом»</div> 
     </div>
       
-    <div class="search  col-md-8 col-sm-8 col-8">
+    <div class="search  col-md-2 col-sm-12 col-12">
             {%if sh%}
             <div> <img src="/img/log.png" align="left"  class="img-log">{{sh.lastname}} {{sh.firstname[0]}}.{{sh.patronymic[0]}}.</div>
             {%else%}
-            <a href="/feedback" class="chat"><img src="/img/обратная-связь.png" align="left" class="img-chat">
-            <div> Обратная связь</div> </a> 
+            <a href="/feedback" class="chat">
+            <div> <img src="/img/обратная-связь.png" class="img-chat"> Обратная связь</div> </a> 
             {%endif%}
       <form action="/search/" method="POST" class="form-search">
         <input type="image" name="picture" src="/img/лупа.png"  width="20px">
@@ -37,7 +38,7 @@
       </form>
       {%if sh%}
       <form action="/lk/logout">
-        <input type="submit" value="выйти" class="auth-button btn btn-primary btn-block exit">
+        <button type="submit" class="exit">Выйти</button>
       </form>
       {%endif%}
     </div>

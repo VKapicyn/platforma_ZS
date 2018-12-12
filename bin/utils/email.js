@@ -1,15 +1,12 @@
 const nodemailer = require('nodemailer');
-const locationOrigin = 'http://localhost:8000';
-const mail='info@i-fastrepair.ru';
+let config = require('./../../config.js')
+
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
     host: 'smtp.yandex.ru',
     port: 465,
     secure: true, // true for 465, false for other ports
-    auth: {
-        user: mail, 
-        pass: 'asdf12345' 
-    }
+    auth: config.auth
 });
 
 exports.Send = (receiver, contentType, content) => {
@@ -21,25 +18,25 @@ exports.Send = (receiver, contentType, content) => {
         case 1: //Registration
             // console.log(document.domain);
             mailOptions = {
-                from: '"no-reply" <'+mail+'>', // sender address
+                from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email, // list of receivers
                 subject: 'Подтверждение регистрации', // Subject line
                 text: 'Здраствуйте', // plain text body
-                html: '<b>Здраствуйте '+ receiver.login +'<br> для подтверждения регистрации перейдите по ссылке <br><a href="'+locationOrigin+'/registrationstakeholder/conf/'+ content.key+'">'+ locationOrigin+'/registrationstakeholder/conf/'+ content.key +'</a></b>' // html body
+                html: '<b>Здраствуйте '+ receiver.login +'<br> для подтверждения регистрации перейдите по ссылке <br><a href="'+config.locationOrigin+'/registrationstakeholder/conf/'+ content.key+'">'+ config.locationOrigin+'/registrationstakeholder/conf/'+ content.key +'</a></b>' // html body
             };
             break;
         case 2: // events invites
             mailOptions = {
-                from: '"no-reply" <'+mail+'>', // sender address
+                from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email,  // list of receivers
                 subject: 'Вы были приглашены на новое мероприятие', // Subject line
                 text: 'Здравствуйте', // plain text bbody
-                html: '<b>Здраствуйте '+ receiver.login +'<br> Вы были приглашены на новое мероприятие, перейдите по ссылке для просмотра <br><a href="'+locationOrigin+'/events/id/'+ content.id+'">'+ locationOrigin+'/events/id/'+ content.id +'</a></b>' // html body
+                html: '<b>Здраствуйте '+ receiver.login +'<br> Вы были приглашены на новое мероприятие, перейдите по ссылке для просмотра <br><a href="'+config.locationOrigin+'/events/id/'+ content.id+'">'+ config.locationOrigin+'/events/id/'+ content.id +'</a></b>' // html body
             };
             break;
         case 3: //survey new
             mailOptions = {
-                from: '"no-reply" <'+mail+'>', // sender address
+                from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email,  // list of receivers
                 subject: 'Новый опрос ', // Subject line
                 text: 'Здравствуйте', // plain text body
@@ -48,7 +45,7 @@ exports.Send = (receiver, contentType, content) => {
             break;
         case 4: //survey anotation
             mailOptions = {
-                from: '"no-reply" <'+mail+'>', // sender address
+                from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email,  // list of receivers
                 subject: 'Добавлена аннотация к опросу', // Subject line
                 text: 'Здравствуйте', // plain text body
@@ -57,7 +54,7 @@ exports.Send = (receiver, contentType, content) => {
             break;
             case 5: //file agreement
             mailOptions = {
-                from: '"no-reply" <'+mail+'>', // sender address
+                from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email,  // list of receivers
                 subject: 'Документ' + content.name +'был согласован', // Subject line
                 text: 'Здравствуйте', // plain text body
@@ -67,7 +64,7 @@ exports.Send = (receiver, contentType, content) => {
             
         case 'feed':
             mailOptions = {
-                from: '"feedback" <'+mail+'>', // sender address
+                from: '"feedback" <'+config.mail+'>', // sender address
                 to: 'ZSplatformInfo@yandex.ru' ,  // list of receivers
                 subject: 'Сообщение ', // Subject line
                 text: 'Сообщение', // plain text body

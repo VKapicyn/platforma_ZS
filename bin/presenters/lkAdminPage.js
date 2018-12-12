@@ -69,8 +69,20 @@ class Lk {
                     value: 'organization'
                 },
                 {
+                    label:'Группа заинтересованных сторон',
+                    value: 'group'
+                },
+                {
                     label:'Интересы',
-                    value:'interest'
+                    value:'time'
+                },
+                {
+                    label:'История взаимотношений',
+                    value:'history'
+                },
+                {
+                    label:'Формат взаимотношений',
+                    value:'format'
                 },
                 {
                     label:'Контактная иформация',

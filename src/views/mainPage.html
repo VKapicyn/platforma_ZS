@@ -5,54 +5,81 @@
 <link rel="stylesheet" href="/css/main.css">
 {% include "templates/pageTopMenu.html" %}
 <hr>
-<div class="main row">
-<div class="event-list">
-        <p class="h-ev">События и мероприятия</p>
-        {%for e in events%}
-        <a class="event" href={{'/events/id/'+e.id}}>
-        <p><img src="/img/event.png" alt=""><span class="date"> {{e.eventDate}}</span><br>
-        {{e.name}}<br>
-        <img src="/img/стрелка.png" alt="">
-        </p>
-        <br>
-        </a>
-        {%endfor%}
-        <br>
-        <a href="/events" class="allevents"> Все события </a>
-</div>
-<div class="list row">
-        <a class="list-item align-self-center row col-2" href="/publicreport">
-               <img src="/img/отчеты.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end ">Публичные<br>отчеты</div> 
-        </a>
-        <a class="list-item align-self-center row col-2 ml-auto" href="/survey">
-                <img src="/img/опросы.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Публичные<br>опросы</div> 
-        </a>
-        <a class="list-item align-self-center row col-2 ml-auto" href="/events">
-                <img src="/img/Мероприятия.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Мероприятия<br>и материалы</div> 
-        </a>
-        <a class="list-item align-self-center row col-2 ml-auto" href="/personsmap">
-                <img src="/img/Карта.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Карта<br><span class="d-none d-xl-block">заинтересованных сторон</span></div> 
-        </a>
-        <a class="list-item align-self-center row col-2 ml-auto" href="/lk">
-                <img src="/img/кабинет.png" width="25px" height="25px" class="img-menu2"><div class="align-self-end">Личные кабинеты<br><span class="d-none d-xl-block">заинтересованных сторон</span></div> 
-        </a>
-        <hr class="col-12">
-        <div class="content-img col-7"></div>
-        <div class="content-text col-5">
-                <span>Одним из инструментов повышения качества социального отчета является взаимодействие между компанией<br> 
-                        и её заинтересованными сторонами при подготовке отчетности. Организация подобного взаимодействия предполагает создание условий для получения запросов стейкхолдеров по поводу раскрытия информации 
-                        в будущем отчете в части социально значимых аспектов её деятельности. Размещая в отчете ответы на вопросы стейкхолдеров, выявленные в ходе диалогов, компания делает шаг от прозрачности к «подотчетности», 
-                        а социальный отчет приобретает качество «нацеленности» на своих читателей.<br>
-                        <pre> </pre>
-                                Выстраивание взаимодействия с заинтересованными сторонами в рамках подготовки отчетности может быть поделено на четыре последовательных этапа.</span>
-                               <p><a><img src="/img/2стрелки.png" alt=""></a></p> 
-        </div>
-        <div class="old">
-                <img src="/img/ключ.png" alt=""><span> Данная платформа взаимодействия с заинтересованными сторонами является второй версией платформы, созданной в 2013 году. Первая версия платформы с материалами находится по <a class="ss-old" target="_blank" href="http://stakeholderpanel.ru/ru/index.html">ссылке</a></span>
-        </div>
-        
-</div>
 
+
+<div class="conatiner-fluid">
+        <div class="left row col-xl-2 col-lg-3 col-md-3 col-sm-12 col-12">
+                <div class="event-list">
+                        <p class="h-ev">События и мероприятия</p>
+                        {%for e in events%}
+                        <a class="event" href={{'/events/id/'+e.id}}>
+                        <p><img src="/img/event.png" alt=""><span class="date"> {{e.eventDate}}</span><br>
+                        {{e.name}}<br>
+                        <img src="/img/стрелка.png" alt="">
+                        </p>
+                        <br>
+                        </a>
+                        {%endfor%}
+                        <br>
+                        <a href="/events" class="allevents"> Все события </a>
+                </div>
+        </div>
+        <div class="row times col-xl-10 col-lg-9 col-md-9 col-sm-12 col-12">
+
+                <div class="col-xl-2 col-lg-2 col-md-5 col-sm-12 col-12 list-item">
+                        <img align="left" src="/img/отчеты.png" width="25px" height="25px" class="img-menu2">
+                        <div class="inner">
+                                <a class="align-self-center" href="/publicreport">Публичные отчеты</a>
+                        </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-5 col-sm-12 col-12 list-item">
+                        <img  align="left" src="/img/опросы.png" width="25px" height="25px" class="img-menu2">
+                        <div class="inner">
+                                <a class="align-self-center" href="/survey">
+                                        Публичные опросы
+                                </a> 
+                        </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-5 col-sm-12 col-12 list-item">
+                        <img align="left" src="/img/Мероприятия.png" width="25px" height="25px" class="img-menu2">
+                        <div class="inner">
+                                <a class="align-self-center" href="/events">
+                                       Мероприятия и материалы 
+                                </a>
+                        </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-5 col-sm-12 col-12 list-item">
+                        <img align="left" src="/img/Карта.png" width="25px" height="25px" class="img-menu2">
+                        <div class="inner2">
+                                <a class="align-self-center" href="/personsmap">
+                                        Карта <span class="d-none d-xl-block">заинтересованных сторон</span>
+                                </a>  
+                        </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-5 col-sm-12 col-12 list-item">
+                        <img align="left" src="/img/кабинет.png" width="25px" height="25px" class="img-menu2">
+                        <div class="inner2">
+                                <a class=" align-self-center" href="/lk">
+                                        Личные кабинеты <span class="d-none d-xl-block">заинтересованных сторон</span>
+                                </a>
+                        </div>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-0 col-sm-0 col-0"></div>
+                <hr class="col-12">
+                <div class="content-img col-7"></div>
+                <div class="content-text col-5">
+                        <span>Одним из инструментов повышения качества социального отчета является взаимодействие между компанией<br> 
+                                и её заинтересованными сторонами при подготовке отчетности. Организация подобного взаимодействия предполагает создание условий для получения запросов стейкхолдеров по поводу раскрытия информации 
+                                в будущем отчете в части социально значимых аспектов её деятельности. Размещая в отчете ответы на вопросы стейкхолдеров, выявленные в ходе диалогов, компания делает шаг от прозрачности к «подотчетности», 
+                                а социальный отчет приобретает качество «нацеленности» на своих читателей.<br>
+                                <pre> </pre>
+                                        Выстраивание взаимодействия с заинтересованными сторонами в рамках подготовки отчетности может быть поделено на четыре последовательных этапа.</span>
+                                       <p><a><img src="/img/2стрелки.png" alt=""></a></p> 
+                </div>
+                <div class="old">
+                        <img src="/img/ключ.png" alt=""><span> Данная платформа взаимодействия с заинтересованными сторонами является второй версией платформы, созданной в 2013 году. Первая версия платформы с материалами находится по <a class="ss-old" target="_blank" href="http://stakeholderpanel.ru/ru/index.html">ссылке</a></span>
+                </div>
+        </div>
 </div>
 
 {% endblock %}
