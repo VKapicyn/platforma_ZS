@@ -66,6 +66,10 @@ a:hover,a{
     text-decoration: none; 
 }
 
+.result-search p{
+    padding-right: 5vw;
+    padding-left: 5vw;
+}
 .input-search {
     width: 115px;
     outline: none;
