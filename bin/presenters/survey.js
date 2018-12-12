@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
-
+const shModel = require('../models/stakeholderModel').stakeholderModel;
 
 class Survey{
     static async getPage(req, res, next) {
         let surveytemplate;
+        let sh = await shModel.findOne({login:req.session.stakeholder.login})
         try{
             let survey =  await surveytemplateModel.findOne({name:req.params.name});
             let log;
@@ -29,7 +30,8 @@ class Survey{
                     question: surveytemplate.data.question,
                     answer: surveytemplate.data.answer,
                     annotation: surveytemplate.annotation.text,
-                    file: `/file/${surveytemplate.annotation.file}`
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
                 });
                 
             
@@ -40,7 +42,8 @@ class Survey{
                     description: surveytemplate.description,
                     name: surveytemplate.name,
                     question: surveytemplate.data.question,
-                    answer: surveytemplate.data.answer
+                    answer: surveytemplate.data.answer,
+                    sh:sh
                 });
             }
             else if(survey.accessLVL == lvl && acc > 0 && survey.annotation){
@@ -49,7 +52,8 @@ class Survey{
                     description: surveytemplate.description,
                     name: surveytemplate.name,
                     annotation: surveytemplate.annotation.text,
-                    file: `/file/${surveytemplate.annotation.file}`
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
                 });
             }
             else{res.redirect('/loginstakeholder');return;}
@@ -100,6 +104,7 @@ class Survey{
         let mas_nr=[];
         let mas_dr=[];
         let acc = [];
+        let sh = await shModel.findOne({login:req.session.stakeholder.login})
         if(req.session.user) {lvl='user'; log=req.session.user.login}
         if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
         let survey = await surveytemplateModel.find();
@@ -131,9 +136,11 @@ class Survey{
             mas_desc:mas_d,
             res_name:mas_nr,
             res_desc:mas_dr,
+            sh:sh
         });
     }
     static async showdemo(req,res,next){
+        let sh = await shModel.findOne({login:req.session.stakeholder.login})
         if (!req.session.stakeholder && !req.session.user){
         let mas_n=[];
         let mas_d=[];
@@ -150,6 +157,7 @@ class Survey{
         res.render('AllSurvey.html', {
             mas_name:mas_n,
             mas_desc:mas_d,
+            sh:sh
         });
     }
     else{

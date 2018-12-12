@@ -134,11 +134,12 @@
                                         {% endif %}
                                         {% if (readyToGo[event._id] == 1) %}
                                         <div class="accept-buttons">
-                                                <a class="accept" href="">
-                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                <a class="decline" href="">
                                                         Вы согласились
                                                 </a>
-                                                <a class="decline" href="/lk/{{event._id}}/2">Передумать</a>
+                                                <a class="accept" href="/lk/{{event._id}}/2">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Передумать</a>
                                         </div>
                                         {% endif %}
                                         {% if (readyToGo[event._id] == 2) %}

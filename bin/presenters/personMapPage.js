@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const shModel = require('../models/stakeholderModel').stakeholderModel;
 
 class PersonMap {
-    static getPage(req, res, next) {
-        res.render('personmap.html');
+    static async getPage(req, res, next) {
+        let sh = await shModel.findOne({login:req.session.stakeholder.login})
+        res.render('personmap.html',{
+            sh:sh
+        });
     }
 }
 
