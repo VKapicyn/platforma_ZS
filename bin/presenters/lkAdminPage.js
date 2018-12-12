@@ -140,8 +140,8 @@ class Lk {
 }
 
 //Роутинг внутри страницы
-router.get('/', Lk.getPage);
-router.post('/', Lk.changePassword);
+router.get('/', adminModel.isAdminLogged, Lk.getPage);
+router.post('/', adminModel.isAdminLogged, Lk.changePassword);
 router.post('/shMethod',adminModel.isAdminLogged,Lk.shMethod);
 
 module.exports.router = router;
