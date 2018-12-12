@@ -3,6 +3,7 @@ const router = express.Router();
 const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
 const reportModel = require('../models/reportModel').reportModel;
 const eventModel = require('../models/eventModel').eventModel;
+const fs = require('fs')
 
 class Search{
     static async getResult(req, res, next){
@@ -57,7 +58,14 @@ class Search{
             //console.log(ev_id);
             //////////////////////////////////////////////
             let ins;
-            if ('инструкция'.indexOf(req.body.search) >= 0) ins = 'инструкция';
+            try{
+            ins = fs.readFileSync('./src/views/instruction.html','utf8')
+            }
+            catch(e){
+                console,log(e)
+            }
+            if (ins.indexOf(req.body.search)) ins = 'инструкция';
+            else ins =''
             
             res.render('search.html',{
                 survey:sur,
