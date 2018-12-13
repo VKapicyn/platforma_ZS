@@ -81,6 +81,9 @@ app.use('/file/:filename', require('./bin/utils/uploader').getFile);
 app.get('/registration', require('./bin/presenters/reg').getPage);
 
 app.use('/about', require('./bin/presenters/about').router);
+app.use('/logoutu', function(req, res, next) {
+    delete req.session.user;
+});
 
 /**
  * Для загрузки файлов рекомендую модуль 'multer'
