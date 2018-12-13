@@ -12,9 +12,10 @@ class Search{
             let log;
             let sur=[];
             let acc = [];
-            if(req.session.userModel) {lvl='user'; log=req.session.userModel.login}
-            if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login}
-            let survey = await surveytemplateModel.find({accessLVL:lvl});
+            let survey
+            if(req.session.userModel) {lvl='user'; log=req.session.userModel.login; survey = await surveytemplateModel.find({accessLVL:lvl});}
+            if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login; survey = await surveytemplateModel.find();}
+            survey = await surveytemplateModel.find({accessLVL:lvl});
             for (let i=0;i<survey.length;i++){
                 acc[i]=0;
                 for (let j=0;j<survey[i].result.length;j++){

@@ -12,6 +12,7 @@ class Survey{
             let log;
             let lvl;
             let acc = 0;
+            console.log(req.session)
             if(req.session.user) {lvl='user'; log=req.session.user.login}
             if(req.session.stakeholder) {lvl='stakeholder'; log=req.session.stakeholder.login}
                 for (let j=0;j<survey.result.length;j++){
@@ -20,7 +21,7 @@ class Survey{
                 }
             
             }
-            if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) && survey.annotation)
+            if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1) && survey.annotation)
             {
                 surveytemplate=survey;
                 
@@ -36,7 +37,7 @@ class Survey{
                 
             
             }
-            else if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1) && !survey.annotation){
+            else if((survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1) && !survey.annotation){
                 surveytemplate=survey;
                 res.render('Survey.html', {
                     description: surveytemplate.description,
@@ -46,7 +47,7 @@ class Survey{
                     sh:sh
                 });
             }
-            else if(survey.accessLVL == lvl && acc > 0 && survey.annotation){
+            else if((survey.accessLVL == lvl || lvl == 'stakeholder') && acc > 0 && survey.annotation){
                 surveytemplate=survey;
                 res.render('Survey.html', {
                     description: surveytemplate.description,
@@ -80,7 +81,7 @@ class Survey{
                 }
             
             }
-            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == lvl && acc < 1)){res.end('error');return;}
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1)){res.end('error');return;}
             else{
                 let obj={}
                 obj.answer=req.body.answer;
