@@ -59,7 +59,7 @@ class Registration {
             if (user.state == 0) {
                 user.state = 1;
                 user.save();
-                res.redirect('/loginstakeholder/alert');
+                res.redirect('/loginstakeholder/conf');
             }
         } else
             res.send('ошибка')
