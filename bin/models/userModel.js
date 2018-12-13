@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');//require('./../../server').mongoose;
 
 let userSchema = mongoose.Schema({
-    login: String,
+    login: {type: String,unique: true},
     password: String, // захешировать в MD5
     email: String
 });
