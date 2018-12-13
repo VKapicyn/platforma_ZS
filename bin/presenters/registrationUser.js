@@ -5,7 +5,7 @@ const toHash = require('md5');
 
 class RegUser{
     static getPage(req, res, next) {
-        res.render('regUser.html')
+        res.render('registration.html')
     }
     static async reg(req,res,next){
         let err;
@@ -25,7 +25,7 @@ class RegUser{
             err = 'логин занят';
         }
         
-        res.render('logUser.html', {account: err || account});
+        res.render('logPage.html');
     }
 }
 
