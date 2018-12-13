@@ -15,19 +15,23 @@ const upload = multer({ storage });
 
 class Events {
     static async getPage(req, res, next) {
+        let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
         let events =  await eventModel.find();
         res.render('events.html', {
-            events: events
+            events: events,
+            sh:sh
         });
     }
     static async getEditEventPage(req,res,next){
         let event;
+        let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
         try{
             event =  await eventModel.findById(req.params.id);
         }
         catch(e) {event = e}
         res.render('editEvent.html', {
             event: event,
+            sh:sh
         });
     }
     static async getCsv(req,res,next){
@@ -77,20 +81,22 @@ class Events {
                 res.end;
     }
     static async editEventPage(req,res,next){
-
+        let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
 
         res.render('editEvent.html',{
-
+            sh:sh
         });
     }
     static async getPageByEventId(req, res, next) {
         let event;
+        let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
         try{
             event =  await eventModel.findById(req.params.id);
         }
         catch(e) {event = e}
         res.render('eventPage.html', {
             event: event,
+            sh:sh
         });
     }
     static async getNewEventPage(req, res, next){

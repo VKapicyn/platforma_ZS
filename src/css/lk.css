@@ -4,5 +4,8 @@
 }
 #documents{
     overflow: auto;
-    height: 60vh;
+    height: 72vh;
+}
+.colums > div{
+    margin-top: 0rem;
 }

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/css/lk.css">
 <div class="container-fluid content">
         <div class="content row">
-        <div class="col-xl-9 col-md-7 col-sm-7 col-6">
+        <div class="col-xl-9 col-md-9 col-sm-9 col-12">
                 <div class="colums row">
                 <div id="surveys" class="col-sm-12 col-md-4 col-lg order-md-2 order-lg-1 right-delimiter">
                         <div id="active-surveys" class="row">
@@ -134,11 +134,12 @@
                                         {% endif %}
                                         {% if (readyToGo[event._id] == 1) %}
                                         <div class="accept-buttons">
-                                                <a class="accept" href="">
-                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                <a class="decline" href="">
                                                         Вы согласились
                                                 </a>
-                                                <a class="decline" href="/lk/{{event._id}}/2">Передумать</a>
+                                                <a class="accept" href="/lk/{{event._id}}/2">
+                                                        <img src="/img/lk/arrow.png" alt="arrow">
+                                                        Передумать</a>
                                         </div>
                                         {% endif %}
                                         {% if (readyToGo[event._id] == 2) %}

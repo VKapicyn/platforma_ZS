@@ -59,6 +59,9 @@
     .form-search{
         width: 90% !important;
     }
+    .navbar-brand{
+        padding-left: 35% !important;
+    }
 }
 
 a:hover,a{
@@ -461,6 +464,13 @@ nav.navbar {
 }
 .left{
     float:left;
+}
+
+.comment.right{
+    clear:right;
+}
+.comment.left{
+    clear:left;
 }
 
 .event-main{

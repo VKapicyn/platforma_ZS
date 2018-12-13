@@ -27,7 +27,8 @@
       
     <div class="search  col-md-2 col-sm-12 col-12">
             {%if sh%}
-            <div> <img src="/img/log.png" align="left"  class="img-log">{{sh.lastname}} {{sh.firstname[0]}}.{{sh.patronymic[0]}}.</div>
+            <a href="/lk" class="chat">
+            <div> <img src="/img/log.png"  class="img-log">{{sh.lastname}} {{sh.firstname[0]}}.{{sh.patronymic[0]}}.</div></a>
             {%else%}
             <a href="/feedback" class="chat">
             <div> <img src="/img/обратная-связь.png" class="img-chat"> Обратная связь</div> </a> 

@@ -7,11 +7,13 @@ const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
 const storage = newStorage();
 const delFile = require('../utils/uploader').Delete;
+const shModel = require('../models/stakeholderModel').stakeholderModel;
 const upload = multer({ storage });
 // const upload = multer({ dest: 'uploads/' });
 
 class PublicReport {
     static async getPage(req, res, next) {
+        let sh = (req.session.stakeholder) ? await shModel.findOne({login:req.session.stakeholder.login}) : undefined;
         let reports =  await reportModel.find();
         if (req.session.admin){
             res.render('reportPage.html', {
@@ -21,7 +23,8 @@ class PublicReport {
         }
         else{
         res.render('reportPage.html', {
-            parametr: reports
+            parametr: reports,
+            sh:sh
         });
         }
     }
@@ -57,8 +60,10 @@ class PublicReport {
         }
     }
     static async getPageByReportId(req,res,next){
-        let report
+        let report;
+        let sh = (req.session.stakeholder) ? await shModel.findOne({login:req.session.stakeholder.login}) : undefined;
         try{
+            
             report =  await reportModel.findById(req.params.id);
         }
         catch(e) {report = e}
@@ -66,7 +71,8 @@ class PublicReport {
             parametr: report,
             download_url: `/file/${report.pdfSrc}`,
             downloadEng: `/file/${report.pdfEngSrc}`,
-            img_url: `/file/${report.imgSrc}`
+            img_url: `/file/${report.imgSrc}`,
+            sh:sh
         });
     }
 

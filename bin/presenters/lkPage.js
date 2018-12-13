@@ -18,7 +18,6 @@ class Lk {
 
     }
     static async getPage(req, res, next) {
-//<<<<<<< HEAD
         if (req.session.stakeholder)
         {   
             let readyToGo={};
