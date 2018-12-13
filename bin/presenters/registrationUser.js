@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userModel = require('../models/userModel').userModel;
+const shModel = require('../models/stakeholderModel').stakeholderModel;
 const toHash = require('md5');
 
 class RegUser{
@@ -14,12 +15,17 @@ class RegUser{
         }
 
         try {
-            let account = new userModel({
-                'login': req.body.login +'6',
-                'password': toHash(req.body.password),
-                'email': req.body.email
-            });
-            account.save();
+            let test = await shModel.findOne({login:req.body.login});
+            if (test==null || test ==undefined)
+            {
+                let account = new userModel({
+                    'login': req.body.login,
+                    'password': toHash(req.body.password),
+                    'email': req.body.email
+                });
+                account.save();
+            }
+            else throw 'логин занят'
         } catch (e) {
             err = 'логин занят';
         }

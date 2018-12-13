@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
+const userModel = require('../models/userModel').userModel;
 const toHash = require('md5');
 const send = require('./../utils/email').Send;
 
@@ -19,6 +20,9 @@ class Registration {
                 err = 'пароли должны совпадать'; 
             }
             else if(await stakeholderModel.findOne({login: req.body.login})){
+                err = 'логин занят'
+            }
+            else if(await userModel.findOne({login: req.body.login})){
                 err = 'логин занят'
             }
             else{
