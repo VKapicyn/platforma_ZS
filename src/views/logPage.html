@@ -5,8 +5,17 @@
 <link rel="stylesheet" href="/css/login.css">
 {% endblock %}
 {% block content %}
+
 <div class="container">
+        {% if (alert == 'conf') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ваша почта подтверждена, теперь вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
     <div class="row row-flex">
+            
         <div class="col-md-2"></div>
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">

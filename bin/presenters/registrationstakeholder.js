@@ -6,8 +6,11 @@ const send = require('./../utils/email').Send;
 
 class Registration {
     static getPage(req, res, next) {
-        res.render('regPage.html')
+        res.render('regPage.html');
+        
     }
+
+   
     static async reg(req,res,next){
         let err;
         // if( !req.body.login || !req.body.password || !req.body.email) {
@@ -56,7 +59,7 @@ class Registration {
             if (user.state == 0) {
                 user.state = 1;
                 user.save();
-                res.send('подтвержден')
+                res.redirect('/loginstakeholder/alert');
             }
         } else
             res.send('ошибка')
@@ -66,5 +69,7 @@ class Registration {
 router.get('/', Registration.getPage);
 router.post('/', Registration.reg);
 router.get('/conf/:num', Registration.conf);
+
+
 
 module.exports.router = router;

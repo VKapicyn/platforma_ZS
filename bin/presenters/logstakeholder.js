@@ -5,7 +5,10 @@ const toHash = require('md5')
 
 class Auth {
     static getPage(req, res, next) {
-        res.render('logPage.html')
+        res.render('logPage.html',{
+            alert: req.params.conf
+        });
+        console.log(req.params);
     }
 
     static async login(req,res,next){
@@ -28,6 +31,7 @@ class Auth {
 
 router.get('/', Auth.getPage);
 router.post('/', Auth.login);
-router.delete('/', Auth.logout)
+router.delete('/', Auth.logout);
+router.get('/:conf', Auth.getPage);
 
 module.exports.router = router;
