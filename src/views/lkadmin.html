@@ -145,10 +145,10 @@
                                     </tr>
                                   </thead>
                               <tbody>
-                                  {% for name in survey %}
+                                  {% for it in survey %}
                                   <tr>
-                                  <td>{{name.name}}</td>
-                                  <td><a href='/createsurvey/res/{{name.name}}'>Посмотреть</a></td>
+                                  <td>{{it.name}}</td>
+                                  <td><a href='/createsurvey/res/{{it.id}}'>Посмотреть</a></td>
                                   </tr>
                                   {% endfor %}
                                 </tbody>

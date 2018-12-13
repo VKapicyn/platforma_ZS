@@ -60,7 +60,6 @@ class CreateSurvey{
         
     }
     static async getSurvey(req, res, next) {
-            console.log(req.params.id)
             let survey =  await surveytemplateModel.findById(req.params.id);
         res.render('SurveyForAdmin.html', {
             result: survey.result,

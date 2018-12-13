@@ -63,7 +63,6 @@ class Survey{
     }
     static async reg(req,res,next){
         let err='успешно';
-        console.log(req.params.id )
         if( !req.params.id || !req.body.answer ) {
             res.end('Все поля должны быть заполнены');
         }
@@ -148,7 +147,6 @@ class Survey{
         let lvl='user';
         let survey = await surveytemplateModel.find({accessLVL:lvl});
         for(let i=0;i<survey.length;i++){
-            console.log(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date())
             if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && !survey[i].annotation){
                 mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id}];
                 mas_d=[...mas_d,survey[i].description];
