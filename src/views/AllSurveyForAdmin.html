@@ -13,8 +13,8 @@
   <body>
     <div class="container name">
         <h1>Все опросы:</h1>
-            {% for name in mas_name %}
-            <a href={{'/createsurvey/res/'+name}}>{{name}} ({{mas_desc.shift()}})</a>
+            {% for it in mas_name %}
+            <a href={{'/createsurvey/res/'+it.id}}>{{it.name}} ({{mas_desc.shift()}})</a>
             <br>
             {% endfor %}
 
