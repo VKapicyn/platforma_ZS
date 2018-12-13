@@ -30,7 +30,7 @@
                                 <img src="img/revards.png"><a>Победы отчета в конкурсе</a>
                                 <div class="container">
                                   <p>
-                                {{report.revards}}
+                                {{report.revards  | striptags(true) | escape | nl2br}}
                                 </p>
                                 </div>
                             </h5>
@@ -45,7 +45,7 @@
                               <h5>
                                   <img src="img/standarts.png"><a>Соответствие международным стандартам</a>
                                   <div class="container">
-                                      <p><img src="img/standart1.png"><img src="img/standart2.png">{{report.standarts}}</p>
+                                      <p><img src="img/standart1.png"><img src="img/standart2.png">{{report.standarts  | striptags(true) | escape | nl2br}}</p>
                                   </div>
                               </h5>
                               
@@ -56,7 +56,7 @@
                   </div>
                   <p class="card-text mb-auto"><img src="img/reportthems.png">Приоритетные темы отчета:</p>
                   <div class="container">
-                      <span>{{report.thems}}</span>
+                      <span>{{report.thems  | striptags(true) | escape | nl2br}}</span>
                   </div>
                 </div>
           </div>
