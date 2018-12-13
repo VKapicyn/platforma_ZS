@@ -6,11 +6,8 @@ const send = require('./../utils/email').Send;
 
 class Registration {
     static getPage(req, res, next) {
-        res.render('regPage.html');
-        
+        res.render('regPage.html')
     }
-
-   
     static async reg(req,res,next){
         let err;
         // if( !req.body.login || !req.body.password || !req.body.email) {
@@ -62,14 +59,12 @@ class Registration {
                 res.redirect('/loginstakeholder/conf');
             }
         } else
-            res.send('ошибка')
+        res.redirect('/lk');
     }    
 }
 
 router.get('/', Registration.getPage);
 router.post('/', Registration.reg);
 router.get('/conf/:num', Registration.conf);
-
-
 
 module.exports.router = router;
