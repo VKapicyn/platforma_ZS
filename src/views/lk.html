@@ -17,7 +17,7 @@
                                         
                                         {% for it in mas_name %}
                                         <div class="survey">
-                                                <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{mas_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
+                                                <a href={{'/survey/id'+it.id}}>{{it.name}} <br /> <span class="annotation">({{mas_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
                                         
@@ -43,7 +43,7 @@
                                         
                                         {% for it in res_name %}
                                         <div class="survey">
-                                                <a href={{'/survey/name'+it.name}}>{{it.name}} <br /> <span class="annotation">({{res_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
+                                                <a href={{'/survey/id'+it.id}}>{{it.name}} <br /> <span class="annotation">({{res_desc.shift()}}) ({{it.fd}} - {{it.ld}})</span></a>
                                         </div>
                                         {% endfor %}
                                         {% endif %}
@@ -66,7 +66,7 @@
                                         <p class="description">
                                                         {{item.description}}
                                         </p>
-                                        {%if item.agr%}
+                                        {%if item.agr %}
                                         <p>Документ согласован</p>
                                         {%else%}
                                         <form  method="POST" action={{'/fileNegotiation/all/agr'+item.name}}>

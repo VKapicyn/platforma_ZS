@@ -8,7 +8,7 @@ class Survey{
         let surveytemplate;
         let sh = (req.session.stakeholder) ? await shModel.findOne({login:req.session.stakeholder.login}) : undefined;
         try{
-            let survey =  await surveytemplateModel.findOne({name:req.params.name});
+            let survey =  await surveytemplateModel.findById(req.params.id);
             let log;
             let lvl;
             let acc = 0;
@@ -63,12 +63,12 @@ class Survey{
     }
     static async reg(req,res,next){
         let err='успешно';
-        if( !req.params.name || !req.body.answer ) {
+        if( !req.params.id || !req.body.answer ) {
             res.end('Все поля должны быть заполнены');
         }
         else{
         try {
-            let survey = await surveytemplateModel.findOne({name:req.params.name})
+            let survey = await surveytemplateModel.findById(req.params.id)
             let log;
             let lvl;
             let acc = 0;
@@ -119,15 +119,15 @@ class Survey{
         for(let i=0;i<survey.length;i++){
             if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && survey[i].annotation){
                 
-                mas_n=[...mas_n,survey[i].name];
+                mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id}];
                 mas_d=[...mas_d,survey[i].description];
             }
             else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && !survey[i].annotation){
-                mas_n=[...mas_n,survey[i].name];
+                mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id}];
                 mas_d=[...mas_d,survey[i].description];
             }
             else if(survey[i].accessLVL == lvl && acc[i] > 0 && survey[i].annotation){
-                mas_nr=[...mas_nr,survey[i].name];
+                mas_nr=[...mas_nr,{name:survey[i].name,id:survey[i].id}];
                 mas_dr=[...mas_dr,survey[i].description];
             }
         }
@@ -149,7 +149,7 @@ class Survey{
         for(let i=0;i<survey.length;i++){
             console.log(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date())
             if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && !survey[i].annotation){
-                mas_n=[...mas_n,survey[i].name];
+                mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id}];
                 mas_d=[...mas_d,survey[i].description];
             }
             
@@ -169,8 +169,8 @@ class Survey{
 
 router.get('/', Survey.showdemo);
 router.get('/full', Survey.show)
-router.get('/name:name', Survey.getPage);
-router.post('/name:name/reg', Survey.reg);
+router.get('/id:id', Survey.getPage);
+router.post('/id:id/reg', Survey.reg);
 
 
 module.exports.router = router;

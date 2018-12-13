@@ -65,20 +65,19 @@ class Lk {
             }
             for(let i=0;i<survey.length;i++){
                 if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && survey[i].annotation){
-                    
-                    mas_n=[...mas_n,{name:survey[i].name,
+                    mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id,
                         fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
                         ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_d=[...mas_d,survey[i].description];
                 }
                 else if(survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 && !survey[i].annotation){
-                    mas_n=[...mas_n,{name:survey[i].name,
+                    mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id,
                         fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
                         ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_d=[...mas_d,survey[i].description];
                 }
                 else if(survey[i].accessLVL == lvl && acc[i] > 0 && survey[i].annotation){
-                    mas_nr=[...mas_nr,{name:survey[i].name,
+                    mas_nr=[...mas_nr,{name:survey[i].name,id:survey[i].id,
                         fd:survey[i].firstDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].firstDate.toLocaleString("ru", {year: 'numeric'}),
                         ld:survey[i].lastDate.toLocaleString("ru", {day: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {month: 'numeric'}) + '-' + survey[i].lastDate.toLocaleString("ru", {year: 'numeric'})}];
                     mas_dr=[...mas_dr,survey[i].description];
