@@ -49,7 +49,7 @@ class CreateSurvey{
             let survey = await surveytemplateModel.find();
             for(let i=0;i<survey.length;i++){
                 if (survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date()){
-                    mas_n=[...mas_n,survey[i].name];
+                    mas_n=[...mas_n,{name:survey[i].name,id:survey[i].id}];
                     mas_d=[...mas_d,survey[i].description];
                 }
             }
@@ -60,8 +60,8 @@ class CreateSurvey{
         
     }
     static async getSurvey(req, res, next) {
-        
-            let survey =  await surveytemplateModel.findOne({'name':req.params.name});
+            console.log(req.params.id)
+            let survey =  await surveytemplateModel.findById(req.params.id);
         res.render('SurveyForAdmin.html', {
             result: survey.result,
             question: survey.data.question
@@ -71,7 +71,7 @@ class CreateSurvey{
     static async regAnnotation(req, res, next) {
         try{
         if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-            let survey = await surveytemplateModel.findOne({'name':req.params.name})
+            let survey = await surveytemplateModel.findById(req.params.id)
             survey.annotation={text:req.body.text_an,file:req.file.filename,date:Date.now().toString()}
             survey.save();
                 let st= await stakeholderModel.find();
@@ -106,7 +106,7 @@ class CreateSurvey{
 router.get('/', CreateSurvey.getPage);
 router.post('/reg', CreateSurvey.reg);
 router.get('/res', CreateSurvey.showResult);
-router.get('/res/:name', CreateSurvey.getSurvey);
-router.post('/res/:name',upload.single('file_an'), CreateSurvey.regAnnotation);
+router.get('/res/:id', CreateSurvey.getSurvey);
+router.post('/res/:id',upload.single('file_an'), CreateSurvey.regAnnotation);
 
 module.exports.router = router;

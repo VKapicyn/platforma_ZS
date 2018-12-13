@@ -63,6 +63,7 @@ class Survey{
     }
     static async reg(req,res,next){
         let err='успешно';
+        console.log(req.params.id )
         if( !req.params.id || !req.body.answer ) {
             res.end('Все поля должны быть заполнены');
         }
