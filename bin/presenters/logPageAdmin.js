@@ -11,18 +11,20 @@ class AuthAdmin {
     static async login(req,res,next){
          let account = await adminModel.findOne({login:req.body.login})
          console.log(toHash(req.body.password));
-        if (account.password == toHash(req.body.password)){    
-             req.session.admin = {id: account._id, login: account.login};
-             req.session.save();
-             console.log(req.session.admin);
-             
-             res.redirect('/lkadmin');
+        if (account!=null && account!=undefined) {
+            if (account.password == toHash(req.body.password)){    
+                req.session.admin = {id: account._id, login: account.login};
+                req.session.save();
+                console.log(req.session.admin);
+                
+                res.redirect('/lkadmin');
 
+            }
         }
-        else {
+        try {
             //инфа об ошибке ?
             res.redirect('/logPageAdmin.html')
-        }
+        } catch(e) {}
     }
     static logout(req, res, next){
         delete req.session.admin;
