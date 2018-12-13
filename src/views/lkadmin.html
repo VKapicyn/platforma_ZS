@@ -145,10 +145,10 @@
                                     </tr>
                                   </thead>
                               <tbody>
-                                  {% for name in negotiation %}
+                                  {% for name in survey %}
                                   <tr>
-                                  <td>{{name}}</td>
-                                  <td><a href='/fileNegotiation/admin/name{{name}}'>посмотреть</a></td>
+                                  <td>{{name.name}}</td>
+                                  <td><a href='/createsurvey/res/{{name.name}}'>Посмотреть</a></td>
                                   </tr>
                                   {% endfor %}
                                 </tbody>

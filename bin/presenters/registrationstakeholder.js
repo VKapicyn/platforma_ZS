@@ -48,7 +48,7 @@ class Registration {
             err = 'логин занят';
         }
         if (err) res.render('registration.html',{error:err})
-        else res.render('logPage.html', );
+        else res.redirect('/loginstakeholder/email' );
     }
     static async conf(req, res, next){
         let user = await stakeholderModel.findOne({key: req.params.num});
@@ -56,10 +56,10 @@ class Registration {
             if (user.state == 0) {
                 user.state = 1;
                 user.save();
-                res.send('подтвержден')
+                res.redirect('/loginstakeholder/conf');
             }
         } else
-            res.send('ошибка')
+        res.redirect('/lk');
     }    
 }
 

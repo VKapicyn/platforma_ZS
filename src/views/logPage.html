@@ -5,8 +5,31 @@
 <link rel="stylesheet" href="/css/login.css">
 {% endblock %}
 {% block content %}
+
 <div class="container">
+        {% if (alert == 'conf') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ваша почта подтверждена, теперь Вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'confuser') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Вы успешно заргестрированы, теперь Вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'email') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Подтвердите почту, для завершения регистрации
+            </center>
+        </div>
+        {% endif %}
     <div class="row row-flex">
+            
         <div class="col-md-2"></div>
         <div class="col-md-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">

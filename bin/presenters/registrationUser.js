@@ -9,7 +9,7 @@ class RegUser{
     }
     static async reg(req,res,next){
         let err;
-        if( !req.body.login || !req.body.password || !req.body.email) {
+        if( !req.body.login || !req.body.password ) {
             err = 'Все поля должны быть заполнены'; return;
         }
 
@@ -17,15 +17,14 @@ class RegUser{
             let account = new userModel({
                 'login': req.body.login +'6',
                 'password': toHash(req.body.password),
-                'email': req.body.email,
-                'key': toHash(req.body.login+Date.now().toString())
+                'email': req.body.email
             });
             account.save();
         } catch (e) {
             err = 'логин занят';
         }
         
-        res.render('logPage.html');
+        res.redirect('/loginstakeholder/confuser' );
     }
 }
 

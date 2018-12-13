@@ -8,10 +8,13 @@ const eventModel = require('../models/eventModel').eventModel;
 const fileNegotiationModel = require('../models/fileNegotiationModel').fileNegotiationModel;
 const reportModel = require('../models/reportModel').reportModel;
 const mongoose = require('mongoose');
+const surveytemplateModel = require('../models/surveytemplateModel').surveytemplateModel;
+
 
 class Lk {
     static async getPage(req, res, next) {
         let events= await eventModel.find();
+        let survey =  await surveytemplateModel.find();
         let sHolder= await shModel.find();
         let file = await fileNegotiationModel.find();
         let reports = await reportModel.find();
@@ -24,6 +27,7 @@ class Lk {
                  events: events,
                  sHolder: sHolder,
                  reports: reports,
+                 survey: survey,
                  counts: [sHolder.filter(function(x){return x.state==1}).length,sHolder.filter(function(x){return x.state==2}).length,sHolder.filter(function(x){return x.state==3}).length]
                 // reports: await reportModel.find()
         });
@@ -96,12 +100,14 @@ class Lk {
                     label:'Соц. сети',
                     value:'social_network'
                 }];
-                let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+                let json2csvParser = new Json2csvParser ( {  fields  } ) ; 
+                if (json2csvParser) {  
                 const csv = json2csvParser.parse( sh ) ; 
-                res.set('Content-Type', 'application/octet-stream');
+                // res.set('Content-Type', 'application/octet-stream');
                 res.attachment('shInfo.csv');
                 res.status(200).send(csv); 
                 res.redirect('/lk');
+                }
             break;
             case 'agree':
                 sh.map(async function(sh){
