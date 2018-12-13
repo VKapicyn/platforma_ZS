@@ -48,7 +48,7 @@ class Registration {
             err = 'логин занят';
         }
         if (err) res.render('registration.html',{error:err})
-        else res.render('logPage.html', );
+        else res.redirect('/loginstakeholder/email' );
     }
     static async conf(req, res, next){
         let user = await stakeholderModel.findOne({key: req.params.num});

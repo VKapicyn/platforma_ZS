@@ -10,7 +10,21 @@
         {% if (alert == 'conf') %}
         <div class="alert alert-dark" role="alert">
                 <center>
-            Ваша почта подтверждена, теперь вы можете авторизоваться
+            Ваша почта подтверждена, теперь Вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'confuser') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Вы успешно заргестрированы, теперь Вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'email') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Подтвердите почту, для завершения регистрации
             </center>
         </div>
         {% endif %}

@@ -100,12 +100,14 @@ class Lk {
                     label:'Соц. сети',
                     value:'social_network'
                 }];
-                let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+                let json2csvParser = new Json2csvParser ( {  fields  } ) ; 
+                if (json2csvParser) {  
                 const csv = json2csvParser.parse( sh ) ; 
-                res.set('Content-Type', 'application/octet-stream');
+                // res.set('Content-Type', 'application/octet-stream');
                 res.attachment('shInfo.csv');
                 res.status(200).send(csv); 
                 res.redirect('/lk');
+                }
             break;
             case 'agree':
                 sh.map(async function(sh){
