@@ -46,12 +46,8 @@ class Negotiation{
     static async show(req, res, next){
         try{
         let file = await fileNegotiationModel.find();
-        let name = [];
-        for (let i=0;i<file.length;i++){
-            name=[...name,file[i].name]
-        }
         res.render('showFileNegotiationForAdmin.html',{
-            name:name
+            file
         })
         }
         catch(e){
@@ -60,7 +56,7 @@ class Negotiation{
     }
     static async getfile(req, res, next){
         try{
-        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        let fileN =  await fileNegotiationModel.findById(req.params.id);
         if(fileN.agreement){
             for(let i=0;i<fileN.agreement.length;i++){
                 fileN.agreement[i].data=(new Date(fileN.agreement[i].data)).toString()
@@ -82,7 +78,7 @@ class Negotiation{
     }
     static async getSt(req, res, next){
         try{
-        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        let fileN =  await fileNegotiationModel.findById(req.params.id);
         res.render('fileNegotiationForAdminDialog.html', {
             name: fileN.name,
             description: fileN.description,
@@ -100,7 +96,7 @@ class Negotiation{
     }
     static async dialog(req, res, next){
         try{
-        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        let fileN =  await fileNegotiationModel.findById(req.params.id);
         let obj={user: req.params.login, date: Date.now().toString(), sender: 'admin', text: req.body.dialog};
         
         fileN.account=[...fileN.account,obj];
@@ -123,7 +119,7 @@ class Negotiation{
     static async updatefile(req, res, next){
         try{
         if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-            let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+            let fileN =  await fileNegotiationModel.findById(req.params.id);
             delFile(fileN.file);
             fileN.file=req.file.filename
             fileN.comment=req.body.comment
@@ -141,7 +137,7 @@ class Negotiation{
         }
         else
                 {   
-                    let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+                    let fileN =  await fileNegotiationModel.findById(req.params.id);
                     if(req.file.filename) delFile(req.file.filename);
                     fileN.comment=req.body.comment;
                     fileN.save();
@@ -158,7 +154,7 @@ class Negotiation{
                 }
     }
     catch(e){
-        let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+        let fileN =  await fileNegotiationModel.findById(req.params.id);
                     fileN.comment=req.body.comment;
                     fileN.save();
                     res.render('fileNegotiationForAdmin.html', {
@@ -179,11 +175,11 @@ class Negotiation{
 }
 
 router.get('/',Negotiation.show);
-router.get('/name:name',Negotiation.getfile);
-router.post('/name:name/back',Negotiation.back2);
-router.get('/name:name/:login',Negotiation.getSt);
-router.post('/name:name/:login',Negotiation.dialog);
-router.post('/name:name',upload.single('file'),Negotiation.updatefile);
+router.get('/id:id',Negotiation.getfile);
+router.post('/id:id/back',Negotiation.back2);
+router.get('/id:id/:login',Negotiation.getSt);
+router.post('/id:id/:login',Negotiation.dialog);
+router.post('/id:id',upload.single('file'),Negotiation.updatefile);
 router.get('/reg',Negotiation.getPage);
 router.post('/reg',upload.single('file'),Negotiation.regfile)
 

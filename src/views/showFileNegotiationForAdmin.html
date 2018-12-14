@@ -13,8 +13,8 @@
 
       <div class="container main">
           Все файлы:<br>
-            {% for n in name %}
-            <a href={{'/fileNegotiation/admin/name'+n+'/'}}>{{n}}</a>
+            {% for n in file %}
+            <a href={{'/fileNegotiation/admin/id'+n.id+'/'}}>{{n.name}}</a>
             <br>
             {% endfor %}
       </div>

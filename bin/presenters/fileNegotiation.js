@@ -28,7 +28,7 @@ class Negotiation{
     }
     static async regforall(req, res, next){
         try{
-            let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+            let fileN =  await fileNegotiationModel.findById(req.params.id);
             let obj={user: 'admin', date: Date.now().toString(), sender: req.session.stakeholder.login, text: req.body.dialog};
             fileN.account=[...fileN.account,obj];
             if(fileN.lastDate>=new Date()) await fileN.save();
@@ -41,7 +41,7 @@ class Negotiation{
     }
     static async agreement(req, res, next){
         try{
-            let fileN =  await fileNegotiationModel.findOne({name:req.params.name});
+            let fileN =  await fileNegotiationModel.findById(req.params.id);
             if (!fileN.agreement.find(x => x.login === req.session.stakeholder.login))
             {
             fileN.agreement=[...fileN.agreement,{login: req.session.stakeholder.login, data: Date.now().toString()}]
@@ -59,8 +59,8 @@ class Negotiation{
 }
 
 router.get('/all',Negotiation.showall);
-router.post('/all/msg:name',Negotiation.regforall);
-router.post('/all/agr:name',Negotiation.agreement);
+router.post('/all/msg:id',Negotiation.regforall);
+router.post('/all/agr:id',Negotiation.agreement);
 
 
 module.exports.router = router;

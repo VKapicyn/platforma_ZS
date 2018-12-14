@@ -197,10 +197,10 @@
                       </tr>
                     </thead>
                 <tbody>
-                    {% for name in negotiation %}
+                    {% for f in file %}
                     <tr>
-                    <td>{{name}}</td>
-                    <td><a href='/fileNegotiation/admin/name{{name}}/'>посмотреть</a></td>
+                    <td>{{f.name}}</td>
+                    <td><a href='/fileNegotiation/admin/id{{f.id}}/'>посмотреть</a></td>
                     </tr>
                     {% endfor %}
                   </tbody>

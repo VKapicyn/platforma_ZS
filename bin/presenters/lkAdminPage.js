@@ -18,12 +18,8 @@ class Lk {
         let sHolder= await shModel.find();
         let file = await fileNegotiationModel.find();
         let reports = await reportModel.find();
-        let name = [];
-        for (let i=0;i<file.length;i++){
-            name=[...name,file[i].name]
-        }
         res.render('lkadmin.html', {
-                negotiation:name,
+                file,
                  events: events,
                  sHolder: sHolder,
                  reports: reports,
