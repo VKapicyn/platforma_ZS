@@ -15,7 +15,7 @@ class Search{
             let survey
             if(req.session.userModel) {lvl='user'; log=req.session.userModel.login; survey = await surveytemplateModel.find({accessLVL:lvl});}
             if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login; survey = await surveytemplateModel.find();}
-            survey = await surveytemplateModel.find({accessLVL:lvl});
+            survey = await surveytemplateModel.find();
             for (let i=0;i<survey.length;i++){
                 acc[i]=0;
                 for (let j=0;j<survey[i].result.length;j++){
@@ -24,9 +24,10 @@ class Search{
                 }
             }
             }
+            if (req.body.search == '') req.body.search = new Date() //защита от пустой строки ;)
             //console.log(req.body)
             for(let i=0;i<survey.length;i++){
-                if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && survey[i].accessLVL == lvl && acc[i] < 1 || survey[i].annotation) && (survey[i].name == req.body.search || survey[i].description == req.body.search)){
+                if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 || survey[i].annotation) && (survey[i].name.search(req.body.search) >= 0 || survey[i].description.search(req.body.search) >= 0 )){
                     
                     sur=[...sur,{name:survey[i].name,description:survey[i].description}]
 
@@ -39,7 +40,7 @@ class Search{
             let report =  await reportModel.find();
             let rep = []
             for (let i=0; i < report.length; i++){
-                if(report[i].name == req.body.search || report[i].description ==req.body.search){
+                if(report[i].name.search(req.body.search) >= 0 || report[i].description.search(req.body.search) >= 0){
                     rep=[...rep,{name:report[i].name,description:report[i].description,id:report[i].id}];
                 }
             }
@@ -50,7 +51,7 @@ class Search{
             let event =  await eventModel.find();
             let ev = [];
             for (let i=0; i < event.length; i++){
-                if(event[i].name == req.body.search || event[i].description ==req.body.search){
+                if(event[i].name.search(req.body.search) >= 0 || event[i].description.search(req.body.search) >= 0 ){
                     ev=[...ev,{name:event[i].name,description:event[i].description,id:event[i].id}];
                 }
             }
@@ -65,7 +66,7 @@ class Search{
             catch(e){
                 console,log(e)
             }
-            if (ins.indexOf(req.body.search)) ins = 'инструкция';
+            if (ins.search(req.body.search) >= 0) ins = 'инструкция';
             else ins =''
             
             res.render('search.html',{

@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const app = express();
+const dateFilter = require('nunjucks-date-filter');
+ 
+dateFilter.setDefaultFormat('YYYY');
 
 let config = require('./config.js'),
     url = config.deploy ? 'mongodb://localhost:27017/ZSDB' :

@@ -8,6 +8,7 @@ const newStorage = require('../utils/uploader').newStorage;
 const storage = newStorage()
 const upload = multer({ storage });
 
+
 class Negotiation{
     static async getPage(req, res, next){
         let stakeholders = await stakeholderModel.find()
@@ -73,6 +74,7 @@ class Negotiation{
         });
     }
     catch(e){
+        console.log(e)
         res.end('error')
     }
     }
