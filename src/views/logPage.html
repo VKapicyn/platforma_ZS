@@ -28,6 +28,13 @@
             </center>
         </div>
         {% endif %}
+        {% if (alert == 'err') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ошибка авторизации!
+            </center>
+        </div>
+        {% endif %}
         {% if (alert == 'email') %}
         <div class="alert alert-dark" role="alert">
                 <center>

@@ -17,11 +17,9 @@ class AuthUser {
                 req.session.save()
                 res.redirect('/loginstakeholder/logged')
             }
+            else
+                res.redirect('/loginstakeholder/err')
         }
-        try{
-            //инфа об ошибке ?
-            res.render('logPage.html')
-        }catch(e){}
     }
     static logout(req, res, next){
         delete req.session.user;
