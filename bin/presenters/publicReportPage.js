@@ -14,7 +14,7 @@ const upload = multer({ storage });
 class PublicReport {
     static async getPage(req, res, next) {
         let sh = (req.session.stakeholder) ? await shModel.findOne({login:req.session.stakeholder.login}) : undefined;
-        let reports =  await reportModel.find().sort({creatingDate:-1});
+        let reports =  await reportModel.find().sort({creatingDate:1});
         if (req.session.admin){
             res.render('reportPage.html', {
                 parametr: reports,
