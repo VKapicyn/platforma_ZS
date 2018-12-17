@@ -15,7 +15,7 @@ class AuthUser {
             if (account.password == toHash(req.body.password)){    
                 req.session.user = {id: account._id, login: account.login};
                 req.session.save()
-                res.end()
+                res.redirect('/loginstakeholder/logged')
             }
         }
         try{
