@@ -32,7 +32,7 @@
 }
 
 .smallbox {
-    max-width: 270px;
+    max-width: 290px;
 }
 
 .box {
@@ -92,4 +92,7 @@ ul p {
 }
 li {
     margin: 10px 0px;
+}
+h6 a {
+    font-size: 13px;
 }

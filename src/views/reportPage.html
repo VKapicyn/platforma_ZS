@@ -22,15 +22,18 @@
                   <div class="container">
                     <div class="row justify-content-around">
                             <div class="mb-2 smallbox"> 
+                                    <img src="img/flag_rf.png">
                             <h6>
-                                <img src="img/allreport.png"><a href="/file/{{ report.pdfSrc }}"> Cкачать pdf отчета на русском</a>
+                               
+                                <img src="img/allreport.png"><a href="/file/{{ report.rusSmall }}"> Cкачать сокращенный отчет pdf на русском</a> <br>
+                                <img src="img/fullreport.png"><a href="/file/{{ report.pdfSrc }}"> Cкачать весь отчет pdf на русском</a>
                             </h6>
                             <br>
                             <h5 >
                                 <img src="img/revards.png"><a>Победы отчета в конкурсе</a>
                                 <div class="container">
                                   <p>
-                                {{report.revards | truncate(120, true, "...")}}
+                                {{report.revards | truncate(160, true, "...")}}
                                 </p>
                                 </div>
                             </h5>
@@ -38,8 +41,11 @@
                             
                           </div>   
                           <div class="mb-2 box"> 
+                                <img src="img/flag_ang.png">
                               <h6>
-                                  <img src="img/allreport.png"><a href="/file/{{ report.pdfEngSrc }}"> Cкачать pdf отчета на английском</a>
+                                <img src="img/allreport.png"><a href="/file/{{ report.engSmall }}"> Cкачать сокращенный отчет pdf на английском</a><br>
+                                <img src="img/fullreport.png"><a href="/file/{{ report.pdfEngSrc }}"> Cкачать весь отчет pdf на английском</a>
+                                  
                               </h6>
                               <br>
                               <h5>

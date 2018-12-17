@@ -12,6 +12,8 @@ let reportSchema = mongoose.Schema({
     pdfSrc: String,
     pdfEngSrc: String,
     imgSrc: String,
+    rusSmall: String,
+    engSmall: String,
     standarts: String,
     revards: String
 });
