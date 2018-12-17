@@ -20,6 +20,7 @@ let stakeholderSchema = mongoose.Schema({
     key: String,
     email: String,
     regDate: Date,
+    readyToGo: {},
     events: [{
         _id: false,
         eventId : String,

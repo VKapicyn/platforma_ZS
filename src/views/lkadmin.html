@@ -137,6 +137,7 @@
                                 
                           </div>
                           <div class="tab-pane fade" id="all-survey" role="tabpanel" aria-labelledby="all-survey-tab">
+                                <div class="scroll-div">
                               <table class="table">
                                   <thead>
                                     <tr>
@@ -153,6 +154,7 @@
                                   {% endfor %}
                                 </tbody>
                               </table>
+                              </div>
                           </div>
                       </div>
         </div>
@@ -255,6 +257,7 @@
                             <label for="imgEvent">Загрузите фото к мероприятию</label>
                             <input type="file" accept="image/jpeg,image/png" class="form-control-file" id="imgEvent" name="img">
                     </div>
+                    <div class="scroll-div">
                     <table class="table">
                             <thead>
                               <tr>
@@ -283,13 +286,16 @@
                        {% endfor %}
                       </tbody>
                     </table>
+                    </div>
                     <button type="submit" class="">Создать</button>
                   </form>
               
               </div>
+           
           
         
               <div class="tab-pane fade" id="all-event" role="tabpanel" aria-labelledby="all-event-tab">
+                    <div class="scroll-div">
                   <table class="table">
                       <thead>
                         <tr>
@@ -310,11 +316,13 @@
                 {% endfor %}
               </tbody>
                   </table>
+                  </div>
               </div>
           </div>
         </div>
       </div> 
-    </div>
+  </div>
+    
   
   <div class="confirmSh">
     <div class="container">
@@ -359,6 +367,7 @@
          
         <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="all-sh" role="tabpanel" aria-labelledby="all-sh-tab">
+                    <div class="scroll-div">
                   <table class="table">
                       <thead>
                         <tr>
@@ -388,7 +397,9 @@
                 </tbody>
               </table>
               </div>
+              </div>
         <div class="tab-pane fade" id="public-sh" role="tabpanel" aria-labelledby="public-sh-tab">
+                <div class="scroll-div">
             <table class="table">
                 <thead>
                   <tr>
@@ -419,9 +430,11 @@
            {% endfor %}
           </tbody>
         </table>
+        </div>
           
         </div>
         <div class="tab-pane fade" id="wait-sh" role="tabpanel" aria-labelledby="wait-sh-tab">
+                <div class="scroll-div">
             <table class="table">
                 <thead>
                   <tr>
@@ -452,7 +465,9 @@
           </tbody>
         </table>
         </div>
+        </div>
         <div class="tab-pane fade" id="closed-sh" role="tabpanel" aria-labelledby="closed-sh-tab">
+                <div class="scroll-div">
             <table class="table">
                 <thead>
                   <tr>
@@ -482,6 +497,7 @@
            {% endfor %}
           </tbody>
         </table>
+        </div>
         </div>
         </div>
       </div>

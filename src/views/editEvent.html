@@ -3,19 +3,19 @@
 <form action="/events/edit/{{event._id}}" method="POST" > 
     <div class="form-group">
         <label for="eventName">Название мероприятия</label>
-        <input type="text" class="form-control" id="eventName" name="name" placeholder="{{event.name}}">
+        <input type="text" class="form-control" id="eventName" name="name" value="{{event.name}}">
     </div>
     <div class="form-group">
         <label for="eventDescription">Описание мероприятия</label>
-        <textarea class="form-control" id="eventDescription" name="description" rows="4" placeholder="{{event.description}}" ></textarea>
+        <textarea class="form-control" id="eventDescription" name="description" rows="4" placeholder="" >{{event.description}}</textarea>
     </div>
     <div class="form-group">
         <label for="eventData">Дата мероприятия</label>
-        <input type="datetime-local" class="form-control" id="eventDate" name="date" placeholder="{{event.eventData}}">
+        <input type="datetime-local" class="form-control" id="eventDate" name="date" value="{{event.eventData}}">
     </div>
     <div class="form-group">
         <label for="eventAddress">Адрес</label>
-        <input type="text" class="form-control" id="eventAddress"  placeholder="{{event.address}}">
+        <input type="text" class="form-control" id="eventAddress"  value="{{event.address}}">
     </div>
     <div class="form-check">
         <label class="form-check-label">

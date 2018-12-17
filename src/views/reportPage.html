@@ -11,11 +11,11 @@
         <div class="col-xl-9 col-md-9 col-sm-9 col-12">
         {% for report in parametr %}
           <div class="card flex-md-row mb-4 box-shadow h-md-250 cards">
-          <img class="card-img-right flex-auto d-none d-lg-block mr-2" data-src="" alt="" style="width: 280px; height: 400px;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
+          <img class="card-img-right  d-none d-lg-block mr-2" data-src="" alt="" style="    width: 230px;     height: 100%;;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
               <div class="card-body d-flex flex-column align-items-start">
                 <h3 class="mb-0">
                   <img src="/img/reports.png">
-                  <a class="text-dark" >{{report.name}}</a>
+                  <a class="text-dark" href="/publicreport/id/{{report._id}}" >{{report.name}}</a>
                 </h3>
                 
                 <div class="mb-1 text-muted mb-auto">{{report.creatingDate}}</div>
@@ -30,7 +30,7 @@
                                 <img src="img/revards.png"><a>Победы отчета в конкурсе</a>
                                 <div class="container">
                                   <p>
-                                {{report.revards  | striptags(true) | escape | nl2br}}
+                                {{report.revards | truncate(20, true, "...")}}
                                 </p>
                                 </div>
                             </h5>
@@ -45,7 +45,7 @@
                               <h5>
                                   <img src="img/standarts.png"><a>Соответствие международным стандартам</a>
                                   <div class="container">
-                                      <p><img src="img/standart1.png"><img src="img/standart2.png">{{report.standarts  | striptags(true) | escape | nl2br}}</p>
+                                      <p><img src="img/standart1.png"><img src="img/standart2.png">{{report.standarts | truncate(20, true, "...")}}</p>
                                   </div>
                               </h5>
                               
@@ -56,7 +56,7 @@
                   </div>
                   <p class="card-text mb-auto"><img src="img/reportthems.png">Приоритетные темы отчета:</p>
                   <div class="container">
-                      <span>{{report.description  | striptags(true) | escape | nl2br}}</span>
+                      <span>{{report.description | truncate(100, true, "...")}}</span>
                   </div>
                 </div>
           </div>
@@ -77,7 +77,7 @@
               {% endif %}
           {% for report in parametr %}
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
-          <img class="card-img-right flex-auto d-none d-lg-block" data-src="" alt="" style="width: 200px; height: 250px;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
+          <img class="card-img-right  d-none d-lg-block" data-src="" alt="" style="width: 200px; height: 250px;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
               <div class="card-body d-flex flex-column align-items-start">
                 <h3 class="mb-0">
                   <a class="text-dark" >{{report.name}}</a>

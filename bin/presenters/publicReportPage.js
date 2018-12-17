@@ -31,29 +31,40 @@ class PublicReport {
     static newReport(req,res,next){
         try {
             // console.log(req.files.pdf.length);
-            console.log(req.files.img[0].contentType);
-            if ((req.files.pdf[0].contentType == 'application/pdf')&&((req.files.img[0].contentType== 'image/png')||(req.files.img[0].contentType== 'image/jpeg'))){
+            let img = 'nophoto';
+            let pdfrus = 'nofile';
+            let pdfeng = 'nofile';
+            if (req.files){ 
                 
+            
+            if ((req.files.pdf[0].contentType != 'application/pdf')&&((req.files.img[0].contentType != 'image/png')||(req.files.img[0].contentType != 'image/jpeg'))){
+                 
+                    delFile(req.files.pdf[0].filename);
+                    delFile(req.files.img[0].filename);
+                    delFile(req.files.pdfEng[0].filename);
+                    res.redirect('/');
+            }
+            else{
+                req.files.img? img = req.files.img[0].filename:img= img
+                req.files.pdfEng? pdfeng = req.files.pdfEng[0].filename:pdfeng= pdfeng;
+                req.files.pdf? pdfrus = req.files.pdf[0].filename: pdfrus=pdfrus;
+            }
+            }
                 let report = new reportModel({
                     name: req.body.name,
                     description: req.body.description,
                     creatingDate: new Date(),
-                    pdfSrc: req.files.pdf[0].filename ,
-                    pdfEngSrc:req.files.pdfEng[0].filename,
-                    imgSrc: req.files.img[0].filename,
+                    pdfSrc: pdfrus ,
+                    pdfEngSrc:pdfeng,
+                    imgSrc: img,
                     revards: req.body.revards,
                     standarts: req.body.standarts
                 });
                 report.save();
                 res.redirect('/publicreport/id/'+report._id);
-            }
-            else
-            {   
-                delFile(req.files.pdf[0].filename);
-                delFile(req.files.img[0].filename);
-                delFile(req.files.pdfEng[0].filename);
-                res.redirect('/');
-            }
+           
+            
+        
                 
             
         } catch (e) {
@@ -68,7 +79,7 @@ class PublicReport {
         }
         catch(e) {report = e}
         res.render('reportPageItem.html', {
-            parametr: report,
+            report: report,
             download_url: `/file/${report.pdfSrc}`,
             downloadEng: `/file/${report.pdfEngSrc}`,
             img_url: `/file/${report.imgSrc}`,
@@ -83,6 +94,7 @@ class PublicReport {
     static async updateReport(req,res,next){
         try{
             let report =  await reportModel.findById(req.params.id);
+            if (req.files){
             if(req.files.pdf && req.files.pdf[0].contentType == 'application/pdf'){
                 delFile(report.pdfSrc);
                 report.pdfSrc = req.files.pdf[0].filename;
@@ -94,6 +106,7 @@ class PublicReport {
             if(req.files.img && req.files.img[0].contentType == 'image/png'){
                 delFile(report.imgSrc);
                 report.imgSrc = req.files.img[0].filename;
+            }
             }
             if(req.body.description) report.description=req.body.description;
             if(req.body.revards) report.revards=req.body.revards;
