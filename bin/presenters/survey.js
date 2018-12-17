@@ -57,7 +57,7 @@ class Survey{
                     sh:sh
                 });
             }
-            else{res.redirect('/loginstakeholder');return;}
+            else{res.redirect('/loginstakeholder/survey');return;}
         }
         catch(e) {console.log(e)}
        

@@ -7,6 +7,13 @@
 {% block content %}
 
 <div class="container">
+        {% if (alert == 'survey') %}
+        <div class="alert alert-dark" role="alert">
+            <center>
+            Чтобы пройти опрос, необходимо зарегистрироваться
+            </center>
+        </div>
+        {% endif %}
         {% if (alert == 'conf') %}
         <div class="alert alert-dark" role="alert">
                 <center>
