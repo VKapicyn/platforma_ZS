@@ -34,12 +34,13 @@ class Negotiation{
     console.log(stakeholders);
     let sh={};
     let stake=[];
-    sh.comments ='';
+    sh.comments =[];
     neg.account.forEach(i => {
         let j =0;
         stakeholders.forEach(item =>{
             if (i.sender == item.login){
-                sh.comments += i.text +'  ';
+                
+                sh.comments.push({text:i.text});
             
             sh.name = item.lastname +' ' + item.firstname +' ' +item.patronymic;
             sh.organization = item.organization;
@@ -61,12 +62,12 @@ class Negotiation{
         },
         {
             label:'комментарии',
-            value:'comments'
+            value:'comments.text'
         }];
-        let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+        let json2csvParser = new Json2csvParser ( {  fields , unwind: ['comments'], unwindBlank: true} ) ;    
                 const csv = json2csvParser.parse( stake ) ; 
                 res.set('Content-Type', 'application/octet-stream');
-                res.attachment(neg.name+'1.csv');
+                res.attachment(neg.name+'.csv');
                 res.status(200).send(csv); 
                 // res.redirect('/lkadmin');
     }

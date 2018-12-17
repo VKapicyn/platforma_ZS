@@ -3,11 +3,9 @@
     outline: none;
     overflow: hidden;
 }
-.cards  p{
-    min-height: 63px;
-}
+
 .cards {
-    padding: 25px 20px 50px;
+    padding: 25px 20px 25px;
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid #dfdfdf;
@@ -27,4 +25,71 @@
     overflow-y: scroll;
     height: 530px;
     padding: 20px 0px 20px;
+}
+.mb-2 p {
+    font-size: 16px;
+    color: grey;
+}
+
+.smallbox {
+    max-width: 270px;
+}
+
+.box {
+    max-width: 440px;
+}
+
+
+
+
+.standarts  p > * {
+    display: inline-block;
+    /* vertical-align: top; */
+}
+
+.standarts  > div {
+    float: left;
+    margin-right: 5px;
+}
+
+
+
+.standarts > * {
+    /* margin-top: 9%; */
+    display: inline-block;
+    vertical-align: top;
+    /* padding-left: 5px; */
+}
+
+.standarts b {
+    height: 100%;
+    float: left;
+    margin-right: 8px;
+}
+
+img.card-img-left {
+    margin: auto 0px;
+}
+
+.standarts p {
+    vertical-align: top;
+}
+.mb-2 a {
+    color: #003770!important;
+}
+.cards img {
+    margin-right: 5px;
+}
+.container > ul {
+    list-style-position: inside;
+}
+
+ul {
+    list-style-position: initial;
+}
+ul p {
+    display: contents;
+}
+li {
+    margin: 10px 0px;
 }
