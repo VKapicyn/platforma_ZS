@@ -32,11 +32,23 @@
 }
 
 .smallbox {
-    max-width: 290px;
+    max-width: 100%;
 }
 
 .box {
-    max-width: 440px;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 1380px){
+    .smallbox {
+        max-width: 290px;
+        min-width: 100%;
+    }
+
+    .box {
+        max-width: 440px;
+        min-width: 100%;
+    }
 }
 
 
