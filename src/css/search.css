@@ -21,7 +21,10 @@ hr{
     border: 0;
     border-bottom: 3px solid rgb(205,205,205);
 }
-
+a:hover,a{
+    color:rgb(0, 0, 0);
+    text-decoration: none; 
+}
 .send{
     
     width: 20%;
@@ -33,4 +36,7 @@ hr{
     padding: 5px;
     margin: 10px;
     padding: 5px;
+}
+.link{
+    color: #007bff !important;
 }
