@@ -21,10 +21,7 @@ hr{
     border: 0;
     border-bottom: 3px solid rgb(205,205,205);
 }
-a:hover,a{
-    color:rgb(0, 0, 0);
-    text-decoration: none; 
-}
+
 .send{
     
     width: 20%;
