@@ -1,8 +1,15 @@
 {% extends "templates/pageTemplate.html" %}
 
+        <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/reports.css">
 <link rel="stylesheet" href="/css/adminfile.css">
+{% include "templates/pageTopMenu.html" %}
 
+<hr>
+    <div class="content row">
+        <div class="col-xl-9 col-md-9 col-sm-9 col-12">
       <div class="container main">
           <h1>{{name}}</h1>
           <h3>{{description}}</h3>
@@ -21,12 +28,20 @@
       <div class="container update">
         <form  method="POST" enctype="multipart/form-data">
           <p>Обновить файл: <input name="file" type="file"></p>
-          <p><input type="submit" class="auth-button btn btn-primary btn-block but"></p>
+          <p><button type="submit" class="">обновить</button></p>
         </form>
+        
         <form method="POST" action="back">
-            <p><input type="submit" value="назад к списку" class="auth-button btn btn-primary btn-block but"></p>
-        </form>
+            <p>
+            <button type="submit" class="">назад к списку</button>
+            <a href ="/fileNegotiation/admin/id{{id}}/csv">Скачать обсуждение в csv формате</a>
+          </p>
+        </form> 
       </div>
       <div class="container result">{{response}}</div>
+    </div>
+
+    {% include "templates/sideMenuTemplate.html" %}
+  </div>
       
 {% endblock %}

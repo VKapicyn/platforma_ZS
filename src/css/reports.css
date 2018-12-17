@@ -17,9 +17,14 @@
     overflow-y: scroll;
 }
 .cards > div {
-    max-width: 900px;
+    max-width: 800px;
 }
 
 .cards:last-of-type {
     border: none;
+}
+.col-xl-9.col-md-9.col-sm-9.col-12 {
+    overflow-y: scroll;
+    height: 530px;
+    padding: 20px 0px 20px;
 }

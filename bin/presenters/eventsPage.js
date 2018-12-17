@@ -32,6 +32,9 @@ class Events {
     }
     static async getCsv(req,res,next){
         let sh = await stakeholderModel.find({'events.eventId': req.params.id});
+        // if (sh.events.readyToGo == 1)sh.events.readyToGo = 'Cогласился';
+        // if (sh.events.readyToGo == 2)sh.events.readyToGo = 'Отказался';
+        // if (sh.events.readyToGo == 0)sh.events.readyToGo = 'Не смотрел приглашение';
         let fields = [{
             label:'Имя',
             value:'firstname'
@@ -78,10 +81,32 @@ class Events {
     }
     static async editEventPage(req,res,next){
 
+        let event;
+            event =  await eventModel.findById(req.params.id);
+            console.log(event);
+            if (req.files){
+            if(req.files.annotation && req.files.annotation[0].contentType == 'application/pdf'){
+                delFile(event.annotation);
+                event.annotation = req.files.annotation[0].filename;
+            }
+            
+            if(req.files.img && req.files.img[0].contentType == 'image/png'){
+                delFile(report.imgSrc);
+                report.img = req.files.img[0].filename;
+            }
+        }
+            if(req.body.description) event.description=req.body.description;
+            if(req.body.name) event.name=req.body.name;
+            if(req.body.address) event.address=req.body.address;
+            if(req.body.date) event.eventDate=req.body.date;
+            event.save();
+            res.redirect('/events/id/'+event._id);
 
-        res.render('editEvent.html',{
-
-        });
+        
+        // res.render('editEvent.html', {
+        //     event: event,
+        // });
+       
     }
     static async getPageByEventId(req, res, next) {
         let event;
@@ -100,8 +125,12 @@ class Events {
     static async createNewEvent(req, res, next){
         try {
             const shChecked = req.body.shCheck;
-           
-           
+            let img = 'nophoto';
+            let annotation = 'nofile'
+            if (req.files){ 
+                req.files.img? img = req.files.img[0].filename:img= img
+                req.files.annotation? annotation = req.files.annotation[0].filename:annotation= annotation;
+            }
             let event = new eventModel({
                 name: req.body.name,
                 description: req.body.description,
@@ -110,8 +139,8 @@ class Events {
                 status: '1',
                 address: req.body.address,
                 invites: '',
-                img: req.files.img[0].filename,
-                annotation: req.files.annotation[0].filename
+                img: img,
+                annotation: annotation
             })
             if(event){
 
@@ -139,7 +168,7 @@ class Events {
                 }
                 sh.map(async function(sh){
                     await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                        { $push: { events:  {eventId: event._id, readyToGo:0}} }) ;
+                        { $push: { events:  {eventId: event._id, readyToGo:0} }}) ;
                     send(sh,2,event);
                 });
                 // if(req.body.shCheckAll){

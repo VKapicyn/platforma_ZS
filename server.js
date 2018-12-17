@@ -48,7 +48,7 @@ app.use('/instruction', require('./bin/presenters/instructionPage').router);
 app.use('/events', require('./bin/presenters/eventsPage').router);
 app.use('/personsmap', require('./bin/presenters/personMapPage').router);
 app.use('/lk', require('./bin/presenters/lkPage').router);
-app.use('/lkadmin', require('./bin/presenters/lkAdminPage').router);
+app.use('/lkadmin',require('./bin/models/adminModel.js').adminModel.isAdminLogged, require('./bin/presenters/lkAdminPage').router);
 app.use('/publicquiz', require('./bin/presenters/publicQuizPage').router);
 //app.use('/publicref', require('./bin/presenters/publicRefPage').router);
 app.use('/loginstakeholder',require('./bin/presenters/logstakeholder.js').router)

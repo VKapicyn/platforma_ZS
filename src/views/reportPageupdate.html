@@ -1,5 +1,15 @@
 {% extends "templates/pageTemplate.html" %}
+
+        <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/reports.css">
+{% include "templates/pageTopMenu.html" %}
+
+<hr>
+    <div class="content row">
+        <div class="col-xl-9 col-md-9 col-sm-9 col-12">
+            <div class="container">
     <div class="form-group">
         Название отчета: {{name}}
     </div>
@@ -28,7 +38,7 @@
             <label for="imgReport">Загрузите обложку отчета</label>
             <input type="file" accept="image/jpeg,image/png" class="form-control-file" id="imgReport" name="img">
         </div>
-        <button type="submit"  class="btn btn-primary">Submit</button>
+        <button type="submit"  class="">Submit</button>
       </form>
         <!-- <script>
             function send(){
@@ -41,4 +51,9 @@
                 body: 'name='+$('#reportName').val()+'&description='+$('#reportDescription').val()+''  })
             }
         </script> -->
+    </div>
+</div>
+
+    {% include "templates/sideMenuTemplate.html" %}
+  </div>
 {% endblock %}

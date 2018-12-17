@@ -17,6 +17,10 @@
     font-weight: normal;
     font-style: normal;
 }
+.scroll-div {
+    overflow-y: scroll;
+    height: 300px;
+}
 
 * {
     font-family: "Regular";

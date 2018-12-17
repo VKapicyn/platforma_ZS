@@ -7,6 +7,7 @@ const multer  = require('multer');
 const newStorage = require('../utils/uploader').newStorage;
 const storage = newStorage()
 const upload = multer({ storage });
+const Json2csvParser = require ( 'json2csv' ) . Parser ;
 
 class Negotiation{
     static async getPage(req, res, next){
@@ -15,6 +16,60 @@ class Negotiation{
             stakeholders:stakeholders
         })
     }
+    static async csv(req, res, next){
+    let neg = await fileNegotiationModel.findOne({'_id': req.params.id});
+    console.log(neg);
+    let stakeholders;
+    console.log(Array.isArray(neg.access));
+    let arr=[];
+    neg.access.forEach(i => {
+        arr.push( {login: i})
+    });
+    if (Array.isArray(neg.access)){
+     stakeholders = await stakeholderModel.find({$or: arr });
+    }
+    else 
+    stakeholders = await stakeholderModel.find({login: neg.access });
+    console.log(stakeholders);
+    let sh={};
+    let stake=[];
+    sh.comments ='';
+    neg.account.forEach(i => {
+        let j =0;
+        stakeholders.forEach(item =>{
+            if (i.sender == item.login){
+                sh.comments += i.text +'  ';
+            
+            sh.name = item.lastname +' ' + item.firstname +' ' +item.patronymic;
+            sh.organization = item.organization;
+            stake[j] = sh
+            }
+        });
+        j++;
+        
+    });
+    
+
+   let fields = [{
+            label:'ФИО',
+            value: 'name'
+        },
+        {
+            label:'организация',
+            value: 'organization'
+        },
+        {
+            label:'комментарии',
+            value:'comments'
+        }];
+        let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+                const csv = json2csvParser.parse( stake ) ; 
+                res.set('Content-Type', 'application/octet-stream');
+                res.attachment(neg.name+'1.csv');
+                res.status(200).send(csv); 
+                // res.redirect('/lkadmin');
+    }
+
     static async regfile(req, res, next){
         try{
             if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
@@ -72,6 +127,7 @@ class Negotiation{
         }
         res.render('fileNegotiationForAdmin.html', {
             name: fileN.name,
+            id:fileN._id,
             description: fileN.description,
             file: `/file/${fileN.file}`,
             access: fileN.access,
@@ -183,6 +239,7 @@ class Negotiation{
 }
 
 router.get('/',Negotiation.show);
+router.get('/id:id/csv',Negotiation.csv);
 router.get('/name:name',Negotiation.getfile);
 router.post('/name:name/back',Negotiation.back2);
 router.get('/name:name/:login',Negotiation.getSt);
