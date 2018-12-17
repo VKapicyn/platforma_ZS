@@ -9,11 +9,42 @@ const path  = require('path');
 const newStorage = require('./../utils/uploader').newStorage;
 const storage = newStorage()
 const upload = multer({ storage });
+const Json2csvParser = require ( 'json2csv' ) . Parser ;
 
 
 class CreateSurvey{
     static getPage(req, res, next) {
         res.render('CreateSurvey.html')
+    }
+    static async csv(req,res,next){
+        let sur = await surveytemplateModel.findOne({_id: req.params.id});
+        let csvrow={};
+        let csvFile=[];
+        let fields = [{
+            label:'ФИО',
+            value: 'name'
+        }]
+        sur.data.question.forEach(i => {
+            let j = 0
+            fields.push({label: i , value: ''+j });
+            j++;
+        });
+        sur.result.forEach(i => {
+            csvrow.name = i.login;
+            for (let j = 0; j< i.answer.length; j++){
+                csvrow[j] = i.answer[j];
+            }
+            csvFile.push(csvrow);
+
+            
+        });
+        
+        let json2csvParser = new Json2csvParser ( {  fields  } ) ;    
+                const csv = json2csvParser.parse( csvFile ) ; 
+                res.set('Content-Type', 'application/octet-stream');
+                res.attachment('результаты опроса '+sur.name+'.csv');
+                res.status(200).send(csv); 
+                // res.redirect('/lkadmin');
     }
     static async reg(req,res,next){
         let err='успешно';
@@ -64,7 +95,8 @@ class CreateSurvey{
             let survey =  await surveytemplateModel.findOne({'name':req.params.name});
         res.render('SurveyForAdmin.html', {
             result: survey.result,
-            question: survey.data.question
+            question: survey.data.question,
+            id: survey._id
         });
     
     }
@@ -108,5 +140,6 @@ router.post('/reg', CreateSurvey.reg);
 router.get('/res', CreateSurvey.showResult);
 router.get('/res/:name', CreateSurvey.getSurvey);
 router.post('/res/:name',upload.single('file_an'), CreateSurvey.regAnnotation);
+router.get('/res/:id/csv', CreateSurvey.csv);
 
 module.exports.router = router;
