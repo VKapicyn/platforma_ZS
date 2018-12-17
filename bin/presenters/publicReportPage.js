@@ -36,20 +36,20 @@ class PublicReport {
             if (req.files){ 
                 
             
-            if ((req.files.pdf[0].contentType != 'application/pdf')&&((req.files.img[0].contentType != 'image/png')||(req.files.img[0].contentType != 'image/jpeg'))){
+            // if ((req.files.pdf[0].contentType != 'application/pdf')&&((req.files.img[0].contentType != 'image/png')||(req.files.img[0].contentType != 'image/jpeg'))){
                  
-                    delFile(req.files.pdf[0].filename);
-                    delFile(req.files.img[0].filename);
-                    delFile(req.files.pdfEng[0].filename);
-                    res.redirect('/');
-            }
-            else{
+            //         delFile(req.files.pdf[0].filename);
+            //         delFile(req.files.img[0].filename);
+            //         delFile(req.files.pdfEng[0].filename);
+            //         res.redirect('/');
+            // }
+            // else{
                 req.files.img? img = req.files.img[0].filename:img= img
                 req.files.pdfEng? pdfeng = req.files.pdfEng[0].filename:pdfeng= pdfeng;
                 req.files.pdf? pdfrus = req.files.pdf[0].filename: pdfrus=pdfrus;
                 req.files.rusSmall? rusSmall = req.files.rusSmall[0].filename: rusSmall=rusSmall;
                 req.files.engSmall? engSmall = req.files.engSmall[0].filename: engSmall=engSmall;
-            }
+            // }
             }
                 let report = new reportModel({
                     name: req.body.name,
@@ -140,10 +140,10 @@ class PublicReport {
 router.get('/', PublicReport.getPage);
 
 router.get('/id/:id',PublicReport.getPageByReportId);
-router.post('/new',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
+router.post('/new',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'engSmall', maxCount: 1 } ,{ name: 'rusSmall', maxCount: 1 }, { name: 'img', maxCount: 1 }]),PublicReport.newReport);
 router.get('/new',adminModel.isAdminLogged,PublicReport.newReportGetPage);
 router.get('/update/:id',adminModel.isAdminLogged,PublicReport.updateReportPage);
-router.post('/update/:id',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 }, { name: 'engSmall', maxCount: 1 },{ name: 'rusSmall', maxCount: 1 },{ name: 'img', maxCount: 1 }]),PublicReport.updateReport);
+router.post('/update/:id',adminModel.isAdminLogged,upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'pdfEng', maxCount: 1 },{ name: 'img', maxCount: 1 }]),PublicReport.updateReport);
 //  router.post('/createreport',PublicReport.createReport);
 //adminModel.isAdminLogged,
 module.exports.router = router;
