@@ -4,6 +4,7 @@ const surveytemplateModel = require('../models/surveytemplateModel').surveytempl
 const reportModel = require('../models/reportModel').reportModel;
 const eventModel = require('../models/eventModel').eventModel;
 const fs = require('fs')
+const shModel = require('../models/stakeholderModel').stakeholderModel;
 
 class Search{
     static async getResult(req, res, next){
@@ -12,9 +13,15 @@ class Search{
             let log;
             let sur=[];
             let acc = [];
-            let survey
-            if(req.session.userModel) {lvl='user'; log=req.session.userModel.login; survey = await surveytemplateModel.find({accessLVL:lvl});}
-            if(req.session.stakeholderModel) {lvl='stakeholder'; log=req.session.stakeholderModel.login; survey = await surveytemplateModel.find();}
+            let survey;
+            let sh1;
+            if(req.session.user) {lvl='user'; log=req.session.userModel.login; survey = await surveytemplateModel.find({accessLVL:lvl});}
+            if(req.session.stakeholder){
+                lvl='stakeholder';
+                log=req.session.stakeholder.login; 
+                survey = await surveytemplateModel.find(); 
+                sh1 = await shModel.findOne({login:req.session.stakeholder.login})
+            }
             survey = await surveytemplateModel.find();
             for (let i=0;i<survey.length;i++){
                 acc[i]=0;
@@ -27,9 +34,11 @@ class Search{
             if (req.body.search == '') req.body.search = new Date() //защита от пустой строки ;)
             //console.log(req.body)
             for(let i=0;i<survey.length;i++){
-                if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && (survey[i].accessLVL == lvl || survey[i].accessLVL == 'user') && acc[i] < 1 || survey[i].annotation) && (survey[i].name.search(req.body.search) >= 0 || survey[i].description.search(req.body.search) >= 0 )){
+                //console.log((survey[i].group.indexOf('all') >= 0 || survey[i].group.indexOf(sh1.group[0]) >= 0))
+                console.log(sh1)
+                if ((survey[i].firstDate<=new Date() && survey[i].lastDate>=new Date() && ( survey[i].accessLVL == 'user' || ((survey[i].accessLVL == lvl) && (survey[i].group.indexOf('all') >= 0 || survey[i].group.indexOf(sh1.group[0]) >= 0))) && acc[i] < 1 || survey[i].annotation) && (survey[i].name.search(req.body.search) >= 0 || survey[i].description.search(req.body.search) >= 0 )){
                     
-                    sur=[...sur,{name:survey[i].name,description:survey[i].description}]
+                    sur=[...sur,{name:survey[i].name,description:survey[i].description,id:survey[i].id}]
 
                 }
                 
@@ -79,7 +88,7 @@ class Search{
             
         }
         catch(e){
-
+            console.log(e)
         }
     }
 }

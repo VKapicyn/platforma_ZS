@@ -10,7 +10,7 @@
             <br>
             {%if survey.length !=0 %}
             {%for s in survey%}
-            <p><a href={{"/survey/name"+s.name}}>Опрос: {{s.name}}({{s.description}})</a></p>
+            <p><a href={{"/survey/id"+s.id}}>Опрос: {{s.name}}({{s.description}})</a></p>
             <br>
             {%endfor%}
             <br>

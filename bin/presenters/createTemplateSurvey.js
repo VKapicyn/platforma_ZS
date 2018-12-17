@@ -29,13 +29,16 @@ class CreateSurvey{
                 lastDate: req.body.lastDate,
                 accessLVL: req.body.accessLVL,
                 data: req.body.data,
-                description: req.body.description
+                description: req.body.description,
+                group: req.body.group
             });
             form.save();
             let st= await stakeholderModel.find();
                 let content = {name:req.body.name};
-                for (let i=0; i<st.length; i++)
-                send(st[i], 4 , content);
+                for (let i=0; i<st.length; i++){
+                    if (req.body.group.indexOf('all') >= 0 || req.body.group.indexOf(st[i].group[0]) >= 0 || req.body.accessLVL == 'user')
+                    send(st[i], 4 , content);
+                }
         } catch (e) {
             console.log(e)
         }
@@ -63,7 +66,7 @@ class CreateSurvey{
             let survey =  await surveytemplateModel.findById(req.params.id);
         res.render('SurveyForAdmin.html', {
             result: survey.result,
-            question: survey.data.question
+            question: survey.data.question,
         });
     
     }

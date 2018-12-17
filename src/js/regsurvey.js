@@ -40,6 +40,7 @@ $('button').click((e)=>{
     obj.accessLVL=$('.lvl').val();
     obj.firstDate=$('.first_date').val();
     obj.lastDate=$('.last_date').val();
+    obj.group = []
     let i=0;
     $('.block').each(function(){
         let mas_ans=[]
@@ -47,9 +48,14 @@ $('button').click((e)=>{
         $(this).children('div:last-child').children('.answer').each(function(){
             mas_ans=[...mas_ans,$(this).val()]
         })
-        if (mas_ans.length == 0 ){mas_ans='text';console.log(1)}
+        if (mas_ans.length == 0 ){mas_ans='text';}
         obj.data.answer[i]=mas_ans;
         i++;
+    })
+    $('.interest').each(function(){
+        if($(this).is(':checked')){
+        obj.group.push($(this).val())
+        }
     })
     obj=JSON.stringify(obj)
     fetch("/createsurvey/reg",{
