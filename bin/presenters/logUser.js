@@ -15,13 +15,11 @@ class AuthUser {
             if (account.password == toHash(req.body.password)){    
                 req.session.user = {id: account._id, login: account.login};
                 req.session.save()
-                res.end()
+                res.redirect('/loginstakeholder/logged')
             }
+            else
+                res.redirect('/loginstakeholder/err')
         }
-        try{
-            //инфа об ошибке ?
-            res.render('logPage.html')
-        }catch(e){}
     }
     static logout(req, res, next){
         delete req.session.user;

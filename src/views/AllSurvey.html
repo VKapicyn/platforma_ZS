@@ -6,21 +6,22 @@
 <hr>
 <link rel="stylesheet" href="/css/search.css">
     <div class="content row">
-        <div class="result-search col-xl-9 col-md-9 col-sm-9 col-12 text-center">
+        <div class="col-xl-9 col-md-9 col-sm-9 col-12 text-center">
                 {% if mas_name %}
-                        <h2>Доступные опросы:</h2>
+                        <h4>Доступные опросы:</h4>
                         {% for it in mas_name %}
-                        <a href={{'/survey/id'+it.id}}>{{it.name}} ({{mas_desc.shift()}})</a>
+                        <a href={{'/survey/id'+it.id}} class="link">{{it.name}} ({{mas_desc.shift()}})</a>
                         <br>
                         {% endfor %}
                 {% else %}
-                        <h2>Доступных опросов нет</h2>
+                        <h4>Доступных опросов нет</h4>
                         <br>
                 {% endif %}
                 {% if res_name %}
-                        <h2>Результаты опросов:</h1>
+                        <br>
+                        <h4>Результаты опросов:</h4>
                         {% for it in res_name %}
-                        <a href={{'/survey/id'+it.id}}>{{it.name}} ({{res_desc.shift()}})</a>
+                        <a href={{'/survey/id'+it.id}} class="link">{{it.name}} ({{res_desc.shift()}})</a>
                         <br>
                         {% endfor %}
                 {% endif %}

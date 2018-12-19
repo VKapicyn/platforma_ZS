@@ -7,6 +7,13 @@
 {% block content %}
 
 <div class="container">
+        {% if (alert == 'survey') %}
+        <div class="alert alert-dark" role="alert">
+            <center>
+            Чтобы пройти опрос, необходимо зарегистрироваться
+            </center>
+        </div>
+        {% endif %}
         {% if (alert == 'conf') %}
         <div class="alert alert-dark" role="alert">
                 <center>
@@ -18,6 +25,20 @@
         <div class="alert alert-dark" role="alert">
                 <center>
             Вы успешно заргестрированы, теперь Вы можете авторизоваться
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'logged') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Вы успешно авторизовались!
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'err') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ошибка авторизации!
             </center>
         </div>
         {% endif %}

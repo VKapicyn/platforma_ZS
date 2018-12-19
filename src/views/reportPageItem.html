@@ -1,18 +1,117 @@
 {% extends "templates/pageTemplate.html" %}
+
         <!-- Для шапки и футера однозначно нужен темплейт -->
 {% block content %}
-<a href="/publicreport"><button type="button" class="btn btn-secondary btn-lg"><span class="glyphicon glyphicon-arrow-left"></span> назад</button></a>
-<h4 class="text-center">{{ parametr.name }}</h4>
-<h5>{{parametr.description}}</h5>
-<div class="container-fluid">
-        <div class="row">
-                <div class="embed-responsive embed-responsive-16by9">
-                        <embed class="embed-responsive-item"  src={{ download_url }} />
-                </div>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/reports.css">
+{% include "templates/pageTopMenu.html" %}
 
-        </div>
-</div>
-<h5><a href={{ download_url }}> скачать pdf отчета</a></h5>
+<hr>
+    <div class="content row">
+        <div class="col-xl-9 col-md-9 col-sm-9 col-12">
+          <div class="card flex-md-row mb-4 box-shadow h-md-250 cards">
+          <img class="card-img-right  d-none d-lg-block mr-2" data-src="" alt="" style="   width: 230px;    height: 100%;;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
+              <div class="card-body d-flex flex-column align-items-start">
+                <h3 class="mb-0">
+                  <img src="../../img/reports.png">
+                  <a class="text-dark" >{{report.name}}</a>
+                </h3>
+                
+                <div class="mb-1 text-muted mb-auto">{{report.creatingDate}}</div>
+                  <div class="container">
+                          <br>
+                    <div class="row justify-content-around">
+                        <div class="mb-2"> 
+                             <img src="../../img/flag_rf.png">
+                            <h6>
+                               
+                                <img src="../../img/allreport.png"><a href="/file/{{ report.rusSmall }}"> Cкачать сокращенный отчет pdf на русском</a> <br>
+                                <img src="../../img/fullreport.png"><a href="/file/{{ report.pdfSrc }}"> Cкачать весь отчет pdf на русском</a>
+                            </h6>
+                        </div>
+                        <div class="mb-2"> 
+                                        <img src="../../img/flag_ang.png">
+                                        <h6>
+                                          <img src="../../img/allreport.png"><a href="/file/{{ report.engSmall }}"> Cкачать сокращенный отчет pdf на английском</a><br>
+                                          <img src="../../img/fullreport.png"><a href="/file/{{ report.pdfEngSrc }}"> Cкачать весь отчет pdf на английском</a>
+                                            
+                                        </h6>
+                        </div>
+                    </div>
+                  </div>
+                  <p class="card-text mb-auto">
+                                
+                                <img src="../../img/revards.png"><a>Победы отчета в конкурсе:</a>
+                                <div class="container">
+                                  <p>
+                                {{report.revards  | striptags(true) | escape | nl2br}}
+                                </p>
+                                </div>
+                          
+                        
+                        <p class="card-text mb-auto">
+                           
+                              
+                                  <img src="../../img/standarts.png"><a>Соответствие международным стандартам:</a></p>
+                                 
+                                  
+                                  <div class="container">
+                                      <p><img src="../../img/standart1.png"><img src="../../img/standart2.png">{{report.standarts  | striptags(true) | escape | nl2br}}</p>
+                                  </div>
+                              
+                              
+                              
+                          
+        
+                
+                
+                  <p class="card-text mb-auto"><img src="../../img/reportthems.png">Приоритетные темы отчета:</p>
+                  <div class="container">
+                      <span>{{report.description  | striptags(true) | escape | nl2br}}</span>
+                  </div>
+                </div>
+          </div>
+            
+    </div>
+      
+        {% include "templates/sideMenuTemplate.html" %}
+    </div>
+<!-- <div class="content row">
+          <div class="col-xl-9 col-md-7 col-sm-7 col-6">
+              {% if(admin) %}
+              <div class="col-md-2">
+                  <a href="/publicreport/new"><button type="button" class="btn btn-secondary btn-lg">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Создать
+                  </button> </a>           
+              </div>
+              {% endif %}
+          {% for report in parametr %}
+          <div class="card flex-md-row mb-4 box-shadow h-md-250">
+          <img class="card-img-right  d-none d-lg-block" data-src="" alt="" style="width: 200px; height: 250px;" src="/file/{{report.imgSrc}}" data-holder-rendered="true">
+              <div class="card-body d-flex flex-column align-items-start">
+                <h3 class="mb-0">
+                  <a class="text-dark" >{{report.name}}</a>
+                </h3>
+                <div class="mb-1 text-muted">{{report.creatingDate}}</div>
+                <p class="card-text mb-auto">{{report.description}}</p>
+                  <div class="container">
+                    <div class="row justify-content-around">
+                  <h5 class="mb-2">
+                    <a href="/file/{{ report.pdfSrc }}"> скачать pdf отчета на русском</a>
+                  </h5>
+                  <h5 class="mb-2">
+                      <a href="/file/{{ report.pdfEngSrc }}"> скачать pdf отчета на английском</a>
+                  </h5>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+          {% endfor %}
+          </div>
+          {% include "templates/sideMenuTemplate.html" %}
+        
+</div> -->
 
 <!-- <div class=" container">
         <h1 class="text-center">{{ paramebn }}</h1>
@@ -21,3 +120,9 @@
         </div>
 </div> -->
 {% endblock %}
+<!-- <div class=" container">
+        <h1 class="text-center">{{ paramebn }}</h1>
+        <div>
+               <a href="/"></a>
+        </div>
+</div> -->

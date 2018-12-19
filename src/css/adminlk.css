@@ -4,7 +4,7 @@
 }
 .container-fluid * {
     outline: none;
-    overflow: hidden;
+    
 }
 .confirmSh img, .events img, .negotiation img , .reports img, .survey img{
     width: 40px;

@@ -116,7 +116,6 @@ class Lk {
                 // res.set('Content-Type', 'application/octet-stream');
                 res.attachment('shInfo.csv');
                 res.status(200).send(csv); 
-                res.redirect('/lk');
                 }
             break;
             case 'agree':

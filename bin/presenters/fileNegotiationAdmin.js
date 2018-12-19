@@ -7,6 +7,7 @@ const multer  = require('multer');
 const newStorage = require('../utils/uploader').newStorage;
 const storage = newStorage()
 const upload = multer({ storage });
+const Json2csvParser = require ( 'json2csv' ) . Parser ;
 
 
 class Negotiation{
@@ -16,6 +17,61 @@ class Negotiation{
             stakeholders:stakeholders
         })
     }
+    static async csv(req, res, next){
+    let neg = await fileNegotiationModel.findOne({'_id': req.params.id});
+    console.log(neg);
+    let stakeholders;
+    console.log(Array.isArray(neg.access));
+    let arr=[];
+    neg.access.forEach(i => {
+        arr.push( {login: i})
+    });
+    if (Array.isArray(neg.access)){
+     stakeholders = await stakeholderModel.find({$or: arr });
+    }
+    else 
+    stakeholders = await stakeholderModel.find({login: neg.access });
+    console.log(stakeholders);
+    let sh={};
+    let stake=[];
+    sh.comments =[];
+    neg.account.forEach(i => {
+        let j =0;
+        stakeholders.forEach(item =>{
+            if (i.sender == item.login){
+                
+                sh.comments.push({text:i.text});
+            
+            sh.name = item.lastname +' ' + item.firstname +' ' +item.patronymic;
+            sh.organization = item.organization;
+            stake[j] = sh
+            }
+        });
+        j++;
+        
+    });
+    
+
+   let fields = [{
+            label:'ФИО',
+            value: 'name'
+        },
+        {
+            label:'организация',
+            value: 'organization'
+        },
+        {
+            label:'комментарии',
+            value:'comments.text'
+        }];
+        let json2csvParser = new Json2csvParser ( {  fields , unwind: ['comments'], unwindBlank: true} ) ;    
+                const csv = json2csvParser.parse( stake ) ; 
+                res.set('Content-Type', 'application/octet-stream');
+                res.attachment(neg.name+'.csv');
+                res.status(200).send(csv); 
+                // res.redirect('/lkadmin');
+    }
+
     static async regfile(req, res, next){
         try{
             let mas = [];
@@ -73,11 +129,19 @@ class Negotiation{
         let fileN =  await fileNegotiationModel.findById(req.params.id);
         if(fileN.agreement){
             for(let i=0;i<fileN.agreement.length;i++){
-                fileN.agreement[i].data=(new Date(fileN.agreement[i].data)).toString()
+                let format = new Date(Number(fileN.agreement[i].data));
+                format = format.toLocaleString("ru", {hour: 'numeric'})
+                 + ':' + format.toLocaleString("ru", {minute: 'numeric'})
+                 + ' ' + format.toLocaleString("ru", {day: 'numeric'})
+                 + '.' + format.toLocaleString("ru", {month: 'numeric'})
+                 + '.' + format.toLocaleString("ru", {year: 'numeric'});
+                fileN.agreement[i].data=(format)
+                console.log(fileN.agreement[i].data)
             }
         }
         res.render('fileNegotiationForAdmin.html', {
             name: fileN.name,
+            id:fileN._id,
             description: fileN.description,
             file: `/file/${fileN.file}`,
             access: fileN.access,
@@ -197,6 +261,7 @@ router.post('/id:id/:login',Negotiation.dialog);
 router.post('/id:id',upload.single('file'),Negotiation.updatefile);
 router.get('/reg',Negotiation.getPage);
 router.post('/reg',upload.single('file'),Negotiation.regfile)
+router.get('/csv/id:id',Negotiation.csv);
 
 
 module.exports.router = router;
