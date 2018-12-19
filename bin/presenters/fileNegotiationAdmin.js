@@ -18,20 +18,32 @@ class Negotiation{
     }
     static async regfile(req, res, next){
         try{
+            let mas = [];
             if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
-                let mas = [];
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
+                if(Array.isArray(req.body.interest)){
+                for(let i = 0; i < req.body.interest.length; i++){
+                    let sh = await stakeholderModel.find({group:req.body.interest[i]});
+                    let mas_log = sh.map((it) => {return it.login})
+                    mas = [...mas,...mas_log];
+                }
+            }
+            else{
+                    let sh = await stakeholderModel.find({group:req.body.interest});
+                    let mas_log = sh.map((it) => {return it.login})
+                    mas = [...mas,...mas_log];
+                }
+                console.log(mas)
                 let file = new fileNegotiationModel({
                     name: req.body.name,
                     description: req.body.description,
                     file: req.file.filename,
-                    access: req.body.access,
+                    access: mas,
                     firstDate: req.body.firstDate,
                     lastDate: req.body.lastDate
                 });
                 file.save();
-                let stakeholders = await stakeholderModel.find()
                 res.redirect('/lkadmin')
             }
             else
@@ -41,6 +53,7 @@ class Negotiation{
                 }
             }
             catch(e){
+                console.log(e)
                 res.end('error')
             }
     }
