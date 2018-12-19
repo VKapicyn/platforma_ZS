@@ -98,10 +98,7 @@ class CreateSurvey{
         res.render('SurveyForAdmin.html', {
             result: survey.result,
             question: survey.data.question,
-<<<<<<< HEAD
-=======
             id: survey._id
->>>>>>> develop
         });
     
     }

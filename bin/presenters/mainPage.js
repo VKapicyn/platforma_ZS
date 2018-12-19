@@ -11,6 +11,11 @@ class Main {
         events.sort((a,b)=>{
             return b.eventDate - a.eventDate
         })
+        events.forEach(i => {
+            if (i.eventDate)
+            i.date = i.eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.eventDate.toLocaleString("ru", {year: 'numeric'})
+            + ' ' + i.eventDate.toLocaleString("ru", {hour: 'numeric'}) + ':' + i.eventDate.toLocaleString("ru", {minute: 'numeric'});
+        });
         res.render('mainPage.html', {
             events:events.slice(0,4),
             sh:sh

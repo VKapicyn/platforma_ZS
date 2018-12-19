@@ -15,6 +15,10 @@ class PublicReport {
     static async getPage(req, res, next) {
         let sh = (req.session.stakeholder) ? await shModel.findOne({login:req.session.stakeholder.login}) : undefined;
         let reports =  await reportModel.find().sort({creatingDate:1});
+        reports.forEach(i => {
+            if (i.creatingDate)
+            i.date = i.creatingDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.creatingDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.creatingDate.toLocaleString("ru", {year: 'numeric'});
+        });
         if (req.session.admin){
             res.render('reportPage.html', {
                 parametr: reports,

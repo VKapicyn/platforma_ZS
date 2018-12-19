@@ -17,6 +17,11 @@ class Events {
     static async getPage(req, res, next) {
         let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
         let events =  await eventModel.find();
+        events.forEach(i => {
+            if (i.eventDate)
+            i.date = i.eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.eventDate.toLocaleString("ru", {year: 'numeric'})
+            + ' ' + i.eventDate.toLocaleString("ru", {hour: 'numeric'}) + ':' + i.eventDate.toLocaleString("ru", {minute: 'numeric'});
+        });
         res.render('events.html', {
             events: events,
             sh:sh
