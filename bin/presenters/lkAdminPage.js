@@ -18,6 +18,20 @@ class Lk {
         let sHolder= await shModel.find();
         let file = await fileNegotiationModel.find();
         let reports = await reportModel.find();
+        for (let i = 0; i < reports.length; i++){
+            if(reports[i].creatingDate){
+            let str_date = reports[i].creatingDate.toLocaleString("ru", {day: 'numeric'})+ '.' + reports[i].creatingDate.toLocaleString("ru", {month: 'numeric'}) + '.' + reports[i].creatingDate.toLocaleString("ru", {year: 'numeric'});
+            reports[i].date = str_date
+            }
+        }
+        for (let i = 0; i < events.length; i++){
+            if(events[i].eventDate){
+            let str_date = events[i].eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + events[i].eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + events[i].eventDate.toLocaleString("ru", {year: 'numeric'})
+            + ' ' + events[i].eventDate.toLocaleString("ru", {hour: 'numeric'}) + ':' + events[i].eventDate.toLocaleString("ru", {minute: 'numeric'});
+            events[i].date = str_date
+            }
+            console.log(events[i].date)
+        }
         res.render('lkadmin.html', {
                 file,
                  events: events,

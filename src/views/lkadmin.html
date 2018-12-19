@@ -87,7 +87,7 @@
                           {% for report in reports %}
                           <tr>
                           <td>{{report.name}}</td>
-                          <td>{{report.creatingDate}}</td>
+                          <td>{{report.date}}</td>
                           <td><a href="/publicreport/update/{{report._id}}">Редактировать</td>
                           </tr>
                           {% endfor %}
@@ -342,7 +342,7 @@
                 {% for event in events %}
                 <tr>
                 <td>{{event.name}}</td>
-                <td>{{event.eventDate}}</td>
+                <td>{{event.date}}</td>
                 <td><a href="/events/csv/{{event._id}}">Скачать список приглашенных(csv)</a></td>
                 <td><a href="/events/edit/{{event._id}}">Редактировать</td>
                 </tr>
