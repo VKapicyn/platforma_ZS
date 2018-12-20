@@ -13,8 +13,7 @@ class Main {
         })
         events.forEach(i => {
             if (i.eventDate)
-            i.date = i.eventDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.eventDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.eventDate.toLocaleString("ru", {year: 'numeric'})
-            + ' ' + i.eventDate.toLocaleString("ru", {hour: 'numeric'}) + ':' + i.eventDate.toLocaleString("ru", {minute: 'numeric'});
+            i.date = i.eventDate.toLocaleString("ru-RU", {day: 'numeric', month: 'numeric', year:'numeric', hour: '2-digit', minute:'2-digit'});
         });
         res.render('mainPage.html', {
             events:events.slice(0,4),

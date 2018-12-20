@@ -17,7 +17,7 @@ class PublicReport {
         let reports =  await reportModel.find().sort({creatingDate:1});
         reports.forEach(i => {
             if (i.creatingDate)
-            i.date = i.creatingDate.toLocaleString("ru", {day: 'numeric'})+ '.' + i.creatingDate.toLocaleString("ru", {month: 'numeric'}) + '.' + i.creatingDate.toLocaleString("ru", {year: 'numeric'});
+            i.date = i.creatingDate.toLocaleString("ru-RU", {day: 'numeric', month: 'numeric', year:'numeric'});
         });
         if (req.session.admin){
             res.render('reportPage.html', {
