@@ -19,6 +19,8 @@ class Auth {
                 req.session.save();
                 res.redirect('/lk');
             }
+            else
+            res.redirect('/loginstakeholder/errstake');
         }
         else
         res.redirect('/loginstakeholder/errstake');

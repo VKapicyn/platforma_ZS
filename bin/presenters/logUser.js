@@ -17,6 +17,8 @@ class AuthUser {
                 req.session.save()
                 res.redirect('/loginstakeholder/logged')
             }
+            else
+            res.redirect('/loginstakeholder/erruser')
         }
         else
         res.redirect('/loginstakeholder/erruser')
