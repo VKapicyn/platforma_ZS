@@ -14,6 +14,7 @@ let eventSchema = mongoose.Schema({
     //вероятно будет лучше хранить приглашения в модели стэекхолдеров
     address: String,
     annotation: String,
+    prezentation: String,
     img: String
 
 });
