@@ -35,10 +35,17 @@
             </center>
         </div>
         {% endif %}
-        {% if (alert == 'err') %}
+        {% if (alert == 'erruser') %}
         <div class="alert alert-dark" role="alert">
                 <center>
-            Ошибка авторизации!
+            Ошибка авторизации! Введен не правильный логин или пароль Пользователя!
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'errstake') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ошибка авторизации! Введен не правильный логин или пароль Стейкхолдера!
             </center>
         </div>
         {% endif %}

@@ -20,10 +20,8 @@ class Auth {
                 res.redirect('/lk');
             }
         }
-        try { 
-            //инфа об ошибке ?
-            res.redirect('/loginuser');
-        } catch(e){}
+        else
+        res.redirect('/loginstakeholder/errstake');
     }
     static logout(req, res, next){
         delete req.session.stakeholder;
