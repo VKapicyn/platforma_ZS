@@ -20,7 +20,7 @@ class Auth {
                 res.redirect('/lk');
             }
             else
-            res.redirect('/loginstakeholder/errstake');
+            res.redirect('/loginstakeholder/errstakepas');
         }
         else
         res.redirect('/loginstakeholder/errstake');

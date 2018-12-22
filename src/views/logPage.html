@@ -38,7 +38,21 @@
         {% if (alert == 'erruser') %}
         <div class="alert alert-dark" role="alert">
                 <center>
-            Ошибка авторизации! Введен не правильный логин или пароль Пользователя!
+            Ошибка авторизации! Такого Пользователя не существует!
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'erruserpas') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ошибка авторизации! Введен не правильный пароль Пользователя!
+            </center>
+        </div>
+        {% endif %}
+        {% if (alert == 'errstakepas') %}
+        <div class="alert alert-dark" role="alert">
+                <center>
+            Ошибка авторизации! Введен не правильный пароль Стейкхолдера!
             </center>
         </div>
         {% endif %}

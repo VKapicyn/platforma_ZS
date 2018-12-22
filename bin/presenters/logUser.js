@@ -18,7 +18,7 @@ class AuthUser {
                 res.redirect('/loginstakeholder/logged')
             }
             else
-            res.redirect('/loginstakeholder/erruser')
+            res.redirect('/loginstakeholder/erruserpas')
         }
         else
         res.redirect('/loginstakeholder/erruser')
