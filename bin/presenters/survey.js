@@ -21,10 +21,9 @@ class Survey{
                 }
             
             }
-            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && ( survey.accessLVL == 'user' || ((survey.accessLVL == lvl) && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0))) && acc < 1 && survey.annotation)
-            {
+            if(lvl == 'user'){
+                if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == 'user' && acc < 1 && survey.annotation ){
                 surveytemplate=survey;
-                
                 res.render('Survey.html', {
                     description: surveytemplate.description,
                     name: surveytemplate.name,
@@ -34,10 +33,8 @@ class Survey{
                     file: `/file/${surveytemplate.annotation.file}`,
                     sh:sh
                 });
-                
-            
             }
-            else if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && ( survey.accessLVL == 'user' || ((survey.accessLVL == lvl) && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0))) && acc < 1 && !survey.annotation){
+            else if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == 'user' && acc < 1 && !survey.annotation ){
                 surveytemplate=survey;
                 res.render('Survey.html', {
                     description: surveytemplate.description,
@@ -47,7 +44,7 @@ class Survey{
                     sh:sh
                 });
             }
-            else if((((survey.accessLVL == lvl) && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0))) && acc > 0 && survey.annotation){
+            else if(survey.accessLVL == 'user'  && acc > 0 && survey.annotation){
                 surveytemplate=survey;
                 res.render('Survey.html', {
                     description: surveytemplate.description,
@@ -59,13 +56,83 @@ class Survey{
             }
             else{res.redirect('/loginstakeholder/survey');return;}
         }
+        else if(lvl == 'stakeholder'){
+            if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == 'user' && acc < 1 && survey.annotation ){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
+                });
+            }
+            else if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && survey.accessLVL == 'user' && acc < 1 && !survey.annotation ){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer,
+                    sh:sh
+                });
+            }
+            else if(survey.accessLVL == 'user'  && acc > 0 && survey.annotation){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
+                })
+            }
+            else if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (( survey.accessLVL == 'stakeholder') && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0)) && acc < 1 && survey.annotation )
+            {
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
+                });
+            }
+            else if(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (( survey.accessLVL == 'stakeholder') && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0)) && acc < 1 && !survey.annotation ){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    question: surveytemplate.data.question,
+                    answer: surveytemplate.data.answer,
+                    sh:sh
+                });
+            }
+            else if(((survey.accessLVL == 'stakeholder') && (survey.group.indexOf('all') >= 0 || survey.group.indexOf(sh1.group[0]) >= 0)) && acc > 0 && survey.annotation){
+                surveytemplate=survey;
+                res.render('Survey.html', {
+                    description: surveytemplate.description,
+                    name: surveytemplate.name,
+                    annotation: surveytemplate.annotation.text,
+                    file: `/file/${surveytemplate.annotation.file}`,
+                    sh:sh
+                });
+            }
+            else{res.redirect('/loginstakeholder/survey');return;}
+        }
+        else{res.redirect('/loginstakeholder/survey');return;}
+        }
         catch(e) {console.log(e)}
        
     }
     static async reg(req,res,next){
         let err='успешно';
-        if( !req.params.id || !req.body.answer ) {
-            res.end('Все поля должны быть заполнены');
+        if( req.body.answer == ''){
+            err = 'Вы не ответили ни на один вопрос';
         }
         else{
         try {
@@ -81,7 +148,7 @@ class Survey{
                 }
             
             }
-            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1)){res.end('error');return;}
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1)){err='ошибка';}
             else{
                 let obj={}
                 obj.answer=req.body.answer;
