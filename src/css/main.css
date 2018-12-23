@@ -63,11 +63,13 @@ a:hover,a{
     left:20px;
     top: 10px
 }
-.event-list{
+.event-list {
     min-height: 400px;
+    width: 100%;
     margin-left: 1vw;
-    overflow-x:hidden;
-    padding-left: 3vw
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-left: 3vw;
 }
 .content-img{
     margin-top: 10px;

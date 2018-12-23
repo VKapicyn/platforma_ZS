@@ -133,13 +133,18 @@ class Events {
         });
     }
     static async createNewEvent(req, res, next){
-        try {
+            if( !req.body.name || !req.body.description || !req.body.address || !req.body.date ) {
+                
+            }
+            else{
             const shChecked = req.body.shCheck;
             let img = 'nophoto';
-            let annotation = 'nofile'
+            let annotation = 'nofile';
+            let prezentation = 'nofile'
             if (req.files){ 
                 req.files.img? img = req.files.img[0].filename:img= img
                 req.files.annotation? annotation = req.files.annotation[0].filename:annotation= annotation;
+                req.files.prezentation? prezentation = req.files.prezentation[0].filename:prezentation= prezentation;
             }
             let event = new eventModel({
                 name: req.body.name,
@@ -150,6 +155,7 @@ class Events {
                 address: req.body.address,
                 invites: '',
                 img: img,
+                prezentation: prezentation,
                 annotation: annotation
             })
             if(event){
@@ -199,8 +205,8 @@ class Events {
         
             res.redirect('/events/edit/'+event._id);
             }
-        } catch (e) {
         }
+  
     }
 }
 
@@ -211,5 +217,5 @@ router.get('/edit/:id', Events.getEditEventPage);
 router.post('/edit/:id', Events.editEventPage);
 router.get('/csv/:id', Events.getCsv);
 router.get('/new', adminModel.isAdminLogged, Events.getNewEventPage);
-router.post('/new', adminModel.isAdminLogged,upload.fields([{ name: 'img', maxCount: 1 }, { name: 'annotation', maxCount: 1 }]), Events.createNewEvent);
+router.post('/new', adminModel.isAdminLogged,upload.fields([{ name: 'img', maxCount: 1 }, { name: 'annotation', maxCount: 1 },{ name: 'prezentation', maxCount: 1 }]), Events.createNewEvent);
 module.exports.router = router;
