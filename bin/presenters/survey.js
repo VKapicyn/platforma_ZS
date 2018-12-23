@@ -148,7 +148,7 @@ class Survey{
                 }
             
             }
-            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1)){err='ошибка';}
+            if(!(survey.firstDate<=new Date() && survey.lastDate>=new Date() && (survey.accessLVL == lvl || lvl == 'stakeholder') && acc < 1)){err='Вы уже проходили этот опрос!';}
             else{
                 let obj={}
                 obj.answer=req.body.answer;

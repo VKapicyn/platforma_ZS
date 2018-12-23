@@ -203,7 +203,7 @@ class Events {
                 // }
             event.save();
         
-            res.redirect('/events/edit/'+event._id);
+            res.redirect('/events/id/'+event._id);
             }
         }
   
