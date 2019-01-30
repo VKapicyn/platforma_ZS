@@ -17,7 +17,7 @@ class Negotiation{
     }
     static async regfile(req, res, next){
         try{
-            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')||(req.file.contentType == 'application/msword')){
                 let mas = [];
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}

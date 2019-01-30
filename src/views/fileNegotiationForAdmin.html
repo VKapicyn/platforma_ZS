@@ -10,7 +10,7 @@
           <p><a href={{ file }} class="link">скачать файл</a></p>
           <p>Участники: 
               {% for item in access %}
-              < <a href={{item}} class="link">{{item}}</a> >
+               <a href={{item}} class="link">{{item}}</a> >
               {% endfor %}
           </p>
           <p>Согласовали: {% for agr in agreement %}
@@ -21,10 +21,14 @@
       <div class="container update">
         <form  method="POST" enctype="multipart/form-data">
           <p>Обновить файл: <input name="file" type="file"></p>
-          <p><input type="submit" class="auth-button btn btn-primary btn-block but"></p>
+          <p><button type="submit" class="">обновить</button></p>
         </form>
+        
         <form method="POST" action="back">
-            <p><input type="submit" value="назад к списку" class="auth-button btn btn-primary btn-block but"></p>
+            <p>
+            <button type="submit" class="">назад к списку</button>
+            <a href ="/fileNegotiation/{{_id}}/csv">Скачать обсуждение в csv формате</a>
+          </p>
         </form>
       </div>
       <div class="container result">{{response}}</div>
