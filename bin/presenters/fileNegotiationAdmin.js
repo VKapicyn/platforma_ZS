@@ -73,9 +73,11 @@ class Negotiation{
     }
 
     static async regfile(req, res, next){
+        console.log(req.file);
         try{
-            let mas = [];
-            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+
+            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')||(req.file.contentType == 'application/msword')||(req.file.contentType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')){
+                let mas = [];
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
                 if(Array.isArray(req.body.interest)){
