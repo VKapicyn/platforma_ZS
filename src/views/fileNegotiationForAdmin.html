@@ -18,9 +18,51 @@
           <p><a href ="/fileNegotiation/admin/csv/id{{id}}"  class="link">Скачать обсуждение в .csv формате</a></p>
           <p>Участники: 
               {% for item in access %}
-               <a href={{item}} class="link">{{item}}</a> >
+              < <a href={{item}} class="link">{{item}}</a> >
               {% endfor %}
           </p>
+          <br>
+          <button type="button" class="btn btn-primary m-btn" data-toggle="modal" data-target="#add">Добавить участников</button>
+
+          <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="addLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addrsLabel">Управление участниками</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Логин</th>
+                              <th>Дейтсвие</th>
+                            </tr>
+                          </thead>
+                      <tbody>
+                    {% for sh in stakeholder %}
+                    {%if sh.login in access%}
+                      {%else%}
+                      <tr>
+                          <th scope="row">{{sh.login}}
+                          </th>
+                          <td><a id="hide" href="/fileNegotiation/admin/id{{id}}/sh{{sh.id}}/add">Добавить</a></td>
+                        </tr>
+                      {%endif%}
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-info">Любая кнопка</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                  </div>
+              </div>
+            </div>
+        </div>
           <p>Согласовали: {% for agr in agreement %}
             {{agr.login}}({{agr.data}})<br>
             {% endfor %}</p>
@@ -35,14 +77,13 @@
         <form method="POST" action="back">
             <p>
             <button type="submit" class="">назад к списку</button>
-            
           </p>
-        </form>
+        </form> 
       </div>
       <div class="container result">{{response}}</div>
     </div>
 
     {% include "templates/sideMenuTemplate.html" %}
   </div>
-      
+  <script src="/js/neg.js"></script>
 {% endblock %}

@@ -17,6 +17,14 @@
     font-weight: normal;
     font-style: normal;
 }
+button.close {
+    border: none!important;
+}
+button.m-btn {
+    width: 300px;
+    background: transparent;
+    color: #173a6d;
+}
 .scroll-div {
     overflow-y: scroll;
     height: 300px;

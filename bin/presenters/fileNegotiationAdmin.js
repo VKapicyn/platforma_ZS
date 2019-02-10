@@ -10,12 +10,21 @@ const upload = multer({ storage });
 const Json2csvParser = require ( 'json2csv' ) . Parser ;
 
 
+
 class Negotiation{
     static async getPage(req, res, next){
         let stakeholders = await stakeholderModel.find()
         res.render('regFileNegotiationForAdmin.html',{
             stakeholders:stakeholders
         })
+    }
+    static async set(req, res, next){
+        let fileN =  await fileNegotiationModel.findById(req.params.id);
+        let stakeholders = await stakeholderModel.findById(req.params.shid);
+        await fileNegotiationModel.findOneAndUpdate({_id: req.params.id},  
+            {$addToSet: { access: stakeholders.login } }) ;
+        res.redirect('/fileNegotiation/admin/id'+req.params.id);
+        
     }
     static async csv(req, res, next){
     let neg = await fileNegotiationModel.findOne({'_id': req.params.id});
@@ -73,11 +82,9 @@ class Negotiation{
     }
 
     static async regfile(req, res, next){
-        console.log(req.file);
         try{
-
-            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')||(req.file.contentType == 'application/msword')||(req.file.contentType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')){
-                let mas = [];
+            let mas = [];
+            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
                 if(Array.isArray(req.body.interest)){
@@ -128,6 +135,7 @@ class Negotiation{
     }
     static async getfile(req, res, next){
         try{
+        let sh = await stakeholderModel.find({});
         let fileN =  await fileNegotiationModel.findById(req.params.id);
         if(fileN.agreement){
             for(let i=0;i<fileN.agreement.length;i++){
@@ -147,6 +155,7 @@ class Negotiation{
             description: fileN.description,
             file: `/file/${fileN.file}`,
             access: fileN.access,
+            stakeholder:sh,
             agreement: fileN.agreement,
             firstDate: fileN.firstDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.firstDate.toLocaleString("ru", {year: 'numeric'}),
             lastDate: fileN.lastDate.toLocaleString("ru", {day: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {month: 'numeric'}) + '.' + fileN.lastDate.toLocaleString("ru", {year: 'numeric'}),
@@ -264,6 +273,6 @@ router.post('/id:id',upload.single('file'),Negotiation.updatefile);
 router.get('/reg',Negotiation.getPage);
 router.post('/reg',upload.single('file'),Negotiation.regfile)
 router.get('/csv/id:id',Negotiation.csv);
-
+router.get('/id:id/sh:shid/:add',Negotiation.set);
 
 module.exports.router = router;
