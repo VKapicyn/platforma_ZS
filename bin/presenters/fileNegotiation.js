@@ -28,10 +28,10 @@ class Negotiation{
     }
     static async regforall(req, res, next){
         try{
-            let fileN =  await fileNegotiationModel.findById(req.params.id);
             let obj={user: 'admin', date: Date.now().toString(), sender: req.session.stakeholder.login, text: req.body.dialog};
-            fileN.account=[...fileN.account,obj];
-            if(fileN.lastDate>=new Date()) await fileN.save();
+            await fileNegotiationModel.findOneAndUpdate({_id: req.params.id},  
+                {$addToSet: { account: obj } }) ;
+            // if(fileN.lastDate>=new Date()) await fileN.save();
             res.redirect('/lk')
             }
         catch(e){

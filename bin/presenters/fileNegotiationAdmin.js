@@ -23,7 +23,7 @@ class Negotiation{
         let stakeholders = await stakeholderModel.findById(req.params.shid);
         await fileNegotiationModel.findOneAndUpdate({_id: req.params.id},  
             {$addToSet: { access: stakeholders.login } }) ;
-        res.redirect('/fileNegotiation/admin/id'+req.params.id);
+        res.redirect('fileNegotiation/admin/id'+req.params.id);
         
     }
     static async csv(req, res, next){
