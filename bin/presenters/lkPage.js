@@ -140,7 +140,7 @@ class Lk {
         switch (req.body.shEvent){
             case 0: 
                 res.send('Не выбрано действие');
-                res.redirect('/lk');
+                res.redirect('/lkadmin#confirmsSH');
             break;
             case 'csv':
                 let fields = [{
@@ -180,22 +180,22 @@ class Lk {
                 res.set('Content-Type', 'application/octet-stream');
                 res.attachment('shInfo.csv');
                 res.status(200).send(csv); 
-                res.redirect('/lk');
+                res.redirect('/lkadmin#confirmsSH');
             break;
             case 'agree':
                 sh.map(async function(sh){
-                    await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                        { $push: { state:  2 }}) ; 
+                    await shModel.findOneAndUpdate({_id: sh._id},  
+                        { state:  2 }) ; 
                 });
-                res.redirect('/lk');
+                res.redirect('/lkadmin#confirmsSH');
 
             break;
             case 'close':
             sh.map(async function(sh){
-                await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                    { $push: { state:  3 }}) ; 
+                await shModel.findOneAndUpdate({_id: sh._id},  
+                    { state:  3 }) ; 
             });
-            res.redirect('/lk');
+            res.redirect('/lkadmin#confirmsSH');
             break;
         }
     }

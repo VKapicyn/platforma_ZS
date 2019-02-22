@@ -19,6 +19,9 @@ class Registration {
             if(req.body.password != req.body.password1) {
                 err = 'пароли должны совпадать'; 
             }
+            else if(req.body.login.length<3){
+                err = 'логин должен быть более 3 символов'
+            }
             else if(await stakeholderModel.findOne({login: req.body.login})){
                 err = 'логин занят'
             }
@@ -49,7 +52,7 @@ class Registration {
             send(account, 1 , account);
         }
         } catch (e) {
-            err = 'логин занят';
+            err = 'логин уже занят';
         }
         if (err) res.render('registration.html',{error:err})
         else res.redirect('/loginstakeholder/email' );

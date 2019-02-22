@@ -37,10 +37,11 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="autorize-block">
-                            <center><h2>Регистрация стейхолдера</h2></center>
+                            <center><h2>Регистрация стейкхолдера</h2></center>
 
                             <form action="/registrationstakeholder" method="POST">
-                                    <input class="form-control" type="text" name="login" placeholder="Логин"><br>
+                                    <p class="group-interest"><b>В качестве логина необходимо использовать набор символов на латинице.</b></br> <i>Минимум 3 символа, можно использовать, например, Вашу почту.</i>
+                                    <input class="form-control" type="text" name="login" placeholder="Логин"><br></p>
                                     <input class="form-control" type="password" name="password" placeholder="Пароль"><br>
                                     <input class="form-control" type="password" name="password1" placeholder="Повторите пароль"><br>
                                     <input class="form-control" type="text" name="firstname" placeholder="Имя"><br>
@@ -50,6 +51,7 @@
                                     <input class="form-control" type="text" name="position" placeholder="Должность"><br>
                                     <input class="form-control" type="text" name="organization" placeholder="Организация"><br>
                                     <p class="group-interest">Выберите группу заинтересованных сторон, которую вы представляете
+                                        <!-- попробовать radiobutton -->
                                     <select name="group_select">
                                         <option selected value="Акционеры: Госкорпорация «Росатом»">Акционеры: Госкорпорация «Росатом»</option>
                                         <option value="Поставщики, подрядчики">Поставщики, подрядчики</option>
@@ -74,7 +76,7 @@
                                     </select><br>
                                     <input class="form-control" type="text" name="group_input" placeholder="Другое"></p>
                                     <p class="group-interest">
-                                        Укажите  предмет интереса вашей организации к раскрываемой АО ИК «АСЭ» публичной информации. (Можно выбрать несколько ответов).<br>
+                                        Укажите  предмет интереса вашей организации к раскрываемой АО ИК «АСЭ» публичной информации (можно выбрать несколько ответов).<br>
                                         <input type="checkbox" name="interest" value="Стратегия компании и показатели ее реализации"/>Стратегия компании и показатели ее реализации<br/>
                                         <input type="checkbox" name="interest" value="Бизнес-модель"/>Бизнес-модель<br/> 
                                         <input type="checkbox" name="interest" value="Рынки присутствия"/>Рынки присутствия<br/>
@@ -99,7 +101,7 @@
                                         </select>
                                     </p>
                                     <p class="group-interest">
-                                            Укажите форматы, в которых вы взаимодельствовали с компанией по вопросам публичной отчётности (вопрос обязательный для тех, кто имел такой опыт).  Можно выбрать несколько ответов<br>
+                                            Укажите форматы, в которых вы взаимодействовали с компанией по вопросам публичной отчётности (вопрос обязательный для тех, кто имел такой опыт).  Можно выбрать несколько ответов<br>
                                             <input type="checkbox" name="history" value="Определение существенных (приоритетных) тем отчета"/>Определение существенных (приоритетных) тем отчета<br/>
                                             <input type="checkbox" name="history" value="Обсуждение концепции отчета"/>Обсуждение концепции отчета<br/>
                                             <input type="checkbox" name="history" value="Общественные слушания проекта годового отчета"/>Общественные слушания проекта годового отчета<br/>
