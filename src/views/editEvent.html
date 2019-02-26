@@ -1,29 +1,33 @@
 {% extends "templates/pageTemplate.html" %}
 {% block content %}
+<link rel="stylesheet" href="/css/adminfile.css">
+<div class="container">
 <form action="/events/edit/{{event._id}}" method="POST" > 
     <div class="form-group">
-        <label for="eventName">Название мероприятия</label>
+        <b><label for="eventName">Название мероприятия</label></b>
         <input type="text" class="form-control" id="eventName" name="name" value="{{event.name}}">
     </div>
     <div class="form-group">
-        <label for="eventDescription">Описание мероприятия</label>
+        <b><label for="eventDescription">Описание мероприятия</label></b>
         <textarea class="form-control" id="eventDescription" name="description" rows="4" placeholder="" >{{event.description}}</textarea>
     </div>
     <div class="form-group">
-        <label for="eventData">Дата мероприятия</label>
+        <b><label for="eventData">Дата мероприятия</label></b>
         <input type="datetime-local" class="form-control" id="eventDate" name="date" value="{{event.eventData}}">
     </div>
     <div class="form-group">
-        <label for="eventAddress">Адрес</label>
+        <b><label for="eventAddress">Адрес</label></b>
         <input type="text" class="form-control" id="eventAddress"  value="{{event.address}}">
     </div>
     <div class="form-check">
-        <label class="form-check-label">
+        <b><label class="form-check-label"></b>
           <input type="checkbox" class="form-check-input">
           Отправить приглашение всем
         </label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <br>
+    <button type="submit" class="">Обновить</button>
   </form>
+</div>
 
 {% endblock %}

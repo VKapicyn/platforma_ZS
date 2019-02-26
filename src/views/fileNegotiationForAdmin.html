@@ -14,6 +14,14 @@
           <h1>{{name}}</h1>
           <h3>{{description}}</h3>
           <h4>{{firstDate}} - {{lastDate}}</h4>
+          <form method="POST" action="firstdate">
+            <h4>Дата начала согласования: {{firstDate}}</h4>
+            <p><input type="date" name="firstDate" class="dialog-input"> <button type="submit"> Обновить </button></p>
+          </form>
+          <form method="POST" action="lastdate">
+            <h4>Дата завершениея согласования: {{lastDate}}</h4>
+            <p><input type="date" name="lastDate" class="dialog-input"> <button type="submit"> Обновить </button></p>
+          </form>
           <p><a href={{ file }} class="link">Cкачать файл обсуждения</a></p>
           <p><a href ="/fileNegotiation/admin/csv/id{{id}}"  class="link">Скачать обсуждение в .csv формате</a></p>
           <p>Участники: 

@@ -38,9 +38,9 @@ exports.Send = (receiver, contentType, content) => {
             mailOptions = {
                 from: '"no-reply" <'+config.mail+'>', // sender address
                 to: receiver.email,  // list of receivers
-                subject: 'Новый опрос ', // Subject line
+                subject: 'На ПВЗС появился новый опроc', // Subject line
                 text: 'Здравствуйте', // plain text body
-                html: '<b>Здравствуйте '+ receiver.login +'.<br> Появился новый опрос '+ content.name+'</b>' // html body
+                html: '<b>Здравствуйте '+ receiver.firstname +'. Мы ждем Ваше мнение, перейдите по ссылке для просмотра <br><a href="'+config.locationOrigin+'/survey/id'+ content.id+'">'+ content.name+'</a>.' // html body
             };
             break;
         case 4: //survey anotation
@@ -49,7 +49,7 @@ exports.Send = (receiver, contentType, content) => {
                 to: receiver.email,  // list of receivers
                 subject: 'Добавлена аннотация к опросу', // Subject line
                 text: 'Здравствуйте', // plain text body
-                html: '<b>Здравствуйте '+ receiver.login +'.<br> Обратите внимание на опрос '+ content.name+'</b>' // html body
+                html: '<b>Здравствуйте '+ receiver.name +'.<br> Обратите внимание на опрос '+ content.name+'</b>' // html body
             };
             break;
             case 5: //file agreement

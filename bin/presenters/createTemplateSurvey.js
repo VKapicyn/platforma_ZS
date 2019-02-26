@@ -65,10 +65,10 @@ class CreateSurvey{
             });
             form.save();
             let st= await stakeholderModel.find();
-                let content = {name:req.body.name};
+                let content = {name:req.body.name, id: form._id};
                 for (let i=0; i<st.length; i++){
                     if (req.body.group.indexOf('all') >= 0 || req.body.group.indexOf(st[i].group[0]) >= 0 || req.body.accessLVL == 'user')
-                    send(st[i], 4 , content);
+                    send(st[i], 3 , content);
                 }
         } catch (e) {
             console.log(e)

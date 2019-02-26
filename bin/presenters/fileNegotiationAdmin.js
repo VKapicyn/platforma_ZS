@@ -262,11 +262,27 @@ class Negotiation{
     static back2(req,res,next){
         res.redirect('/lkadmin')
     }
+
+    static async firstdate(req,res,next){
+        let fileN = await fileNegotiationModel.findById(req.params.id);
+            fileN.firstDate = req.body.firstDate;
+            fileN.save();
+        res.redirect('/fileNegotiation/admin/id'+req.params.id+'/');
+    }
+
+    static async lastdate(req,res,next){
+        let fileN = await fileNegotiationModel.findById(req.params.id);
+            fileN.lastDate = req.body.lastDate;
+            fileN.save();
+        res.redirect('/fileNegotiation/admin/id'+req.params.id+'/');
+    }
 }
 
-router.get('/',Negotiation.show);
-router.get('/id:id',Negotiation.getfile);
-router.post('/id:id/back',Negotiation.back2);
+router.get('/', Negotiation.show);
+router.get('/id:id', Negotiation.getfile);
+router.post('/id:id/back', Negotiation.back2);
+router.post('/id:id/firstdate', Negotiation.firstdate);
+router.post('/id:id/lastdate', Negotiation.lastdate);
 router.get('/id:id/:login',Negotiation.getSt);
 router.post('/id:id/:login',Negotiation.dialog);
 router.post('/id:id',upload.single('file'),Negotiation.updatefile);
