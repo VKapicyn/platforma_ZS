@@ -64,12 +64,13 @@ a:hover,a{
     top: 10px
 }
 .event-list {
-    min-height: 400px;
+    max-height: 60%;
     width: 100%;
     margin-left: 1vw;
     overflow-x: hidden;
     overflow-y: scroll;
     padding-left: 3vw;
+    padding-bottom: 70px;
 }
 .content-img{
     margin-top: 10px;
@@ -97,7 +98,7 @@ a.ss-old{
     font-size: 0.9em
 }
 .allevents{
-    border:3px solid rgb(31,58,106)
+    border:3px solid rgb(31,58,106);
 }
 .h-ev{
     color:rgb(205,205,205);

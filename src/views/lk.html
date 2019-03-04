@@ -70,7 +70,7 @@
                                         <p>Документ согласован</p>
                                         {%else%}
                                         <form  method="POST" action={{'/fileNegotiation/all/agr'+item.id}}>
-                                                <p><input type="submit" value="согласовать" class="auth-button btn btn-primary btn-block agr"></p>
+                                                <p><input type="submit" value="согласовать" class="auth-button btn btn-primary btn-block agr" onclick="return confirm('Обращаем ваше внимание, что в случае положительного согласования документа отказаться от собственного решения нельзя. В случае появления новых комментариев, их можно внести!')"></p>
                                         </form>
                                         {%endif%}
                                         <div class="comments">
