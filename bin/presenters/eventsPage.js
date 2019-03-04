@@ -138,6 +138,7 @@ class Events {
             }
             else{
             const shChecked = req.body.shCheck;
+            let interest = req.body.interest;
             let img = 'nophoto';
             let annotation = 'nofile';
             let prezentation = 'nofile'
@@ -182,24 +183,53 @@ class Events {
                      sh = await stakeholderModel.find({_id:shChecked});
                      console.log(sh);
                 }
+                if (Array.isArray(interest)){
+                    console.log('group')
+                    let stakeholders = [];
+                    interest.map(async function(i){
+                        let sh = await stakeholderModel.find({group : i})
+                        stakeholders = stakeholders.concat(sh);
+                    });
+                    stakeholders.forEach(i => {
+                       
+                        arr.push({_id : i._id})
+    
+                    });
+                    sh = await stakeholderModel.find({"$or": arr});
+                    console.log(arr);
+
+                }
+                else 
+                {
+                    sh = await stakeholderModel.find({group : interest});
+                    
+                    if (interest == 'all'){
+                        console.log('all')
+                        let results = await stakeholderModel.find();
+                        const items = [];
+                        results.forEach(i => {
+                            items.push(i._id);
+    
+                        });
+                        
+                        results.map(async function(sh){
+                            await stakeholderModel.findOneAndUpdate({_id: sh._id},  
+                                { $push: { events:  {eventId: event._id, readyToGo:0} }}) ;
+                            send(sh,2,event);
+                        });
+                    }
+                }
+
                 sh.map(async function(sh){
                     await stakeholderModel.findOneAndUpdate({_id: sh._id},  
                         { $push: { events:  {eventId: event._id, readyToGo:0} }}) ;
                     send(sh,2,event);
                 });
+                
+                
+                
                 // if(req.body.shCheckAll){
-                //     let results = await stakeholderModel.find();
-                //     const items = [];
-                //     results.forEach(i => {
-                //         items.push(i._id);
-
-                //     });
-                    
-                //     results.map(async function(sh){
-                //         await stakeholderModel.findOneAndUpdate({_id: sh._id},  
-                //             { $push: { events:  {eventId: event._id, readyToGo:'Не просмотрел приглашение'}} }) ; 
-                //         send(sh,2,event);
-                //     });
+                
                 // }
             event.save();
         
