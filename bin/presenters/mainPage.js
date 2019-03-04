@@ -12,8 +12,9 @@ class Main {
             return b.eventDate - a.eventDate
         })
         events.forEach(i => {
-            if (i.eventDate)
+            if (i.eventDate){
             i.date = i.eventDate.toLocaleString("ru-RU", {day: 'numeric', month: 'numeric', year:'numeric', hour: '2-digit', minute:'2-digit'});
+            i.anons = new Date(i.eventDate) > new Date() ? true : false;}
         });
         res.render('mainPage.html', {
             events:events.slice(0,4),

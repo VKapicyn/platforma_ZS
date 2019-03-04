@@ -13,6 +13,10 @@
                         <p class="h-ev">События и мероприятия</p>
                         {%for e in events%}
                         <a class="event" href={{'/events/id/'+e.id}}>
+                        
+                        {% if e.anons %}
+                                <b style="color:brown;">Анонс</b><br>
+                        {% endif %}
                         <p><img src="/img/event.svg" alt="" width="25px" height="25px"><span class="date"> {{e.date}}</span><br>
                         {{e.name}}<br>
                         <img src="/img/стрелка.svg" alt="" width="25px" height="25px">
