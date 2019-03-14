@@ -30,7 +30,7 @@
                             </h6>
                             <br>
                             <h5 >
-                                <img src="img/revards.png"><a>Победы отчета в конкурсе</a>
+                                <img src="img/revards.png"><a href="/publicreport/id/{{report._id}}">Победы отчета в конкурсе</a>
                                 <div class="container">
                                   <p>
                                 {{report.revards | truncate(160, false, "...")}}
@@ -49,7 +49,7 @@
                               </h6>
                               <br>
                               <h5>
-                                  <img src="img/standarts.png"><a>Соответствие международным стандартам</a>
+                                  <img src="img/standarts.png"><a href="/publicreport/id/{{report._id}}">Соответствие международным стандартам</a>
                                   <div class="container standarts"> 
                                       
                                         <p><b><img src="img/standart1.png"><img src="img/standart2.png">- </b>
@@ -64,7 +64,7 @@
                   </div>
                 
                   </div>
-                  <p class="card-text mb-auto"><img src="img/reportthems.png">Приоритетные темы отчета:</p>
+                  <p class="card-text mb-auto"><img src="img/reportthems.png"><a style="color:black" href="/publicreport/id/{{report._id}}">Приоритетные темы отчета:</a></p>
                   <div class="container">
                       <span>{{report.description | truncate(200, false, "...")}}</span>
                   </div>
