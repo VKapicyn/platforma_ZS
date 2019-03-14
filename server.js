@@ -80,6 +80,8 @@ app.use('/api/v1/user', require('./bin/models/userModel').router);
 app.use('/file/:filename', require('./bin/utils/uploader').getFile);
 
 app.get('/registration', require('./bin/presenters/reg').getPage);
+app.get('/cookies', require('./bin/presenters/cookies').getPage);
+app.get('/legal-notice', require('./bin/presenters/cookies').getPageLegal);
 
 app.use('/about', require('./bin/presenters/about').router);
 app.use('/logoutu', function(req, res, next) {

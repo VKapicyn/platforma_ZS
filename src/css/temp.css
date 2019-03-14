@@ -34,6 +34,74 @@ button.m-btn {
     font-family: "Regular";
 }
 
+#acceptCookie {
+    display: none;
+}
+#acceptCookie {
+display:none;
+    background-color: rgb(20, 20, 110);
+    color:white;
+    margin: 0 auto;
+    padding: 1em;
+position: fixed;
+z-index: 999;
+bottom: 0px;
+width: 100%;
+opacity: 0.8;
+filter: alpha(opacity=80);
+}
+#acceptCookie p{
+float:left;
+width:70%;
+margin-left:10%;
+}
+#acceptCookie p a{
+color:white !important;
+text-decoration:underline !important;}
+
+#acceptCookie p a:hover{
+text-decoration:none !important;}
+#cookie_access{
+    margin-right:50px;
+        width: 8em;
+        height: 3em;
+    line-height:16px;
+    border-radius:24px;
+    background-color:rgb(74, 159, 223);
+    float:left;
+    font-size:14.4px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+        border: 2px solid white;
+        padding-left: 1%;
+        padding-top: 0.9em;
+    font-family: Helvetica,Calibri,Arial,sans-serif;
+    }
+    #cookie_access:hover{
+    background-color:rgb(112, 197, 255);
+    }
+    #cookie_access_en
+    {
+    margin-right:50px;
+        width: 12em;
+        height: 3em;
+    line-height:16px;
+    border-radius:24px;
+    background-color:rgb(74, 159, 223);
+    float:left;
+    font-size:14.4px;
+    font-weight:bold;
+    color:white;
+    cursor:pointer;
+        border: 2px solid white;
+        padding-left: 0.9%;
+        padding-top: 0.8em;
+    font-family: Helvetica,Calibri,Arial,sans-serif;
+    }
+    #cookie_access_en:hover{
+    background-color:rgb(112, 197, 255);
+    }
 
 .img-flag {
    margin: 7px;
