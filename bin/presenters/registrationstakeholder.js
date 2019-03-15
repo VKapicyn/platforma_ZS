@@ -9,7 +9,6 @@ const send = require('./../utils/email').Send;
 class Registration {
     static getPage(req, res, next) {
         res.render('regPage.html', {
-            captcha: recaptcha.toHTML()
         })
     }
     static async reg(req,res,next){
@@ -19,8 +18,8 @@ class Registration {
         // }
 
         try {
-            recaptcha.verify(async (success, error_code) => {
-                if (success) {
+            recaptcha.verify(req, async (error_code) => {
+                if (error_code) {
                     if(req.body.password != req.body.password1) {
                         err = 'пароли должны совпадать'; 
                     }

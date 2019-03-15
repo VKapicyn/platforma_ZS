@@ -3,23 +3,17 @@ const router = express.Router();
 const userModel = require('../models/userModel').userModel;
 const shModel = require('../models/stakeholderModel').stakeholderModel;
 const toHash = require('md5');
-const Recaptcha = require('recaptcha').Recaptcha;
-
-let PUBLIC_KEY  = require('../../config').public_key,
-    PRIVATE_KEY = require('../../config').private_key,
-    recaptcha = new Recaptcha(PUBLIC_KEY, PRIVATE_KEY);
+const recaptcha = require('../models/recaptcha').recaptcha;
 
 class RegUser{
     static getPage(req, res, next) {  
         res.render('registration.html', {
-            captcha: recaptcha.toHTML()
         })
     }
     static async reg(req,res,next){
         let err;
-        recaptcha.verify(async (success, error_code) => {
-            console.log(success, error_code)
-            if (success) {
+        recaptcha.verify(req, async (error_code) => {
+            if (error_code) {
                 if( !req.body.login || !req.body.password ) {
                     err = 'Все поля должны быть заполнены'; return;
                 }

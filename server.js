@@ -3,7 +3,6 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const Recaptcha = require('recaptcha').Recaptcha;
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const app = express();
