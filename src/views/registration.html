@@ -30,7 +30,7 @@
                             <br>
                             <input name="email" class="form-control" placeholder="E-mail" id="log">
                             <br>
-                            <p>*тут будет капча*</p>
+                            {{captcha | safe}}
                             <button class="auth-button btn btn-primary btn-block" type="submit">Регистрация</button>
                         </form>
                     </div>
@@ -111,7 +111,7 @@
                                     </p>
                                     <input class="form-control" type="text" name="contact_information" placeholder="Контактная информация (телефон)"><br>
                                     <input class="form-control" type="text" name="address" placeholder="Место проживания"><br>
-                                <p>*тут будет капча*</p>
+                                    {{captcha | safe}}
                                 <button class="auth-button btn btn-primary btn-block" type="submit">Регистрация</button>
                             </form>
                         </div>

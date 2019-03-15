@@ -3,10 +3,12 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const Recaptcha = require('recaptcha').Recaptcha;
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 const app = express();
-
+const path = require('path')
+const fs = require('fs');
 
 let config = require('./config.js'),
     url = config.deploy ? 'mongodb://localhost:27017/ZSDB' :
@@ -31,7 +33,14 @@ app.use(
 app.use(bodyParser.json());
 app.use(
     express.static(__dirname + '/src'),
-    bodyParser()
+    bodyParser(),
+    (req, res, next) => {
+        if (!/https/.test(req.protocol) && require('./config').production) {
+            res.redirect('https://' + req.headers.host + req.url);
+        } else {
+            return next();
+        }
+    }
 );
 
 nunjucks.configure(__dirname + '/src/views', {
@@ -93,5 +102,13 @@ app.use('/logoutu', function(req, res, next) {
  */
 
 app.listen(require('./config.js').port);
+
+/*
+let server = require('https').createServer({
+    key: fs.readFileSync(path.resolve(__dirname, 'ssl/server.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'ssl/server.crt'))
+}, app);
+server.listen(require('./config.js').port2);*/
+
 console.log(`Running at Port ${config.port}`);
 

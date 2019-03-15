@@ -5,9 +5,12 @@ const userModel = require('../models/userModel').userModel;
 const toHash = require('md5');
 const send = require('./../utils/email').Send;
 
+
 class Registration {
     static getPage(req, res, next) {
-        res.render('regPage.html')
+        res.render('regPage.html', {
+            captcha: recaptcha.toHTML()
+        })
     }
     static async reg(req,res,next){
         let err;
@@ -16,41 +19,49 @@ class Registration {
         // }
 
         try {
-            if(req.body.password != req.body.password1) {
-                err = 'пароли должны совпадать'; 
+            recaptcha.verify(async (success, error_code) => {
+                if (success) {
+                    if(req.body.password != req.body.password1) {
+                        err = 'пароли должны совпадать'; 
+                    }
+                    else if(req.body.login.length<3){
+                        err = 'логин должен быть более 3 символов'
+                    }
+                    else if(await stakeholderModel.findOne({login: req.body.login})){
+                        err = 'логин занят'
+                    }
+                    else if(await userModel.findOne({login: req.body.login})){
+                        err = 'логин занят'
+                    }
+                    else{
+                    let account = new stakeholderModel({
+                        login: req.body.login,
+                        password: toHash(req.body.password),
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        patronymic: req.body.patronymic,
+                        email: req.body.email,
+                        position: req.body.position,
+                        organization: req.body.organization,
+                        group: [req.body.group_select,req.body.group_input],
+                        time: req.body.time_select,
+                        interest: req.body.interest,
+                        history: req.body.history,
+                        contact_information: req.body.contact_information,
+                        address: req.body.address,
+                        regDate: new Date(),
+                        state: 0,
+                        key: toHash(req.body.login+Date.now().toString()) 
+                    });
+                    account.save();
+                    send(account, 1 , account);
+                    }
+                }
+            
+            else {
+                err = 'Капча введена неверно!'
             }
-            else if(req.body.login.length<3){
-                err = 'логин должен быть более 3 символов'
-            }
-            else if(await stakeholderModel.findOne({login: req.body.login})){
-                err = 'логин занят'
-            }
-            else if(await userModel.findOne({login: req.body.login})){
-                err = 'логин занят'
-            }
-            else{
-            let account = new stakeholderModel({
-                login: req.body.login,
-                password: toHash(req.body.password),
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                patronymic: req.body.patronymic,
-                email: req.body.email,
-                position: req.body.position,
-                organization: req.body.organization,
-                group: [req.body.group_select,req.body.group_input],
-                time: req.body.time_select,
-                interest: req.body.interest,
-                history: req.body.history,
-                contact_information: req.body.contact_information,
-                address: req.body.address,
-                regDate: new Date(),
-                state: 0,
-                key: toHash(req.body.login+Date.now().toString()) 
-            });
-            account.save();
-            send(account, 1 , account);
-        }
+        });
         } catch (e) {
             err = 'логин уже занят';
         }
