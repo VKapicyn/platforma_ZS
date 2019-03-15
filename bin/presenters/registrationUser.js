@@ -11,7 +11,7 @@ class RegUser{
         })
     }
     static async reg(req,res,next){
-        let err;
+        let err = '';
         recaptcha.verify(req, async (error_code) => {
             if (error_code) {
                 if( !req.body.login || !req.body.password ) {
@@ -39,7 +39,12 @@ class RegUser{
             err = 'логин занят';
         }
         
-        res.redirect('/loginstakeholder/confuser' );
+        if ( err != '')
+            res.render('registration.html', {
+                err
+            })
+        else
+            res.redirect('/loginstakeholder/confuser' );
     }
 }
 
