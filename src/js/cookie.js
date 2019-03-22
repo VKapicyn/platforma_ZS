@@ -9,8 +9,8 @@ window.onload = function() {
 		setCookie('acceptCookie', false, options);
 	}
 
-    if (getCookie('acceptCookie') == 'true') {
-        dontPrintAccept();
+    if (getCookie('acceptCookie') == 'false') {
+        PrintAccept();
     }
 }
 
@@ -20,9 +20,9 @@ function iAccept() {
 }
 
 
-function dontPrintAccept() {
+function PrintAccept() {
 	if (document.getElementById('acceptCookie') != undefined) {
-        document.getElementById('acceptCookie').style.display = 'none';
+        document.getElementById('acceptCookie').style.display = 'block';
 	}
 }
 

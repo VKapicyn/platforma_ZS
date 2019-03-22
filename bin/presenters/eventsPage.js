@@ -16,7 +16,7 @@ const upload = multer({ storage });
 class Events {
     static async getPage(req, res, next) {
         let sh = (req.session.stakeholderModel) ? await shModel.findOne({login:req.session.stakeholderModel.login}) : undefined;
-        let events =  await eventModel.find();
+        let events =  await eventModel.find().sort({eventDate:-1});
         events.forEach(i => {
             if (i.eventDate)
             i.date = i.eventDate.toLocaleString("ru-RU", {day: 'numeric', month: 'numeric', year:'numeric', hour: '2-digit', minute:'2-digit'});

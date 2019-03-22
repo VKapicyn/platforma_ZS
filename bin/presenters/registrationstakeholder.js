@@ -4,6 +4,7 @@ const stakeholderModel = require('../models/stakeholderModel').stakeholderModel;
 const userModel = require('../models/userModel').userModel;
 const toHash = require('md5');
 const send = require('./../utils/email').Send;
+const recaptcha = require('../models/recaptcha').recaptcha;
 
 
 class Registration {
@@ -17,9 +18,10 @@ class Registration {
         //     err = 'Все поля должны быть заполнены'; return;
         // }
 
-        try {
-            recaptcha.verify(req, async (error_code) => {
-                if (error_code) {
+
+        recaptcha.verify(req, async (error_code) => {
+            try {
+                if (!error_code) {
                     if(req.body.password != req.body.password1) {
                         err = 'пароли должны совпадать'; 
                     }
@@ -60,12 +62,14 @@ class Registration {
             else {
                 err = 'Капча введена неверно!'
             }
+
+            } catch (e) {
+                console.log(e)
+                err = e;
+            }
+            if (err) res.render('registration.html',{error:err, stakehold: true})
+            else res.redirect('/loginstakeholder/email' );
         });
-        } catch (e) {
-            err = 'логин уже занят';
-        }
-        if (err) res.render('registration.html',{error:err})
-        else res.redirect('/loginstakeholder/email' );
     }
     static async conf(req, res, next){
         let user = await stakeholderModel.findOne({key: req.params.num});
