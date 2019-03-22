@@ -87,7 +87,7 @@ app.use('/api/v1/user', require('./bin/models/userModel').router);
 //Utils ???
 app.use('/file/:filename', require('./bin/utils/uploader').getFile);
 
-app.get('/registration', require('./bin/presenters/reg').getPage);
+app.get('/registration/:id', require('./bin/presenters/reg').getPage);
 app.get('/cookies', require('./bin/presenters/cookies').getPage);
 app.get('/legal-notice', require('./bin/presenters/cookies').getPageLegal);
 
