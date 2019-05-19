@@ -10,6 +10,7 @@ const multer  = require('multer');
 const newStorage = require('./../utils/uploader').newStorage;
 const storage = newStorage();
 const upload = multer({ storage });
+const delFile = require('../utils/uploader').Delete;
 
 
 
@@ -88,21 +89,26 @@ class Events {
                 res.end;
     }
     static async editEventPage(req,res,next){
+        console.log(req.files);
 
         let event;
             event =  await eventModel.findById(req.params.id);
-            console.log(event);
+
             if (req.files){
-            if(req.files.annotation && req.files.annotation[0].contentType == 'application/pdf'){
-                delFile(event.annotation);
-                event.annotation = req.files.annotation[0].filename;
+                if(req.files.annotation && req.files.annotation[0].contentType == 'application/pdf'){
+                    delFile(event.annotation);
+                    event.annotation = req.files.annotation[0].filename;
+                }
+                
+                if(req.files.img && req.files.img[0].contentType == 'image/png'){
+                    delFile(event.img);
+                    event.img = req.files.img[0].filename;
+                }
+                if(req.files.prezentation){
+                    delFile(event.prezentation);
+                    event.prezentation = req.files.prezentation[0].filename;
+                }
             }
-            
-            if(req.files.img && req.files.img[0].contentType == 'image/png'){
-                delFile(report.imgSrc);
-                report.img = req.files.img[0].filename;
-            }
-        }
             if(req.body.description) event.description=req.body.description;
             if(req.body.name) event.name=req.body.name;
             if(req.body.address) event.address=req.body.address;
@@ -142,6 +148,7 @@ class Events {
             let img = 'nophoto';
             let annotation = 'nofile';
             let prezentation = 'nofile'
+            console.log(req.files)
             if (req.files){ 
                 req.files.img? img = req.files.img[0].filename:img= img
                 req.files.annotation? annotation = req.files.annotation[0].filename:annotation= annotation;
@@ -174,17 +181,17 @@ class Events {
                     });
                     
                      sh = await stakeholderModel.find({"$or": arr});
-                     console.log(arr);
+                     //console.log(arr);
                 }
                 else{
-                    console.log(shChecked);
+                    //console.log(shChecked);
                     
                     // event.invites = shChecked;
                      sh = await stakeholderModel.find({_id:shChecked});
-                     console.log(sh);
+                     //console.log(sh);
                 }
                 if (Array.isArray(interest)){
-                    console.log('group')
+                    //console.log('group')
                     let stakeholders = [];
                     interest.map(async function(i){
                         let sh = await stakeholderModel.find({group : i})
@@ -196,7 +203,7 @@ class Events {
     
                     });
                     sh = await stakeholderModel.find({"$or": arr});
-                    console.log(arr);
+                    //console.log(arr);
 
                 }
                 else 
@@ -204,7 +211,7 @@ class Events {
                     sh = await stakeholderModel.find({group : interest});
                     
                     if (interest == 'all'){
-                        console.log('all')
+                        //console.log('all')
                         let results = await stakeholderModel.find();
                         const items = [];
                         results.forEach(i => {
@@ -244,7 +251,7 @@ class Events {
 router.get('/',  Events.getPage);
 router.get('/id/:id', Events.getPageByEventId);
 router.get('/edit/:id', Events.getEditEventPage);
-router.post('/edit/:id', Events.editEventPage);
+router.post('/edit/:id', upload.fields([{ name: 'img', maxCount: 1 }, { name: 'annotation', maxCount: 1 },{ name: 'prezentation', maxCount: 1 }]), Events.editEventPage);
 router.get('/csv/:id', Events.getCsv);
 router.get('/new', adminModel.isAdminLogged, Events.getNewEventPage);
 router.post('/new', adminModel.isAdminLogged,upload.fields([{ name: 'img', maxCount: 1 }, { name: 'annotation', maxCount: 1 },{ name: 'prezentation', maxCount: 1 }]), Events.createNewEvent);

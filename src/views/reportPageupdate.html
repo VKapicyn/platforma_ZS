@@ -16,15 +16,15 @@
     <form  method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="reportDescription">Описание отчета</label>
-            <textarea class="form-control" id="reportDescription" name="description" rows="4"></textarea>
+            <textarea rows="4" class="form-control" id="reportDescription" name="description" rows="4">{{description}}</textarea>
         </div>
         <div class="form-group">
             <label for="reportStandarts">Стандарты</label>
-            <input type="text" class="form-control" id="reportStandarts" name="standarts" placeholder="Введите по каким стандартам выполнен отчет">
+            <textarea rows="4" type="text" class="form-control" id="reportStandarts" name="standarts" placeholder="Введите по каким стандартам выполнен отчет">{{standarts}}</textarea>
         </div>
         <div class="form-group">
             <label for="reportRevards">Награды отчета</label>
-            <input type="text" class="form-control" id="reportRevards" name="revards" placeholder="Введите награды отчета">
+            <textarea rows="4" type="text" class="form-control" id="reportRevards" name="revards" placeholder="Введите награды отчета">{{revards}}</textarea>
         </div>
         <div class="form-group">
             <label for="pdfReport">Загрузите pdf отчета</label>

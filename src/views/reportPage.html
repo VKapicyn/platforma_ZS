@@ -33,7 +33,7 @@
                                 <img src="img/revards.png"><a href="/publicreport/id/{{report._id}}">Победы отчета в конкурсе</a>
                                 <div class="container">
                                   <p>
-                                {{report.revards | truncate(160, false, "...")}}
+                                {{report.revards | escape | nl2br |truncate(160, false, "...")}}
                                 </p>
                                 </div>
                             </h5>
@@ -53,7 +53,7 @@
                                   <div class="container standarts"> 
                                       
                                         <p><b><img src="img/standart1.png"><img src="img/standart2.png">- </b>
-                                            {{report.standarts | truncate(200, false, "...")}}</p>
+                                            {{report.standarts | escape | nl2br | truncate(200, false, "...")}}</p>
                                     </div>
                                                                     
                                   
@@ -66,7 +66,7 @@
                   </div>
                   <p class="card-text mb-auto"><img src="img/reportthems.png"><a style="color:black" href="/publicreport/id/{{report._id}}">Приоритетные темы отчета:</a></p>
                   <div class="container">
-                      <span>{{report.description | truncate(200, false, "...")}}</span>
+                      <span>{{report.description | escape | nl2br |truncate(200, false, "...")}}</span>
                   </div>
                 </div>
           </div>

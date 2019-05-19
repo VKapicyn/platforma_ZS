@@ -38,6 +38,15 @@
                                     <img src="img/allreport.png" class="mr-1"><a href="">Протокол еще не добавлен</a>
                               </h6>
                               {% endif %}
+                              {%if (event.prezentation) %}
+                              <h6>
+                                    <img src="/img/allreport.png" class="mr-1"><a href="/file/{{ event.prezentation }}">Скачать презентацию</a>
+                              </h6>
+                              {% else %}
+                              <h6>
+                                    <img src="/img/allreport.png" class="mr-1"><a href="">Презентация еще не добавлена</a>
+                              </h6>
+                              {% endif %}
                               
                           </div>  
                   </div>

@@ -135,7 +135,10 @@ class PublicReport {
         try{
         let report =  await reportModel.findById(req.params.id);
         res.render('reportPageupdate.html', {
-            name: report.name
+            name: report.name,
+            description: report.description,
+            standarts: report.standarts,
+            revards: report.revards
         });
         }
         catch(e){

@@ -2,7 +2,7 @@
 {% block content %}
 <link rel="stylesheet" href="/css/adminfile.css">
 <div class="container">
-<form action="/events/edit/{{event._id}}" method="POST" > 
+<form action="/events/edit/{{event._id}}" method="POST" enctype="multipart/form-data"> 
     <div class="form-group">
         <b><label for="eventName">Название мероприятия</label></b>
         <input type="text" class="form-control" id="eventName" name="name" value="{{event.name}}">
@@ -18,6 +18,18 @@
     <div class="form-group">
         <b><label for="eventAddress">Адрес</label></b>
         <input type="text" class="form-control" id="eventAddress"  value="{{event.address}}">
+    </div>
+    <div class="form-group">
+        <label for="annotationIvent">Загрузите протокол мероприятия</label>
+        <input type="file" accept="application/pdf" class="form-control-file" id="annotationIvent" name="annotation">
+    </div>
+    <div class="form-group">
+        <label for="presentationIvent">Загрузите презентацию мероприятия (.pdf или .zip)</label>
+        <input type="file"  class="form-control-file" id="presentationIvent" name="prezentation">
+    </div>
+    <div class="form-group">
+        <label for="imgEvent">Загрузите фото к мероприятию</label>
+        <input type="file" accept="image/jpeg,image/png" class="form-control-file" id="imgEvent" name="img">
     </div>
     <div class="form-check">
         <b><label class="form-check-label"></b>
