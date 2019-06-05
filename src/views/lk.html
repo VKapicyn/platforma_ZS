@@ -60,18 +60,20 @@
                                 <div class="col-12">
                                         <div class="title">
                                                 <span class="name">{{item.name}}</span>
-                                                <a class="download-pdf float-right" href={{'/file/'+item.file}}>Скачать pdf</a>
+                                                <a class="download-pdf float-right" href={{'/file/'+item.file}}>Скачать файл</a>
                                         </div>
                                         
                                         <p class="description">
                                                         {{item.description}}
                                         </p>
-                                        {%if item.agr %}
-                                        <p>Документ согласован</p>
-                                        {%else%}
-                                        <form  method="POST" action={{'/fileNegotiation/all/agr'+item.id}}>
-                                                <p><input type="submit" value="согласовать" class="auth-button btn btn-primary btn-block agr" onclick="return confirm('Обращаем ваше внимание, что в случае положительного согласования документа отказаться от собственного решения нельзя. В случае появления новых комментариев, их можно внести!')"></p>
-                                        </form>
+                                        {% if item.type == 1%}
+                                                {%if item.agr %}
+                                                <p>Документ согласован</p>
+                                                {%else%}
+                                                <form  method="POST" action={{'/fileNegotiation/all/agr'+item.id}}>
+                                                        <p><input type="submit" value="согласовать" class="auth-button btn btn-primary btn-block agr" onclick="return confirm('Обращаем ваше внимание, что в случае положительного согласования документа отказаться от собственного решения нельзя. В случае появления новых комментариев, их можно внести!')"></p>
+                                                </form>
+                                                {%endif%}
                                         {%endif%}
                                         <div class="comments">
                                                 <h6 class="comments-title">Комментарии</h6>

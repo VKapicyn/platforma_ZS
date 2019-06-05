@@ -23,7 +23,7 @@ class Negotiation{
         let stakeholders = await stakeholderModel.findById(req.params.shid);
         await fileNegotiationModel.findOneAndUpdate({_id: req.params.id},  
             {$addToSet: { access: stakeholders.login } }) ;
-        res.redirect('fileNegotiation/admin/id'+req.params.id);
+        res.redirect('/fileNegotiation/admin/id'+req.params.id+'/');
         
     }
     static async csv(req, res, next){
@@ -84,24 +84,26 @@ class Negotiation{
     static async regfile(req, res, next){
         try{
             let mas = [];
-            if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+            if(req.file){
                 if(Array.isArray(req.body.access)){mas = [...mas,...req.body.access]}
                 else {mas.push(req.body.access)}
                 if(Array.isArray(req.body.interest)){
-                for(let i = 0; i < req.body.interest.length; i++){
-                    let sh = await stakeholderModel.find({group:req.body.interest[i]});
-                    let mas_log = sh.map((it) => {return it.login})
-                    mas = [...mas,...mas_log];
+                    for(let i = 0; i < req.body.interest.length; i++){
+                        let sh = await stakeholderModel.find({group:req.body.interest[i]});
+                        let mas_log = sh.map((it) => {return it.login})
+                        mas = [...mas,...mas_log];
+                    }
                 }
-            }
-            else{
-                    let sh = await stakeholderModel.find({group:req.body.interest});
+                else{
+                    let sh;
+                        sh = (req.body.interest == 'all') ? await stakeholderModel.find({}):await stakeholderModel.find({group:req.body.interest});
                     let mas_log = sh.map((it) => {return it.login})
                     mas = [...mas,...mas_log];
                 }
                 console.log(mas)
                 let file = new fileNegotiationModel({
                     name: req.body.name,
+                    type: req.body.soglas == 'soglas' ? 1 : 0,
                     description: req.body.description,
                     file: req.file.filename,
                     access: mas,
@@ -208,7 +210,7 @@ class Negotiation{
     }
     static async updatefile(req, res, next){
         try{
-        if((req.file.contentType == 'application/pdf')||(req.file.contentType == 'text/plain')){
+        if(req.file){
             let fileN =  await fileNegotiationModel.findById(req.params.id);
             delFile(fileN.file);
             fileN.file=req.file.filename

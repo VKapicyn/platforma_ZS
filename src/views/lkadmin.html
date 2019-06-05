@@ -207,10 +207,13 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="new-negotiation" role="tabpanel" aria-labelledby="new-negotiation-tab">
                 <form  action="/fileNegotiation/admin/reg" method="POST" enctype="multipart/form-data">
+                  <label><input class="interest" type="radio" name="soglas" id="soglas" value="soglas" checked>Согласованиие</label><br>
+                  <label><input class="interest" type="radio" name="soglas" id="nesoglas" value="nesoglas">Обсуждение (без кнопки)</label><br>
                   <p>Введите название: <input type="text" name="name"> введите описание: <input type="text" name="description"> </p>
                   <p>введите дату начала: <input type="date" name="firstDate"> 
                     введите дату завершения: <input type="date" name="lastDate"></p>
                   <p>Прикрепить файл: <input name="file" type="file">  </p>
+                                        <b><input class="interest1" type="checkbox" name="interest" selected value="all">ВСЕ</b> <br>
                                         <input class="interest1" type="checkbox" name="interest" value="Акционеры: Госкорпорация «Росатом»">Акционеры: Госкорпорация «Росатом» <br>
                                         <input class="interest1" type="checkbox" name="interest" value="Поставщики, подрядчики">Поставщики, подрядчики <br>
                                         <input class="interest1" type="checkbox" name="interest" value="Потребители технологий, продукции и услуг на российском рынке и мировом рынке">Потребители технологий, продукции и услуг на российском рынке и мировом рынке <br>

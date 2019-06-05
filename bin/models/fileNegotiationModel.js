@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 let fileNegotiationSchema = mongoose.Schema({
     name: {type: String,unique: true},
     description: String,
+    type: Number,
     file: String,
     access: Array,
     account: Array,
